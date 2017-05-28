@@ -1,7 +1,8 @@
 API Client For Caldera Forms Pro
 
 
-# Development Notes:
+## Development Notes:
+0) Read section below on app URL
 1) CF pro requires PHP5.4 or later.
 2) This is probably going to get included in Caldera Forms. The file bootstrap-cf-pro-bootstrap.php is/will be used as conditional loader for CF API client.
 3) Plugin only loads if CF_PRO_VER is not defined. This is useful because:
@@ -24,3 +25,12 @@ API Client For Caldera Forms Pro
     * Use /assets/css/admin to write CSS
     * /assets/css is output of Gulp compiler
 9) This is build system is a prototype of how Josh want it to work in all CF add-ons/ Caldera Forms. It's a little wonky. Improvements appreciated.
+
+### App URL
+The URL for Caldera Forms pro is defined in the constant `CF_PRO_APP_URL` and then filtered using the `caldera_forms_pro_app_url` filter. Make sure to use one of those to match your local development environment.
+
+Always use the function `caldera_forms_pro_app_url()` to get app URL. This will be helpful beacuse:
+* You can use it to run against a local version of app.
+* In the future we will ship this with the real app URL there.
+* In the future we will have a staging server we will want to test against.
+* We may choose to deliver separate installs of this app for an enterprise service tier with different URLs. 
