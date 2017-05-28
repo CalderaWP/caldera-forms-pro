@@ -1,0 +1,198 @@
+.caldera-editor-header {
+    height: 50px !important;
+}
+
+.cf-alert {
+    display: inline-block;
+    padding: 4px;
+    border-radius: 4px;
+}
+.cf-alert-success {
+    background: #a3bf61;
+    color: #fff;
+}
+.cf-alert-error {
+    background: #ff0000;
+    color: #fff;
+}
+
+.cf-alert-wrap{
+    margin-top: -5px;
+}
+
+.cf-alert p {
+    padding: 0;
+}
+
+#cf-pro-save {
+    width:50%;
+}
+#cf-pro-admin-page-wrap {
+    margin-top: 75px;
+}
+
+#cf-pro-admin-page-wrap .cf-alert{
+    margin: 10px 0;
+}
+
+[v-cloak] {
+    display: none;
+    visibility: hidden;
+}
+
+.cf-show {
+    visibility: visible;
+    display: inline-block;
+    -webkit-animation: fadein .5s 1;
+    animation: fadein .5s 1;
+}
+
+.cf-hide {
+    visibility: hidden;
+    display: none;
+    -webkit-animation: fadeout .5s 1;
+    animation: fadeout .5s 1;
+}
+
+
+@-webkit-keyframes fadeout {
+    0% {opacity:1;}
+    100% {opacity:0;}
+
+}
+@keyframes fadeout {
+    0% {opacity:1;}
+    100% {opacity:0;}
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+    0% {
+        margin-top: -25px;
+    }
+    15% {
+        margin-top: -20px;
+    }
+    50% {
+        margin-top: -15px;
+
+    }
+    75% {
+        margin-top: -10px;
+
+    }
+    100% {
+        margin-top: -5px;
+    }
+
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+    0% {
+        margin-top: -25px;
+    }
+    15% {
+        margin-top: -20px;
+    }
+    50% {
+        margin-top: -15px;
+
+    }
+    75% {
+        margin-top: -10px;
+
+    }
+    100% {
+        margin-top: -5px;
+    }
+
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+    0% {
+        margin-top: -25px;
+    }
+    15% {
+        margin-top: -20px;
+    }
+    50% {
+        margin-top: -15px;
+
+    }
+    75% {
+        margin-top: -10px;
+
+    }
+    100% {
+        margin-top: -5px;
+    }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+    0% {
+        margin-top: -25px;
+    }
+    15% {
+        margin-top: -20px;
+    }
+    50% {
+        margin-top: -15px;
+
+    }
+    75% {
+        margin-top: -10px;
+
+    }
+    100% {
+        margin-top: -5px;
+    }
+}
+
+/* Opera < 12.1 */
+@-o-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+    0% {
+        margin-top: -25px;
+    }
+    15% {
+        margin-top: -20px;
+    }
+    50% {
+        margin-top: -15px;
+
+    }
+    75% {
+        margin-top: -10px;
+
+    }
+    100% {
+        margin-top: -5px;
+    }
+}
+
+/** Fixed headers for table https://stackoverflow.com/a/29812382/1469799**/
+table thead tr{
+    display:block;
+}
+
+table th,table td{
+    width:100px;
+}
+
+
+table  tbody{
+    display:block;
+    height:200px;
+    overflow:auto;//set tbody to auto
+}

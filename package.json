@@ -1,0 +1,28 @@
+{
+  "name": "cf-pro",
+  "version": "0.0.1",
+  "description": "Integrate Easy Digital Downloads with Caldera Forms",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/calderawp/cf-edd-pro"
+  },
+  "author": "CalderaWP",
+  "license": "GPLv2+",
+  "bugs": {
+    "url": "https://github.com/calderawp/cf-edd-pro/issues"
+  },
+  "devDependencies": {
+    "babel-preset-env": "^1.4.0",
+    "gulp": "^3.8.11",
+    "gulp-babel": "^6.1.2",
+    "gulp-concat": "^2.5.2",
+    "gulp-minify": "0.0.15",
+    "gulp-minify-css": "^1.1.1",
+    "gulp-sass": "^2.0.1",
+    "gulp-sourcemaps": "^2.6.0",
+    "gulp-watch": "^4.2.4"
+  },
+  "dependencies": {
+    "gulp-uglifycss": "^1.0.8"
+  }
+}
