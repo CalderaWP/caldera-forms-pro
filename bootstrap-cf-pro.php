@@ -98,6 +98,16 @@ function caldera_forms_pro_db_delta_1(){
  * @return string
  */
 function caldera_forms_pro_app_url(){
+
+	if( ! defined( 'CF_PRO_APP_URL' ) ){
+		/**
+		 * Default URL for CF Pro App
+		 */
+		define( 'CF_PRO_APP_URL', 'http://app.space.dev' );
+
+	}
+
+
 	/**
 	 * Filter URL for Caldera Forms Pro app
 	 *
@@ -107,5 +117,5 @@ function caldera_forms_pro_app_url(){
 	 *
 	 * @param string $url The root URL for app
 	 */
-	return untrailingslashit( apply_filters( 'caldera_forms_pro_app_url', 'http://app.space.dev' ) );
+	return untrailingslashit( apply_filters( 'caldera_forms_pro_app_url', CF_PRO_APP_URL ) );
 }
