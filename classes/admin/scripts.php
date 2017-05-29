@@ -87,7 +87,7 @@ class scripts {
 					'nonce'=> wp_create_nonce( 'wp_rest' )
 				),
 				'cfPro' => array(
-					'url' => esc_url_raw( CF_PRO_APP_URL ),
+					'url' => esc_url_raw( caldera_forms_pro_app_url() ),
 					'auth' => array()
 				)
 			),
