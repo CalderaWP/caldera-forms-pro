@@ -58,10 +58,13 @@ class hooks {
 		$message = send::main_mailer( $mail, $entry_id, $form [ 'ID' ], $send_remote );
 		if (is_object( $message) && ! is_wp_error( $message ) ) {
 			$mail = send::attatch_pdf( $message,  $mail );
+		}else{
+			return $mail;
+
 		}
-		return $mail;
 
 		if ( $send_local ) {
+			$mail[ 'message' ] = $message->get_html();
 			return $mail;
 		}
 

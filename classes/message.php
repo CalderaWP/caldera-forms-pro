@@ -223,6 +223,9 @@ class message extends json_arrayable {
 		return new \WP_Error();
 	}
 
+	public function get_html(){
+		return $this->get_client()->get_html( $this->get_cfp_id() );
+	}
 	/**
 	 * @return client
 	 */

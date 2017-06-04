@@ -94,6 +94,13 @@ class client {
 
 	}
 
+	public function get_html( $message_id ){
+		$r = $this->request( '/message/view/' . $message_id, array(), 'GET' );
+		if( ! is_wp_error( $r ) && 200 == wp_remote_retrieve_response_code( $r ) ){
+			return wp_remote_retrieve_body( $r );
+		}
+	}
+
 	/**
 	 * Make remote request
 	 *
