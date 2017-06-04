@@ -212,7 +212,15 @@ class message extends json_arrayable {
 	 * @return array|\WP_Error
 	 */
 	public function get_pdf(){
-		return $this->get_client()->get_pdf( $this->get_hash() );
+		$r = wp_remote_get( caldera_forms_pro_app_url() . '/pdf/' . $this->get_hash() );
+		if( ! is_wp_error( $r ) && in_array( intval( wp_remote_retrieve_response_code( $r ) ), array( 200, 201 ) ) ){
+			return wp_remote_retrieve_body( $r );
+		}
+		if( is_wp_error( $r )  ){
+			return $r;
+		}
+
+		return new \WP_Error();
 	}
 
 	/**
