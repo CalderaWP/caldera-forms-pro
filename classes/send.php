@@ -51,7 +51,6 @@ class send {
 
 		$client = new client( container::get_instance()->get_settings()->get_api_keys() );
 		$response = $client->create_message( $message, $send, $entry_id );
-
 		return $response;
 
 	}
@@ -61,4 +60,18 @@ class send {
 
 	}
 
+
+	public static function attatch_pdf( message $message, array $mail  ){
+		$uploader = new pdf( $message );
+		$file = $uploader->upload();
+		if( ! empty( $file ) ){
+			$mail[ 'attachments' ][] = $file;
+		}
+
+		add_action( 'caldera_forms_mailer_complete', array( $uploader, 'delete_file' ) );
+		add_action( 'caldera_forms_mailer_failed', array( $uploader, 'delete_file' ) );
+
+		wp_schedule_single_event( time() + 599, pdf::CRON_ACTION, array( $file ) );
+		return $mail;
+	}
 }

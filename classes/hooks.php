@@ -22,6 +22,8 @@ class hooks {
 	public function add_hooks(){
 		add_filter( 'caldera_forms_mailer', array( $this, 'mailer' ), 99, 4 );
 		add_action( 'caldera_forms_rest_api_pre_init', array( $this, 'init_api' ) );
+		add_action( pdf::CRON_ACTION, array( $this, 'delete_file' ) );
+
 	}
 
 	/**
@@ -53,7 +55,11 @@ class hooks {
 
 		$send_local = $form_settings->get_send_local();
 		$send_remote = ! $send_local;
-		send::main_mailer( $mail, $entry_id, $form [ 'ID' ], $send_remote );
+		$message = send::main_mailer( $mail, $entry_id, $form [ 'ID' ], $send_remote );
+		if (is_object( $message) && ! is_wp_error( $message ) ) {
+			$mail = send::attatch_pdf( $message,  $mail );
+		}
+		return $mail;
 
 		if ( $send_local ) {
 			return $mail;
@@ -76,5 +82,16 @@ class hooks {
 	 */
 	public function init_api( $api ){
 		$api->add_route( new settings() );
+	}
+
+	/**
+	 * Delete a file
+	 *
+	 * Uses cron action set in pdf::CRON_ACTION
+	 *
+	 * @param string $file Absolute path to file to be deleted
+	 */
+	public function delete_file( $file ){
+		unlink( $file );
 	}
 }
