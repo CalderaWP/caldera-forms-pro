@@ -62,6 +62,17 @@ spl_autoload_register(function ($class) {
 });
 
 /**
+ * Delete CF Pro DB Table
+ */
+function caldera_forms_pro_drop_tables(){
+	global $wpdb;
+	$table_name = $wpdb->prefix . 'cf_pro_messages';
+	$sql = "DROP TABLE IF EXISTS $table_name";
+	$wpdb->query($sql);
+	delete_option('cf_pro_db_v');
+}
+
+/**
  * Database changes for Caldera Forms Pro
  *
  * @since 0.0.1
@@ -84,6 +95,7 @@ function caldera_forms_pro_db_delta_1(){
 			`cfp_id` bigint(20) unsigned DEFAULT NULL,
 			`entry_id` bigint(20) unsigned DEFAULT NULL,
 			`hash` varchar(255) DEFAULT NULL,
+			`type` varchar(255) DEFAULT_NULL
 			PRIMARY KEY (`ID`)
 			) " . $charset_collate . ";";
 
@@ -106,7 +118,6 @@ function caldera_forms_pro_app_url(){
 		define( 'CF_PRO_APP_URL', 'http://app.space.dev' );
 
 	}
-
 
 	/**
 	 * Filter URL for Caldera Forms Pro app

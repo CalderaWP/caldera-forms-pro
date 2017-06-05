@@ -49,18 +49,19 @@ class send {
 			$message->bcc = $mail[ 'bcc' ];
 		}
 
-		$client = new client( container::get_instance()->get_settings()->get_api_keys() );
-		$response = $client->create_message( $message, $send, $entry_id );
+		$response = self::send_via_api( $message, $entry_id, $send );
 		return $response;
 
 	}
 
-	//@TODO impliment for auto-responders
-	public static function auto_responder( $mail, $entry_id ){
-
-	}
-
-
+	/**
+	 * Handle attaching PDFs
+	 *
+	 * @param message $message
+	 * @param array $mail
+	 *
+	 * @return array
+	 */
 	public static function attatch_pdf( message $message, array $mail  ){
 		$uploader = new pdf( $message );
 		$file = $uploader->upload();
@@ -74,4 +75,22 @@ class send {
 		wp_schedule_single_event( time() + 599, pdf::CRON_ACTION, array( $file ) );
 		return $mail;
 	}
+
+	/**
+	 * Send message via API
+	 *
+	 * @param api\message $message Message object
+	 * @param int $entry_id Entry ID for message
+	 * @param bool $send If ture app will store and send. If false, only store.
+	 * @param string $type Optional. The message type. Default is "main" Options: main|auto
+	 *
+	 * @return message|null|\WP_Error
+	 */
+	public static function send_via_api( \calderawp\calderaforms\pro\api\message $message, $entry_id, $send,  $type = 'main' ){
+		$client   = new client( container::get_instance()->get_settings()->get_api_keys() );
+		$response = $client->create_message( $message, $send, $entry_id );
+
+		return $response;
+	}
+
 }

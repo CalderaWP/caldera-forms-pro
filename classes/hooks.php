@@ -24,6 +24,7 @@ class hooks {
 		add_action( 'caldera_forms_rest_api_pre_init', array( $this, 'init_api' ) );
 		add_filter( 'caldera_forms_ajax_return', array( $this, 'add_pdf_link_ajax' ), 10, 2 );
 		add_filter( 'caldera_forms_render_notices', array( $this, 'add_pdf_link_not_ajax' ), 10, 2 );
+		add_filter( 'caldera_forms_autoresponse_mail', array( $this, 'auto_responder' ), 99, 4 );
 		add_action( pdf::CRON_ACTION, array( $this, 'delete_file' ) );
 
 	}
@@ -48,8 +49,7 @@ class hooks {
 	 *
 	 * @return null|array
 	 */
-	public function mailer( $mail, $data, $form, $entry_id )
-	{
+	public function mailer( $mail, $data, $form, $entry_id ){
 		$form_settings = container::get_instance()->get_settings()->get_form( $form[ 'ID' ] );
 		if ( ! $form_settings ) {
 			return $mail;
@@ -77,6 +77,42 @@ class hooks {
 
 		return null;
 
+	}
+
+	public function auto_responder( $mail, $config, $form, $entry_id ){
+
+		$form_settings = container::get_instance()->get_settings()->get_form( $form[ 'ID' ] );
+		if ( ! $form_settings ) {
+			return $mail;
+		}
+		$send_local = $form_settings->should_send_local();
+		$send_remote = ! $send_local;
+
+
+		$message = new \calderawp\calderaforms\pro\api\message();
+		$message->reply = array(
+			'email' => \Caldera_Forms::do_magic_tags( $config[ 'sender_email' ] ),
+			'name'  => \Caldera_Forms::do_magic_tags($config[ 'sender_name' ] )
+		);
+		$message->to = array(
+			'email' => \Caldera_Forms::do_magic_tags( $config[ 'recipient_email' ] ),
+			'name' => \Caldera_Forms::do_magic_tags( $config[ 'recipient_name'] )
+		);
+		$message->subject = $mail ['subject' ];
+		$message->content = $mail[ 'message' ];
+		$message->pdf_layout = $form_settings->get_pdf_layout();
+		$message->layout = $form_settings->get_layout();
+
+		$sent = send::send_via_api( $message, $entry_id, $send_remote, 'auto' );
+		if( is_object( $sent ) && ! is_wp_error( $sent ) ){
+			if( $send_local ){
+				return $mail;
+			}else{
+				return null;
+			}
+		}
+
+		return $mail;
 	}
 
 	/**

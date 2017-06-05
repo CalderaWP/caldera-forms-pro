@@ -28,6 +28,16 @@ class messages {
 	protected $table_name;
 
 	/**
+	 * Message types
+	 *
+	 * @var array
+	 */
+	protected $types = [
+		'main',
+		'auto'
+	];
+
+	/**
 	 * messages constructor.
 	 *
 	 * @param \wpdb $wpdb WPDB object
@@ -48,19 +58,24 @@ class messages {
 	 * @param int $cfp_id Message ID from app
 	 * @param string $hash Message hash
 	 * @param int $entry_id Entry ID
+	 * @param string $type The message type main|auto
 	 *
 	 * @return message
+	 * @throws Exception
 	 */
-	public function create( $cfp_id, $hash, $entry_id = 0 ){
+	public function create( $cfp_id, $hash, $entry_id = 0, $type = 'main' ){
+		$type = $this->validate_type( $type );
 		$data = array(
 			'cfp_id' => $cfp_id,
 			'hash' => $hash,
-			'entry_id' => $entry_id
+			'entry_id' => $entry_id,
+			'type' => $type
 		);
 		$this->wpdb->insert( $this->table_name, $data, array(
 				'%d',
 				'%s',
-				'%d'
+				'%d',
+				'%s'
 			)
 		);
 
@@ -73,7 +88,20 @@ class messages {
 
 	}
 
+	/**
+	 * Validate message type
+	 *
+	 * @param string $type The message type
+	 *
+	 * @return string
+	 */
+	protected function validate_type( $type ){
+		if( ! in_array( $type, $this->types ) ){
+			return 'main';
+		}
 
+		return $type;
+	}
 
 
 	/**
@@ -118,12 +146,13 @@ class messages {
 	 * @since 0.0.1
 	 *
 	 * @param int $id
+	 * @param string $type Optional The message type. Default is 'main'
  	 *
 	 * @return message
 	 */
-	public function get_by_entry_id( $id ){
+	public function get_by_entry_id( $id, $type = 'main' ){
 		try{
-			$message = $this->get_by( 'entry_id', $id );
+			$message = $this->get_by( 'entry_id', $id, $type  );
 			return $message;
 		}catch ( Exception $e ){
 
@@ -132,18 +161,23 @@ class messages {
 
 
 	/**
+	 * Search for saved message by value and optionally type
 	 *
 	 * @since 0.0.1
 	 *
 	 * @param string $field field to search by
 	 * @param int $value Value to search for cfp_id|ID|entry_id
+	 * @param null|string Optional. Message type to search by
 	 *
 	 * @return message
 	 * @throws Exception
 	 */
-	protected function get_by( $field, $value ){
+	protected function get_by( $field, $value, $type = null ){
 		$table = $this->table_name;
 		$sql = sprintf( "SELECT * FROM $table WHERE `%s` = %d", $field, absint( $value ) );
+		if( $type ){
+			$sql .= sprintf( " AND `type` = '%s'", $this->validate_type( $type ) );
+		}
 		$results = $this->wpdb->get_results(  $sql , ARRAY_A );
 		if( $results ){
 			return message::from_array( $results );
