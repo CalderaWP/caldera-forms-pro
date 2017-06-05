@@ -64,6 +64,12 @@ class settings  extends repository{
 			$settings->set_enhanced_delivery( $saved[ 'enhancedDelivery' ] );
 		}
 
+		if( ! empty( $saved[ 'plan' ] ) ){
+			$settings->set_plan( $saved[ 'plan' ] );
+		}else{
+			$settings->set_plan( 'basic' );
+		}
+
 		return $settings;
 	}
 
@@ -250,6 +256,14 @@ class settings  extends repository{
 		return $this->get( 'plan', 'basic' );
 	}
 
+	/**
+	 * Return if is basic plan
+	 *
+	 * @return bool
+	 */
+	public function is_basic(){
+		return 'basic' === $this->get_plan();
+	}
 
 	/**
 	 * Save settings to database
@@ -278,11 +292,12 @@ class settings  extends repository{
 	 * @return array
 	 */
 	public function toArray(){
-		$data =  array(
-			'account_id' => $this->get_account_id(),
-			'apiKeys' => $this->get_api_keys()->toArray(),
-			'forms' => $this->forms_to_array(),
-			'enhancedDelivery' => $this->get_enhanced_delivery()
+		$data = array(
+			'account_id'       => $this->get_account_id(),
+			'apiKeys'          => $this->get_api_keys()->toArray(),
+			'forms'            => $this->forms_to_array(),
+			'enhancedDelivery' => $this->get_enhanced_delivery(),
+			'plan'             => $this->get_plan(),
 		);
 
 		return $data;

@@ -151,7 +151,8 @@ jQuery(function($) {
 					apiSecret: this.apiSecret,
 					generatePDFs: this.generatePDFs,
 					enhancedDelivery: this.enhancedDelivery,
-					accountId: this.accountId
+					accountId: this.accountId,
+					plan: this.plan
 				}, true );
 
 			},
@@ -228,6 +229,7 @@ jQuery(function($) {
 				$.ajax({
 					method: "GET",
 					data: {
+						plan: this.plan,
 						public: this.apiKey,
 						token: sha1(this.apiKey + this.apiSecret),
 					},

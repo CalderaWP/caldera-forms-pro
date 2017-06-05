@@ -156,7 +156,7 @@ class form extends json_arrayable {
 	 *
 	 * @return bool
 	 */
-	public function get_send_local(){
+	public function should_send_local(){
 		/**
 		 * Change if an indivdual form should use local email system or not.
 		 *
@@ -168,6 +168,14 @@ class form extends json_arrayable {
 		 */
 		return apply_filters( 'caldera_forms_pro_send_local', container::get_instance()->get_settings()->send_local(), $this->form_id );
 
+	}
+
+	public function should_attatch_pdf(){
+		return $this->get_attach_pdf();
+	}
+
+	public function should_add_pdf_link(){
+		return $this->get_property( 'pdf_link', 'bool' );
 	}
 
 	/**
@@ -200,6 +208,19 @@ class form extends json_arrayable {
 	public function get_layout(){
 		return $this->get_property( 'layout' , 'int' );
 
+	}
+
+	/**
+	 * Should we use HTML layout?
+	 *
+	 * @return bool
+	 */
+	public function use_html_layout(){
+		if( ! container::get_instance()->get_settings()->is_basic() && ! 0 < $this->get_layout() ){
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

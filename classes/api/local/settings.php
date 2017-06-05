@@ -45,6 +45,10 @@ class settings implements \Caldera_Forms_API_Route {
 						'type'                  => 'boolean',
 						'required'              => false,
 						'sanatization_callback' => 'rest_sanitize_boolean'
+					),
+					'plan' => array(
+						'type' => 'string',
+						'required' => false
 					)
 				),
 				'permissions_callback' => array( $this, 'permissions' )
@@ -96,6 +100,10 @@ class settings implements \Caldera_Forms_API_Route {
 			foreach ( $request[ 'forms' ] as $form ){
 				$this->handle_form( $form );
 			}
+		}
+
+		if( ! empty( $request[ 'plan' ] ) ){
+			$settings->set_plan( $request[ 'plan' ] );
 		}
 
 		if( false === $request[ 'enhancedDelivery' ]  ){
