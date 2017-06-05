@@ -22,6 +22,8 @@ class hooks {
 	public function add_hooks(){
 		add_filter( 'caldera_forms_mailer', array( $this, 'mailer' ), 99, 4 );
 		add_action( 'caldera_forms_rest_api_pre_init', array( $this, 'init_api' ) );
+		add_filter( 'caldera_forms_ajax_return', array( $this, 'add_pdf_link_ajax' ), 10, 2 );
+		add_filter( 'caldera_forms_render_notices', array( $this, 'add_pdf_link_not_ajax' ), 10, 2 );
 		add_action( pdf::CRON_ACTION, array( $this, 'delete_file' ) );
 
 	}
@@ -77,9 +79,78 @@ class hooks {
 
 	}
 
-	//@TODO ADD PDF link if needed
-	public function add_pdf_link_ajax(){}
-	public function add_pdf_link_not_ajax(){}
+	/**
+	 * Add the PDF link to AJAX response
+	 *
+	 * @since 0.1.0
+	 *
+	 * @uses "caldera_forms_ajax_return" filter
+	 *
+	 * @param array $out Response data
+	 * @param array $form Form config
+	 *
+	 * @return mixed
+	 */
+	public function add_pdf_link_ajax( $out, $form ){
+		if( isset( $data[ 'cf_er' ] )  ){
+			return $out;
+		}
+
+		$settings = container::get_instance()->get_settings()->get_form( $form['ID'] );
+		if( ! $settings ||!  $settings->should_add_pdf_link() ){
+			return $out;
+		}
+
+		$entry_id = $out[ 'data' ][ 'cf_id' ];
+		$message = container::get_instance()->get_messages_db()->get_by_entry_id( $entry_id );
+		if( $message ) {
+			$link = $message->get_pdf_link();
+			if( filter_var( $link, FILTER_VALIDATE_URL ) ) {
+				$out[ 'html' ] .= caldera_forms_pro_link_html( $form, $link );
+			}
+
+		}
+
+		return $out;
+
+	}
+
+	/**
+	 * Add link to success messages when the form is NOT submitted via AJAX
+	 *
+	 * @since 0.2.0
+	 *
+	 * @uses "caldera_forms_render_notices" filter
+	 *
+	 * @param array $notices
+	 * @param $form
+	 *
+	 * @return array
+	 */
+	public function add_pdf_link_not_ajax( $notices, $form ){
+		if ( ! isset( $_GET[ 'cf_id' ] ) || ! isset( $_GET[ 'cf_su' ] ) ) {
+			return $notices;
+		}
+		$entry_id = absint( $_GET[ 'cf_id' ] );
+		$message = container::get_instance()->get_messages_db()->get_by_entry_id( $entry_id );
+		if( $message ){
+			$link = $message->get_pdf_link();
+			if( filter_var( $link, FILTER_VALIDATE_URL ) ){
+
+				$html = caldera_forms_pro_link_html( $form, $link );
+				if( isset( $notices[ 'success' ], $notices[ 'success' ][ 'note' ] ) ){
+					$notices[ 'success' ][ 'note' ] = '<div class="cf-pro-pdf-link alert alert-success">' . $notices[ 'success' ][ 'note' ] . '</div>' . $html;
+				}else{
+					$notices[ 'success' ][ 'note' ] = $html;
+				}
+
+			}
+		}
+
+		return $notices;
+
+	}
+
 
 	/**
 	 * Sets up CF REST API endpoint for the settings

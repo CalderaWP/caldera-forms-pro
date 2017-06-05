@@ -119,3 +119,47 @@ function caldera_forms_pro_app_url(){
 	 */
 	return untrailingslashit( apply_filters( 'caldera_forms_pro_app_url', CF_PRO_APP_URL ) );
 }
+
+
+/**
+ * Create HTML for linl
+ *
+ * @param array $form Form config
+ * @param string $link The actual link.
+ *
+ * @return string
+ */
+function caldera_forms_pro_link_html( $form, $link ){
+
+	/**
+	 * Filter the classes for the generate PDF link HTML
+	 *
+	 * @param string $classes The classes as string.
+	 * @param array $form Form config
+	 */
+	$classes = apply_filters( 'caldera_forms_pro_link_classes', ' alert alert-success', $form );
+
+
+	/**
+	 * Filter the visible content for the generate PDF link HTML
+	 *
+	 * @param string $message Link message
+	 * @param array $form Form config
+	 */
+	$message = apply_filters( 'caldera_forms_pro_link_message', __( 'Download Form Entry As PDF', 'caldera-forms', $form ), $form );
+
+	/**
+	 * Filter the title attribute for the generate PDF link HTML
+	 *
+	 * @param string $title Title attribute.
+	 * @param array $form Form config
+	 */
+	$title = apply_filters( 'caldera_forms_pro_link_title',  __( 'Download Form Entry As PDF', 'caldera-forms' ), $form );
+
+	return sprintf( '<div class="%s"><a href="%s" title="%s" target="_blank">%s</a></div>',
+		esc_attr( $classes ),
+		esc_url( $link ),
+		esc_attr( $title ),
+		esc_html( $message )
+	);
+}

@@ -101,6 +101,10 @@ class message extends json_arrayable {
 	 */
 	public static function from_array( array $data )
 	{
+		if( isset( $data[0] ) ){
+			$data = $data[0];
+		}
+
 		$obj = new self( $data[ 'cfp_id' ], $data[ 'hash' ], $data[ 'local_id' ] );
 		if( isset( $data[ 'entry_id' ] ) ){
 			$obj->entry_id = $data[ 'entry_id' ];
@@ -212,7 +216,7 @@ class message extends json_arrayable {
 	 * @return array|\WP_Error
 	 */
 	public function get_pdf(){
-		$r = wp_remote_get( caldera_forms_pro_app_url() . '/pdf/' . $this->get_hash() );
+		$r = wp_remote_get( esc_url( $this->get_pdf_link() ) );
 		if( ! is_wp_error( $r ) && in_array( intval( wp_remote_retrieve_response_code( $r ) ), array( 200, 201 ) ) ){
 			return wp_remote_retrieve_body( $r );
 		}
@@ -223,9 +227,24 @@ class message extends json_arrayable {
 		return new \WP_Error();
 	}
 
+	/**
+	 *Get link to PDF
+	 *
+	 * @return string
+	 */
+	public function get_pdf_link(){
+		return  caldera_forms_pro_app_url() . '/pdf/' . $this->get_hash();
+	}
+
+	/**
+	 * Get message HTML from app
+	 *
+	 * @return string
+	 */
 	public function get_html(){
 		return $this->get_client()->get_html( $this->get_cfp_id() );
 	}
+
 	/**
 	 * @return client
 	 */

@@ -143,7 +143,8 @@ class messages {
 	 */
 	protected function get_by( $field, $value ){
 		$table = $this->table_name;
-		$results = $this->wpdb->get_results( $this->wpdb->prepare( "SELECT * FROM $table WHERE `%s` = %d", $field, absint( $value ) ), ARRAY_A );
+		$sql = sprintf( "SELECT * FROM $table WHERE `%s` = %d", $field, absint( $value ) );
+		$results = $this->wpdb->get_results(  $sql , ARRAY_A );
 		if( $results ){
 			return message::from_array( $results );
 		}
