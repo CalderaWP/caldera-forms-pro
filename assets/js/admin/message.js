@@ -49,7 +49,8 @@ jQuery(function($) {
 		props: [
 			'form',
 			'layouts',
-			'setting'
+			'setting',
+			'disabled'
 		],
 		methods: {
 			layoutChanged: function(e) {
@@ -126,7 +127,9 @@ jQuery(function($) {
 				generatePDFs: false,
 				enhancedDelivery: false,
 				accountId: CF_PRO_ADMIN.settings.account_id,
+				plan: 'basic',
 				loading: false,
+				accountActive: true,
 				alert:{
 					show: false,
 					message: '',
@@ -235,9 +238,25 @@ jQuery(function($) {
 
 				}).then( r => {
 					this.accountId = r.id;
+					if( ! r.active ){
+						this.apiConnected = false;
+						this.loading = false;
+						this.loaded = true;
+						this.accountActive = false;
+						return;
+					}
+					this.accountActive = true;
+
+
 					this.apiConnected = true;
 					this.loaded = true;
 					this.loading = false;
+					this.plan = r.plan;
+					if( 'apex' == this.plan ){
+						this.enhancedDeliveryAllowed = true;
+					}else{
+						this.enhancedDeliveryAllowed = false;
+					}
 					this.getLayouts();
 					return this.update({
 						apiKey: this.apiKey,

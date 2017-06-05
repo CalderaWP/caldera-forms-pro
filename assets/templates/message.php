@@ -1,6 +1,7 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
+
 }
 ?>
 <div id="cf-pro-message-settings">
@@ -35,100 +36,126 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div id="cf-pro-admin-page-wrap" v-cloak>
 
 			<form id="cf-pro-message-form" v-if="loaded" v-on:submit.prevent="save()">
-				<h2>
-					<?php esc_html__( 'API Keys', 'caldera-forms' ); ?>
-				</h2>
-				<div v-if="! apiConnected">
-					<div class="cf-alert cf-alert-error ">
+				<div id="cf-pro-message-top-left">
+					<h2>
+						<?php esc_html__( 'API Keys', 'caldera-forms' ); ?>
+					</h2>
+					<div v-if="! apiConnected">
+						<div class="cf-alert cf-alert-error ">
+							<p>
+								<?php esc_html_e( 'Not Connected To Caldera Forms Pro Server', 'caldera-forms' ); ?>
+							</p>
+						</div>
+					</div>
+
+					<div v-if="apiConnected" class="cf-alert cf-alert-success ">
 						<p>
-							<?php esc_html_e( 'Not Connected To Caldera Forms Pro Server', 'caldera-forms' ); ?>
+							<?php esc_html_e( 'Connected To The Caldera Forms Pro Server', 'caldera-forms' ); ?>
+						</p>
+					</div>
+
+					<div class="caldera-config-field">
+						<label for="cf-pro-api-key">
+							<?php esc_html_e( 'API Key', 'caldera-forms' ); ?>
+						</label>
+						<input
+							id="cf-pro-api-key"
+							type="text"
+							class="field-config"
+							v-model="apiKey"
+							aria-describedby="cf-pro-api-key-description"
+							v-on:change="apiKeyChange()"
+						/>
+						<p id="cf-pro-api-key-description" class="description">
+							<?php esc_html_e( 'Your Caldera Forms Pro API Public Key', 'caldera-forms' ); ?>
+						</p>
+					</div>
+
+					<div class="caldera-config-field">
+						<label for="cf-pro-api-secret">
+							<?php esc_html_e( 'API Secret', 'caldera-forms' ); ?>
+						</label>
+						<input
+							id="cf-pro-api-secret"
+							type="text"
+							class="field-config"
+							v-model="apiSecret"
+							aria-describedby="cf-pro-api-secret-description"
+							v-on:change="apiKeyChange()"
+						/>
+						<p id="cf-pro-api-secret-description" class="description">
+							<?php esc_html_e( 'Your Caldera Forms Pro API Secret Key', 'caldera-forms' ); ?>
 						</p>
 					</div>
 				</div>
+				<div id="cf-pro-message-top-right">
+					<div class="postbox">
+						<h2><?php esc_html_e( 'Get Account Details', 'caldera-forms' ); ?></h2>
+						<div class="inside">
+							<div class="main">
+								<h3><?php esc_html_e( 'Have an account?', 'caldera-forms' ); ?></h3>
 
-				<div v-if="apiConnected" class="cf-alert cf-alert-success ">
-					<p>
-						<?php esc_html_e( 'Connected To The Caldera Forms Pro Server', 'caldera-forms' ); ?>
-					</p>
-				</div>
+								<p>
+									<?php
+									printf( '%s %s.', esc_html__( 'Get your API keys', 'caldera-forms' ), sprintf( '<a href="https://app.calderaformspro.com/app#/account">%s</a>', esc_html__( 'here', 'caldera-forms' ) ) );
+									?>
+								</p>
 
-				<div class="caldera-config-field">
-					<label for="cf-pro-api-key">
-						<?php esc_html_e( 'API Key', 'caldera-forms' ); ?>
-					</label>
-					<input
-						id="cf-pro-api-key"
-						type="text"
-						class="field-config"
-						v-model="apiKey"
-						aria-describedby="cf-pro-api-key-description"
-						v-on:change="apiKeyChange()"
-					/>
-					<p id="cf-pro-api-key-description" class="description">
-						<?php esc_html_e( 'Your Caldera Forms Pro API Public Key', 'caldera-forms' ); ?>
-					</p>
-				</div>
+								<h3><?php esc_html_e( 'Need an account?', 'caldera-forms' ); ?></h3>
 
-				<div class="caldera-config-field">
-					<label for="cf-pro-api-secret">
-						<?php esc_html_e( 'API Secret', 'caldera-forms' ); ?>
-					</label>
-					<input
-						id="cf-pro-api-secret"
-						type="text"
-						class="field-config"
-						v-model="apiSecret"
-						aria-describedby="cf-pro-api-secret-description"
-						v-on:change="apiKeyChange()"
-					/>
-					<p id="cf-pro-api-secret-description" class="description">
-						<?php esc_html_e( 'Your Caldera Forms Pro API Secret Key', 'caldera-forms' ); ?>
-					</p>
+								<p>
+									<?php
+									printf( '%s %s.', esc_html__( 'Start Your Free Trial Here', 'caldera-forms' ), sprintf( '<a href="https://calderaformspro.com/">%s</a>', esc_html__( 'here', 'caldera-forms' ) ) );
+									?>
+								</p>
+								<div v-if="! accountActive" class="cf-alert cf-alert-error">
+									<p><?php esc_html_e( 'Account exists but is not currently active.', 'caldera-forms' ); ?></p>
+								</div>
+
+							</div>
+						</div>
+					</div>
 				</div>
 
 
 				<div v-if="apiConnected">
 
 					<div class="caldera-config-field">
-						<label for="cf-pro-generate-pros">
-							<?php esc_html_e( 'Generate PDFs', 'caldera-forms' ); ?>
+						<label for="cf-pro-enhanced-delivery">
+							<?php esc_html_e( 'Enable Enhanced Delivery', 'caldera-forms' ); ?>
 						</label>
-						<input
-							id="cf-pro-generate-pros"
-							type="checkbox"
-							class="field-config"
-							v-model="generatePDFs"
-						>
-					</div>
-
-					<div v-if="enhancedDeliveryAllowed">
-						<div class="caldera-config-field">
-							<label for="cf-pro-enhanced-delivery">
-								<?php esc_html_e( 'Enhanced Delivery', 'caldera-forms' ); ?>
-							</label>
-							<div v-if="! enhancedDeliveryAllowed" class="cf-alert cf-alert-error">
-								<p>
-									<?php esc_html_e( 'Your Caldera Forms Pro Plan Does Not Support Enhanced Delivery.', 'caldera-forms' ); ?>
-								</p>
-							</div>
-							<div v-if="enhancedDeliveryAllowed">
-								<input
-									id="cf-pro-enhanced-delivery"
-									type="checkbox"
-									class="field-config"
-									v-model="enhancedDelivery"
-								/>
-							</div>
-
+						<div v-if="! enhancedDeliveryAllowed" class="cf-alert cf-alert-error">
+							<p>
+								<?php esc_html_e( 'Your Caldera Forms Pro Plan Does Not Support Enhanced Delivery.', 'caldera-forms' ); ?>
+							</p>
 						</div>
+
+							<input
+								id="cf-pro-enhanced-delivery"
+								type="checkbox"
+								class="field-config"
+								v-model="enhancedDelivery"
+								v-if="enhancedDeliveryAllowed"
+							/>
+
 					</div>
+
 
 					<h2>
 						<?php esc_html_e( 'Form Settings', 'caldera-forms' ); ?>
 					</h2>
 
 					<table class="table">
-						<caption>Settings For Individual Forms</caption>
+						<caption>Settings For Individual Forms
+							<p class="description" v-if="'basic' == plan">
+								<?php esc_html_e( 'Your plan does not support the layout builder', 'caldera-forms' ); ?>
+							</p>
+							<p class="description" v-if="'basic' !== plan">
+								<a href="https://app.CalderaFormsPro.com" target="_blank">
+									<?php esc_html_e( 'Create or edit layouts in the app.', 'caldera-forms' ); ?>
+								</a>
+							</p>
+						</caption>
 						<thead>
 							<tr>
 								<th scope="col">Form</th>
@@ -147,6 +174,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 										:layouts="layouts"
 										:form="form"
 										:setting="'layout'"
+										:disabled="'basic' == plan"
 									>
 									</layout-chooser>
 								</td>
@@ -157,6 +185,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 										:layouts="layouts"
 										:form="form"
 										:setting="'pro_layout'"
+									    :disabled="'basic' == plan"
 									>
 									</layout-chooser>
 								</td>
@@ -194,6 +223,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			v-bind:id="idAttr(form.form_id)"
 			v-on:change="layoutChanged"
 			v-model="selected"
+			v-bind:disabled="disabled"
 		>
 			<option v-for="option in layouts" v-bind:value="option.id">
 				{{ option.name }}

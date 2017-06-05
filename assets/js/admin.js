@@ -163,7 +163,7 @@ jQuery(function ($) {
   */
 	Vue.component('layout-chooser', {
 		template: layoutChooserTemplate,
-		props: ['form', 'layouts', 'setting'],
+		props: ['form', 'layouts', 'setting', 'disabled'],
 		methods: {
 			layoutChanged: function layoutChanged(e) {
 				var selected = $(e.target).val();
@@ -233,7 +233,9 @@ jQuery(function ($) {
 				generatePDFs: false,
 				enhancedDelivery: false,
 				accountId: CF_PRO_ADMIN.settings.account_id,
+				plan: 'basic',
 				loading: false,
+				accountActive: true,
 				alert: {
 					show: false,
 					message: '',
@@ -334,9 +336,24 @@ jQuery(function ($) {
 
 				}).then(function (r) {
 					_this3.accountId = r.id;
+					if (!r.active) {
+						_this3.apiConnected = false;
+						_this3.loading = false;
+						_this3.loaded = true;
+						_this3.accountActive = false;
+						return;
+					}
+					_this3.accountActive = true;
+
 					_this3.apiConnected = true;
 					_this3.loaded = true;
 					_this3.loading = false;
+					_this3.plan = r.plan;
+					if ('apex' == _this3.plan) {
+						_this3.enhancedDeliveryAllowed = true;
+					} else {
+						_this3.enhancedDeliveryAllowed = false;
+					}
 					_this3.getLayouts();
 					return _this3.update({
 						apiKey: _this3.apiKey,

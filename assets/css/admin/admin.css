@@ -35,6 +35,10 @@
     margin: 10px 0;
 }
 
+.caldera-config-field .cf-alert.cf-alert-error p {
+    margin: 0px;
+}
+
 [v-cloak] {
     display: none;
     visibility: hidden;
@@ -195,4 +199,25 @@ table  tbody{
     display:block;
     height:200px;
     overflow:auto;//set tbody to auto
+}
+
+/** Two columns on top **/
+#cf-pro-message-top-left, #cf-pro-message-top-right {
+    width: 50%;
+    display:inline;
+    float:left;
+}
+#cf-pro-message-top-right .postbox h2 {
+    padding: 8px 12px;
+    margin: 0;
+    line-height: 1.4;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+#cf-pro-message-top-right .postbox p {
+    margin-left: 8px;
+}
+
+#cf-pro-message-top-right .inside .cf-alert {
+    display: inherit;
 }
