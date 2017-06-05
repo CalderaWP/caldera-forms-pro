@@ -90,14 +90,13 @@ function caldera_forms_pro_db_delta_1(){
 	if ( ! empty( $wpdb->collate ) ) {
 		$charset_collate .= " COLLATE $wpdb->collate";
 	}
-	$max_index_length = 191;
 	$table = "CREATE TABLE `" . $wpdb->prefix . "cf_pro_messages` (
 			`ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
 			`cfp_id` bigint(20) unsigned DEFAULT NULL,
 			`entry_id` bigint(20) unsigned DEFAULT NULL,
 			`hash` varchar(255) DEFAULT NULL,
-			`type` varchar(255) DEFAULT_NULL,
-			PRIMARY KEY (`ID`)
+			`type` varchar(255) DEFAULT NULL,
+			PRIMARY KEY ( `ID` )
 			) " . $charset_collate . ";";
 
 	dbDelta( $table );
