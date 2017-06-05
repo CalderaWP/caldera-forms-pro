@@ -10,6 +10,7 @@ use \calderawp\calderaforms\pro\admin\menu;
 add_action( 'caldera_forms_includes_complete', function(){
 	//add database table if needed
 	if( 1 > get_option( 'cf_pro_db_v', 0 ) ){
+		caldera_forms_pro_drop_tables();
 		caldera_forms_pro_db_delta_1();
 		update_option( 'cf_pro_db_v', 1 );
 	}
@@ -95,7 +96,7 @@ function caldera_forms_pro_db_delta_1(){
 			`cfp_id` bigint(20) unsigned DEFAULT NULL,
 			`entry_id` bigint(20) unsigned DEFAULT NULL,
 			`hash` varchar(255) DEFAULT NULL,
-			`type` varchar(255) DEFAULT_NULL
+			`type` varchar(255) DEFAULT_NULL,
 			PRIMARY KEY (`ID`)
 			) " . $charset_collate . ";";
 

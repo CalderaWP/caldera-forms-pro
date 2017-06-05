@@ -66,18 +66,17 @@ class messages {
 	public function create( $cfp_id, $hash, $entry_id = 0, $type = 'main' ){
 		$type = $this->validate_type( $type );
 		$data = array(
-			'cfp_id' => $cfp_id,
-			'hash' => $hash,
+			'cfp_id'   => $cfp_id,
+			'hash'     => $hash,
 			'entry_id' => $entry_id,
-			'type' => $type
+			'type'     => $type
 		);
 		$this->wpdb->insert( $this->table_name, $data, array(
 				'%d',
 				'%s',
 				'%d',
 				'%s'
-			)
-		);
+			) );
 
 		if( is_numeric( $this->wpdb->insert_id ) ){
 			$data[ 'local_id' ] = $this->wpdb->insert_id;
