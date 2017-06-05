@@ -2,6 +2,7 @@
 
 
 namespace calderawp\calderaforms\pro\settings;
+use calderawp\calderaforms\pro\container;
 use calderawp\calderaforms\pro\json_arrayable;
 use calderawp\calderaforms\pro\settings;
 
@@ -17,12 +18,10 @@ class form extends json_arrayable {
 
 
 	protected $properties = array(
-		'send_local',
 		'attach_pdf',
-		'use_layout',
+		'pdf_link',
 		'layout',
 		'pdf_layout',
-		'pdf_link'
 	);
 
 	protected $attributes = array();
@@ -158,9 +157,7 @@ class form extends json_arrayable {
 	 * @return bool
 	 */
 	public function get_send_local(){
-		return $this->get_property( 'send_local' );
-
-
+		return true;
 	}
 
 	/**
@@ -178,8 +175,8 @@ class form extends json_arrayable {
 	 *
 	 * @return bool
 	 */
-	public function get_use_layout(){
-		return $this->get_property( 'use_layout'  );
+	public function get_pdf_layout(){
+		return $this->get_property( 'pdf_layout', 'int'  );
 
 	}
 
@@ -204,13 +201,6 @@ class form extends json_arrayable {
 	 */
 	public function get_name(){
 		return \Caldera_Forms::get_form( $this->form_id )[ 'name' ];
-	}
-	/**
-	 *
-	 * @return int
-	 */
-	public function get_pdf_layout(){
-		return $this->get_property( 'pdf_layout' , 'int');
 	}
 
 	/**

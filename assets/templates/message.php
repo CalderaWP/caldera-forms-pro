@@ -184,21 +184,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 										form="form.ID"
 										:layouts="layouts"
 										:form="form"
-										:setting="'pro_layout'"
+										:setting="'pdf_layout'"
 									    :disabled="'basic' == plan"
 									>
 									</layout-chooser>
 								</td>
 								<td>
 									<checkbox-setting
-										:form="form" :setting="'attach_pro'"
+										:form="form" :setting="'attach_pdf'"
 										:label="'<?php esc_attr_e( 'Attach PDF ', 'caldera-forms' ); ?>'"
 									></checkbox-setting>
 								</td>
 								<td>
 								<td>
 									<checkbox-setting
-										:form="form" :setting="'pro_link'"
+										:form="form" :setting="'pdf_link'"
 										:label="'<?php esc_attr_e( 'Add PDF Link ', 'caldera-forms' ); ?>'"
 									></checkbox-setting>
 								</td>
