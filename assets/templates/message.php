@@ -136,6 +136,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 								class="field-config"
 								v-model="enhancedDelivery"
 								v-if="enhancedDeliveryAllowed"
+								value="1"
 							/>
 
 					</div>

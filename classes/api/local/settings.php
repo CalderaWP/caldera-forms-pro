@@ -98,6 +98,14 @@ class settings implements \Caldera_Forms_API_Route {
 			}
 		}
 
+		if( false === $request[ 'enhancedDelivery' ]  ){
+			$settings->set_enhanced_delivery( 'false' );
+		}
+
+		if( true === $request[ 'enhancedDelivery' ]  ){
+			$settings->set_enhanced_delivery( 'true' );
+		}
+
 		$settings->save();
 
 		return rest_ensure_response( container::get_instance()->get_settings()->toArray() );

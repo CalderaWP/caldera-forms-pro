@@ -231,7 +231,7 @@ jQuery(function ($) {
 				forms: CF_PRO_ADMIN.settings.forms,
 				layouts: [],
 				generatePDFs: false,
-				enhancedDelivery: false,
+				enhancedDelivery: CF_PRO_ADMIN.settings.enhancedDelivery,
 				accountId: CF_PRO_ADMIN.settings.account_id,
 				plan: 'basic',
 				loading: false,

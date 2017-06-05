@@ -157,7 +157,17 @@ class form extends json_arrayable {
 	 * @return bool
 	 */
 	public function get_send_local(){
-		return true;
+		/**
+		 * Change if an indivdual form should use local email system or not.
+		 *
+		 * Default is system value
+		 *
+		 * @param bool $enable Enabled. True to send local, false to send remote - if possible.
+		 * @param string $form_id Form ID
+		 *
+		 */
+		return apply_filters( 'caldera_forms_pro_send_local', container::get_instance()->get_settings()->send_local(), $this->form_id );
+
 	}
 
 	/**

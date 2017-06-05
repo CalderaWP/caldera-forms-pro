@@ -60,6 +60,10 @@ class settings  extends repository{
 			$settings->set_api_keys( $keys );
 		}
 
+		if ( ! empty( $saved[ 'enhancedDelivery' ] ) ) {
+			$settings->set_enhanced_delivery( $saved[ 'enhancedDelivery' ] );
+		}
+
 		return $settings;
 	}
 
@@ -72,7 +76,6 @@ class settings  extends repository{
 	 * @return form
 	 */
 	public function set_form( $form ){
-
 
 		if( ! $this->has( $form->get_form_id() ) ){
 			$forms = $this->get( 'forms', array() );
@@ -182,6 +185,71 @@ class settings  extends repository{
 		$this->set( 'apiKeys', $keys );
 	}
 
+	/**
+	 * Set if enhanced delivery is enabled
+	 *
+	 * @param bool $enable
+	 */
+	public function set_enhanced_delivery( $enable ){
+		$this->set( 'enhanced_delivery',  $enable  );
+	}
+
+	/**
+	 * Check if enhanced delivery setting is enabled
+	 *
+	 * NOTE: Does not check if it is possible, which $this->send_local() and $this->send_remote() do.
+	 *
+	 * @return bool
+	 */
+	public function get_enhanced_delivery(){
+		return $this->get( 'enhanced_delivery', true );
+
+	}
+
+	/**
+	 * Checks if we should use local email system or not
+	 *
+	 * @return bool
+	 */
+	public function send_local(){
+		return ! $this->send_remote();
+	}
+
+	/**
+	 * Checks if we should send with remote API or not
+	 *
+	 * @return bool
+	 */
+	public function send_remote(){
+		if ( 'apex' === $this->get_plan() ) {
+			return $this->get_enhanced_delivery();
+		}
+
+		return false;
+
+	}
+
+	/**
+	 * Set plan type
+	 *
+	 * @param string $plan
+	 */
+	public function set_plan( $plan ){
+		if( in_array( $plan, [ 'basic', 'apex', 'awesome' ] ) ){
+			$this->set( 'plan', $plan );
+		}
+
+	}
+
+	/**
+	 * Get plan type
+	 *
+	 * @return string
+	 */
+	public function get_plan(){
+		return $this->get( 'plan', 'basic' );
+	}
+
 
 	/**
 	 * Save settings to database
@@ -210,11 +278,14 @@ class settings  extends repository{
 	 * @return array
 	 */
 	public function toArray(){
-		return array(
+		$data =  array(
 			'account_id' => $this->get_account_id(),
 			'apiKeys' => $this->get_api_keys()->toArray(),
-			'forms' => $this->forms_to_array()
+			'forms' => $this->forms_to_array(),
+			'enhancedDelivery' => $this->get_enhanced_delivery()
 		);
+
+		return $data;
 	}
 
 	/**
