@@ -57,22 +57,31 @@ class message extends json_arrayable {
 	 */
 	protected $client;
 
+
+	/**
+	 * Type of message
+	 *
+	 * @var string
+	 */
+	protected $type;
+
 	/**
 	 * message constructor.
 	 *
 	 * @since 0.0.1
 	 *
-	 * @param int $cfp_id
-	 * @param string $hash
-	 * @param int $local_id
-	 * @param null|int $entry_id
+	 * @param int $cfp_id ID on remote app
+	 * @param string $hash Message hash from app
+	 * @param int $local_id Local DB row ID
+	 * @param null|int $entry_id Optional. Form entry ID. Optional.
+	 * @param string $type Message type. Optional. Default is "main" Options: main|auto
 	 */
-	public function __construct( $cfp_id, $hash, $local_id, $entry_id = null )
-	{
+	public function __construct( $cfp_id, $hash, $local_id, $entry_id = null, $type = 'main' ){
 		$this->local_id = $local_id;
 		$this->cfp_id   = $cfp_id;
 		$this->hash     = $hash;
 		$this->entry_id = $entry_id;
+		$this->type = $type;
 	}
 
 	/**
@@ -82,13 +91,13 @@ class message extends json_arrayable {
 	 *
 	 * @return array
 	 */
-	public function toArray()
-	{
+	public function toArray(){
 		return array(
 			'entry_id' => $this->entry_id,
 			'local_id' => $this->get_local_id(),
 			'cfp_id'   => $this->get_cfp_id(),
-			'hash'     => $this->get_hash()
+			'hash'     => $this->get_hash(),
+			'type'     => $this->get_type()
 		);
 	}
 
@@ -99,17 +108,26 @@ class message extends json_arrayable {
 	 *
 	 * @return message
 	 */
-	public static function from_array( array $data )
-	{
+	public static function from_array( array $data ){
 		if( isset( $data[0] ) ){
 			$data = $data[0];
 		}
 
-		$obj = new self( $data[ 'cfp_id' ], $data[ 'hash' ], $data[ 'local_id' ] );
+		if( ! isset( $data[ 'type' ] ) ){
+			$data[ 'type' ] = 'main';
+		}
+
+		if( empty(  $data[ 'local_id' ] ) && isset( $data[ 'ID' ] ) ){
+			$data[ 'local_id' ]  = $data[ 'ID' ];
+		}
+
+		$obj = new self( $data[ 'cfp_id' ], $data[ 'hash' ], $data[ 'local_id' ], $data[ 'type' ] );
 		if( isset( $data[ 'entry_id' ] ) ){
 			$obj->entry_id = $data[ 'entry_id' ];
 		}
+
 		return $obj;
+
 	}
 
 	/**
@@ -202,6 +220,15 @@ class message extends json_arrayable {
 	}
 
 	/**
+	 * Get message type
+	 *
+	 * @return string
+	 */
+	public function get_type(){
+		return $this->type;
+	}
+
+	/**
 	 * Send previously saved message
 	 *
 	 * @return array|\WP_Error
@@ -244,6 +271,7 @@ class message extends json_arrayable {
 	public function get_html(){
 		return $this->get_client()->get_html( $this->get_cfp_id() );
 	}
+
 
 	/**
 	 * @return client
