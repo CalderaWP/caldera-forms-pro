@@ -66,7 +66,9 @@ class pdf {
 	 * Delete local file
 	 */
 	public function delete_file(){
-		unlink( $this->file );
+		if ( $this->file && file_exists( $this->file ) ) {
+			unlink( $this->file );
+		}
 	}
 
 
