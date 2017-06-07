@@ -115,7 +115,7 @@ function caldera_forms_pro_app_url(){
 		/**
 		 * Default URL for CF Pro App
 		 */
-		define( 'CF_PRO_APP_URL', 'http://app.space.dev' );
+		define( 'CF_PRO_APP_URL', 'https://app.calderaformspro.com' );
 
 	}
 
