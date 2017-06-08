@@ -21,12 +21,16 @@ class client {
 	/**
 	 * API keys
 	 *
+	 * @since 0.0.1
+	 *
 	 * @var keys
 	 */
 	protected  $keys;
 
 	/**
 	 * client constructor.
+	 *
+	 * @since 0.0.1
 	 *
 	 * @param keys $keys API keys
 	 */
@@ -38,6 +42,8 @@ class client {
 
 	/**
 	 * Create message on CF Pro
+	 *
+	 * @since 0.0.1
 	 *
 	 * @param \calderawp\calderaforms\pro\api\message $message Message data
 	 * @param bool $send Should message be sent immediately?
@@ -72,7 +78,20 @@ class client {
 	}
 
 	/**
+	 * Get API keys
+	 *
+	 * @since 0.1.1
+	 *
+	 * @return keys
+	 */
+	public function get_keys(){
+		return $this->keys;
+	}
+
+	/**
 	 * Send previously saved CF Pro message
+	 *
+	 * @since 0.0.1
 	 *
 	 * @param int $message_id CF Pro ID of message
 	 *
@@ -85,6 +104,8 @@ class client {
 
 	/**
 	 * Get PDF of previously saved message
+	 *
+	 * @since 0.0.1
 	 *
 	 * @param string $hash Hash of message
 	 *
@@ -112,6 +133,8 @@ class client {
 
 	/**
 	 * Make remote request
+	 *
+	 * @since 0.0.1
 	 *
 	 * @param string $endpoint Endpoint to use
 	 * @param array $data Request data to be sent as body or query string for GET.

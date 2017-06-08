@@ -104,6 +104,8 @@ class message extends json_arrayable {
 	/**
 	 * Factory to create object from array
 	 *
+	 * @since 0.0.1
+	 *
 	 * @param array $data
 	 *
 	 * @return message
@@ -140,8 +142,7 @@ class message extends json_arrayable {
 	 *
 	 * @return message|false|int|null
 	 */
-	public function __call( $name, $arguments )
-	{
+	public function __call( $name, $arguments ){
 		switch( $name ){
 			case 'save' :
 				if( empty( $this->local_id ) ){
@@ -222,6 +223,8 @@ class message extends json_arrayable {
 	/**
 	 * Get message type
 	 *
+	 * @since 0.0.1
+	 *
 	 * @return string
 	 */
 	public function get_type(){
@@ -231,6 +234,8 @@ class message extends json_arrayable {
 	/**
 	 * Send previously saved message
 	 *
+	 * @since 0.0.1
+	 *
 	 * @return array|\WP_Error
 	 */
 	public function send(){
@@ -239,6 +244,8 @@ class message extends json_arrayable {
 
 	/**
 	 * Get PDF of previously saved message
+	 *
+	 * @since 0.0.1
 	 *
 	 * @return array|\WP_Error
 	 */
@@ -255,16 +262,20 @@ class message extends json_arrayable {
 	}
 
 	/**
-	 *Get link to PDF
+	 * Get link to PDF
+	 *
+	 * @since 0.0.1
 	 *
 	 * @return string
 	 */
 	public function get_pdf_link(){
-		return  caldera_forms_pro_app_url() . '/pdf/' . $this->get_hash();
+		return add_query_arg( 'public', $this->get_client()->get_keys()->get_public(), caldera_forms_pro_app_url() . '/pdf/' . $this->get_hash() );
 	}
 
 	/**
 	 * Get message HTML from app
+	 *
+	 * @since 0.0.1
 	 *
 	 * @return string
 	 */
@@ -274,6 +285,10 @@ class message extends json_arrayable {
 
 
 	/**
+	 * Get API client
+	 *
+	 * @since 0.0.1
+	 *
 	 * @return client
 	 */
 	protected function get_client(){
