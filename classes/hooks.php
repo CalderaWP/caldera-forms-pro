@@ -106,14 +106,16 @@ class hooks {
 
 
 		$message = new \calderawp\calderaforms\pro\api\message();
-		$message->reply = array(
-			'email' => \Caldera_Forms::do_magic_tags( $config[ 'sender_email' ] ),
-			'name'  => \Caldera_Forms::do_magic_tags($config[ 'sender_name' ] )
+		$message->add_recipient( 'reply',
+			\Caldera_Forms::do_magic_tags( $config[ 'sender_email' ] ),
+			\Caldera_Forms::do_magic_tags($config[ 'sender_name' ] )
 		);
-		$message->to = array(
-			'email' => \Caldera_Forms::do_magic_tags( $config[ 'recipient_email' ] ),
-			'name' => \Caldera_Forms::do_magic_tags( $config[ 'recipient_name'] )
+
+		$message->add_recipient( 'to',
+			\Caldera_Forms::do_magic_tags( $config[ 'recipient_email' ] ),
+			\Caldera_Forms::do_magic_tags( $config[ 'recipient_name'] )
 		);
+
 		$message->subject = $mail ['subject' ];
 		$message->content = $mail[ 'message' ];
 		$message->pdf_layout = $form_settings->get_pdf_layout();

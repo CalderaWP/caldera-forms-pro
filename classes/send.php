@@ -34,21 +34,37 @@ class send {
 		}
 
 		$message = new \calderawp\calderaforms\pro\api\message();
-		$message->reply = array(
-			'email' => $mail[ 'from' ],
-			'name'  => $mail[ 'from_name' ]
-		);
-		$message->to = $mail[ 'recipients' ];
+
+		$message->add_recipient( 'reply', $mail[ 'from' ],  $mail[ 'from_name' ] );
+
+		if( is_string( $mail[ 'recipients' ] ) ){
+			$message->add_recipient( 'to', $mail[ 'recipients' ] );
+		}elseif ( is_array( $mail[ 'recipients' ] ) && ! empty( $mail[ 'recipients' ] ) ) {
+			foreach ( $mail[ 'recipients' ] as $to ){
+				$message->add_recipient( 'to', $to );
+			}
+
+		}
+
 		$message->subject = $mail[ 'subject' ];
 		$message->content = $mail[ 'message' ];
 		$message->pdf_layout = $form_settings->get_pdf_layout();
 		$message->layout = $form_settings->get_layout();
 		if ( ! empty( $mail[ 'cc' ] ) ) {
-			$message->cc = $mail[ 'cc' ];
+			$ccs = caldera_forms_safe_explode( $mail[ 'cc' ] );
+			foreach ( $ccs as $cc ){
+				$message->add_recipient( 'cc', $cc );
+
+			}
+
 		}
 
 		if( ! empty( $mail[ 'bcc' ] ) ){
-			$message->bcc = $mail[ 'bcc' ];
+			$bccs = caldera_forms_safe_explode( $mail[ 'bcc' ] );
+			foreach ( $bccs as $bcc ){
+				$message->add_recipient( 'bcc', $bcc );
+
+			}
 		}
 
 		$response = self::send_via_api( $message, $entry_id, $send );

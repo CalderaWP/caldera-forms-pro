@@ -174,3 +174,13 @@ function caldera_forms_pro_link_html( $form, $link ){
 		esc_html( $message )
 	);
 }
+
+
+if( ! function_exists( 'caldera_forms_safe_explode' ) ){
+	function caldera_forms_safe_explode( $string ){
+		if( false === strpos( $string, ',' ) ){
+			return array( $string );
+		}
+		return explode(',', $string );
+	}
+}

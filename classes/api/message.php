@@ -3,6 +3,7 @@
 
 namespace calderawp\calderaforms\pro\api;
 use calderawp\calderaforms\pro\container;
+use calderawp\calderaforms\pro\exceptions\Exception;
 use calderawp\calderaforms\pro\repository;
 
 
@@ -81,6 +82,7 @@ class message extends repository {
 	/**
 	 * @inheritdoc
 	 * @return message
+	 * @throws Exception
 	 */
 	public function set( $key, $value ){
 		if( $this->allowed_key( $key ) ){
@@ -90,24 +92,40 @@ class message extends repository {
 				'cc',
 				'bcc'
 			)) ){
-				if( is_string( $value ) ){
-					$value = array(
-						'email' => $value,
-						'name'  => '',
-					);
-				}elseif ( is_array( $value ) && isset( $value[0] ) && is_email( $value[0] ) ){
-					$value = array(
-						'email' => $value[0],
-						'name'  => '',
-					);
-				}
+				throw new Exception( 'Must use add_recpient for to/reply/cc/bcc');
 
-			}
+ 			}
 			$this->items[ $key ] = $value;
 		}
 
 		return $this;
 
+	}
+
+	/**
+	 * Add a to, reply, cc or bcc to object
+	 *
+	 * @since 0.1.1
+	 *
+	 * @param string $type Type to add
+	 * @param string $email Email addresss
+	 * @param string $name Optional. Name
+	 *
+	 * @return $this
+	 */
+	public function add_recipient( $type, $email, $name = '' ){
+		if(  ! $this->allowed_key( $type ) ){
+			return $this;
+		}
+		if( empty( $this->items[ $type ] ) ){
+			$this->items[ $type ] = [];
+		}
+		$this->items[ $type ][] = [
+			'email' => sanitize_email( $email ),
+			'name' => $name
+		];
+
+		return $this;
 	}
 
 	/**
