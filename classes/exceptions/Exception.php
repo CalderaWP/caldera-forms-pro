@@ -14,6 +14,8 @@ class Exception extends \Exception {
 	/**
 	 * Convert to WP_Error object
 	 *
+	 * @since 0.0.1
+	 *
 	 * @param array $data
 	 *
 	 * @return \WP_Error

@@ -90,6 +90,8 @@ class messages {
 	/**
 	 * Validate message type
 	 *
+	 * @since 0.0.1
+	 *
 	 * @param string $type The message type
 	 *
 	 * @return string

@@ -67,7 +67,9 @@ class settings implements \Caldera_Forms_API_Route {
 	}
 
 	/**
-	 *Check request permissions
+	 * Check request permissions
+	 *
+	 * @since 0.0.1
 	 *
 	 * @return bool
 	 */
@@ -77,6 +79,8 @@ class settings implements \Caldera_Forms_API_Route {
 
 	/**
 	 * Update settings via WP REST API
+	 *
+	 * @since 0.0.1
 	 *
 	 * @param \WP_REST_Request $request
 	 *
@@ -123,6 +127,8 @@ class settings implements \Caldera_Forms_API_Route {
 	/**
 	 * Handle saving settings of a form
 	 *
+	 * @since 0.0.1
+	 *
 	 * @param array $form
 	 */
 	protected function handle_form( array $form ){
@@ -139,6 +145,8 @@ class settings implements \Caldera_Forms_API_Route {
 
 	/**
 	 * Read settings via WP REST API
+	 *
+	 * @since 0.0.1
 	 *
 	 * @param \WP_REST_Request $request
 	 *

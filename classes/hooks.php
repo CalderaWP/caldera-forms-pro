@@ -42,6 +42,8 @@ class hooks {
 	 *
 	 * @uses "caldera_forms_mailer" filter
 	 *
+	 * @sine 0.0.1
+	 *
 	 * @param $mail
 	 * @param $data
 	 * @param $form
@@ -79,6 +81,20 @@ class hooks {
 
 	}
 
+	/**
+	 * Handle autoresponder emails
+	 *
+	 * @sine 0.0.1
+	 *
+	 * @uses "caldera_forms_autoresponse_mail" filter
+	 *
+	 * @param $mail
+	 * @param $config
+	 * @param $form
+	 * @param $entry_id
+	 *
+	 * @return null
+	 */
 	public function auto_responder( $mail, $config, $form, $entry_id ){
 
 		$form_settings = container::get_instance()->get_settings()->get_form( $form[ 'ID' ] );
@@ -154,7 +170,7 @@ class hooks {
 	/**
 	 * Add link to success messages when the form is NOT submitted via AJAX
 	 *
-	 * @since 0.2.0
+	 * @since 0.0.1
 	 *
 	 * @uses "caldera_forms_render_notices" filter
 	 *
@@ -191,6 +207,8 @@ class hooks {
 	/**
 	 * Sets up CF REST API endpoint for the settings
 	 *
+	 * @since 0.0.1
+	 *
 	 * @uses "caldera_forms_rest_api_pre_init" action
 	 *
 	 * @param \Caldera_Forms_API_Load api
@@ -201,6 +219,8 @@ class hooks {
 
 	/**
 	 * Delete a file
+	 *
+	 * @since 0.0.1
 	 *
 	 * Uses cron action set in pdf::CRON_ACTION
 	 *

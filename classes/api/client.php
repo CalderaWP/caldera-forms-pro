@@ -119,6 +119,8 @@ class client {
 	/**
 	 * Get HTML of previously saved message
 	 *
+	 * @since 0.0.1
+	 *
 	 * @param int $message_id Message ID (CF Pro ID)
 	 *
 	 * @return string

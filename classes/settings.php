@@ -18,12 +18,16 @@ class settings  extends repository{
 	/**
 	 * ID of default layout
 	 *
+	 * @since 0.0.1
+	 *
 	 * @var int
 	 */
 	protected $default_layout;
 
 	/**
 	 * Option key for storage
+	 *
+	 * @since 0.0.1
 	 *
 	 * @var string
 	 */
@@ -32,12 +36,16 @@ class settings  extends repository{
 	/**
 	 * Option key for storage
 	 *
+	 * @since 0.0.1
+	 *
 	 * @var string
 	 */
 	protected static $_option_key = '_cf_pro_settings';
 
 	/**
 	 * CF Pro Account ID
+	 *
+	 * @since 0.0.1
 	 *
 	 * @var int
 	 */
@@ -46,6 +54,8 @@ class settings  extends repository{
 
 	/**
 	 * Create object from saved data
+	 *
+	 * @since 0.0.1
 	 *
 	 * @return settings
 	 */
@@ -77,6 +87,8 @@ class settings  extends repository{
 	/**
 	 * Add an individual form's settings
 	 *
+	 * @since 0.0.1
+	 *
 	 * @param form $form $form Form Settings object
 	 *
 	 * @return form
@@ -102,6 +114,8 @@ class settings  extends repository{
 	 *
 	 * Will attempt to get from repo, then DB. Failing that will create empty instance
 	 *
+	 * @since 0.0.1
+	 *
 	 * @param string $form_id Form ID
 	 *
 	 * @return form
@@ -121,6 +135,8 @@ class settings  extends repository{
 	/**
 	 * Set CF Pro account ID
 	 *
+	 * @since 0.0.1
+	 *
 	 * @param int $id Account ID
 	 *
 	 * @return $this
@@ -133,6 +149,8 @@ class settings  extends repository{
 	/**
 	 * Get CF Pro account ID
 	 *
+	 * @since 0.0.1
+	 *
 	 * @return int
 	 */
 	public function get_account_id(){
@@ -141,6 +159,8 @@ class settings  extends repository{
 
 	/**
 	 * Set CF Pro public key
+	 *
+	 * @since 0.0.1
 	 *
 	 * @param string $public
 	 *
@@ -154,6 +174,8 @@ class settings  extends repository{
 
 	/**
 	 * Set CF Pro secret key
+	 *
+	 * @since 0.0.1
 	 *
 	 * @param $secret
 	 *
@@ -185,6 +207,8 @@ class settings  extends repository{
 	/**
 	 * Set API keys object
 	 *
+	 * @since 0.0.1
+	 *
 	 * @param keys $keys
 	 */
 	public function set_api_keys( $keys ){
@@ -205,6 +229,8 @@ class settings  extends repository{
 	 *
 	 * NOTE: Does not check if it is possible, which $this->send_local() and $this->send_remote() do.
 	 *
+	 * @since 0.0.1
+	 *
 	 * @return bool
 	 */
 	public function get_enhanced_delivery(){
@@ -215,6 +241,8 @@ class settings  extends repository{
 	/**
 	 * Checks if we should use local email system or not
 	 *
+	 * @since 0.0.1
+	 *
 	 * @return bool
 	 */
 	public function send_local(){
@@ -223,6 +251,8 @@ class settings  extends repository{
 
 	/**
 	 * Checks if we should send with remote API or not
+	 *
+	 * @since 0.0.1
 	 *
 	 * @return bool
 	 */
@@ -238,6 +268,8 @@ class settings  extends repository{
 	/**
 	 * Set plan type
 	 *
+	 * @since 0.0.1
+	 *
 	 * @param string $plan
 	 */
 	public function set_plan( $plan ){
@@ -250,6 +282,8 @@ class settings  extends repository{
 	/**
 	 * Get plan type
 	 *
+	 * @since 0.0.1
+	 *
 	 * @return string
 	 */
 	public function get_plan(){
@@ -258,6 +292,8 @@ class settings  extends repository{
 
 	/**
 	 * Return if is basic plan
+	 *
+	 * @since 0.0.1
 	 *
 	 * @return bool
 	 */
@@ -321,6 +357,8 @@ class settings  extends repository{
 
 	/**
 	 * Get all forms as an array
+	 *
+	 * @since 0.0.1
 	 *
 	 * @return array
 	 */

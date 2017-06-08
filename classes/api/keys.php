@@ -45,6 +45,7 @@ class keys implements arrayable {
 	}
 
 	/**
+	 * Convert to array, including token
 	 *
 	 * @since 0.0.1
 	 *
@@ -60,7 +61,11 @@ class keys implements arrayable {
 	}
 
 	/**
-	 * @param array $data
+	 * Create object from saved or other array
+	 *
+	 * @since 0.0.1
+	 *
+	 * @param array $data Optional data.
 	 *
 	 * @return keys
 	 */

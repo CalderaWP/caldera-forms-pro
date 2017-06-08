@@ -13,12 +13,16 @@ class pdf {
 	/**
 	 * CRON action to schedule deletes on
 	 *
+	 * @since 0.0.1
+	 *
 	 * @var string
 	 */
 	const  CRON_ACTION = 'cf_pro_delete_file';
 
 	/**
 	 * Path to local file
+	 *
+	 * @since 0.0.1
 	 *
 	 * @var string
 	 */
@@ -27,6 +31,8 @@ class pdf {
 	/**
 	 * The message object
 	 *
+	 * @since 0.0.1
+	 *
 	 * @var message
 	 */
 	protected  $message;
@@ -34,15 +40,18 @@ class pdf {
 	/**
 	 * pdf constructor.
 	 *
+	 * @since 0.0.1
+	 *
 	 * @param message $message
 	 */
-	public function __construct( message $message )
-	{
+	public function __construct( message $message ){
 		$this->message = $message;
 	}
 
 	/**
-	 * Uploadd locally
+	 * Upload locally
+	 *
+	 * @since 0.0.1
 	 *
 	 * @return string|null File path if uploaded. Null if not
 	 */
@@ -64,6 +73,8 @@ class pdf {
 
 	/**
 	 * Delete local file
+	 *
+	 * @since 0.0.1
 	 */
 	public function delete_file(){
 		if ( $this->file && file_exists( $this->file ) ) {

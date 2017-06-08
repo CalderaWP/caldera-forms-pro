@@ -17,12 +17,18 @@ class container extends repository{
 	/**
 	 * Holds main instance
 	 *
+	 * @since 0.0.1
+	 *
 	 * @var container
 	 */
 	protected static $instance;
 	
 
 	/**
+	 * Holds main instance
+	 *
+	 * @since 0.0.1
+	 *
 	 * @return container
 	 */
 	public static function get_instance(){
@@ -36,6 +42,8 @@ class container extends repository{
 
 	/**
 	 * Get the messages DB abstraction
+	 *
+	 * @since 0.0.1
 	 *
 	 * @return messages
 	 */
@@ -51,6 +59,8 @@ class container extends repository{
 	/**
 	 * Get the main settings object
 	 *
+	 * @since 0.0.1
+	 *
 	 * @return settings
 	 */
 	public function get_settings(){
@@ -62,6 +72,8 @@ class container extends repository{
 
 	/**
 	 * Get hooks class
+	 *
+	 * @since 0.0.1
 	 *
 	 * @return hooks
 	 */

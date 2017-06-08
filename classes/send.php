@@ -18,6 +18,8 @@ class send {
 	/**
 	 * Send main mailer to CF Pro
 	 *
+	 * @since 0.0.1
+	 *
 	 * @param array $mail the array provided on "caldera_forms_mailer" filter
 	 * @param int $entry_id The entry ID
 	 * @param string $form_id The form ID
@@ -57,6 +59,8 @@ class send {
 	/**
 	 * Handle attaching PDFs
 	 *
+	 * @since 0.0.1
+	 *
 	 * @param message $message
 	 * @param array $mail
 	 *
@@ -78,6 +82,8 @@ class send {
 
 	/**
 	 * Send message via API
+	 *
+	 * @since 0.0.1
 	 *
 	 * @param api\message $message Message object
 	 * @param int $entry_id Entry ID for message

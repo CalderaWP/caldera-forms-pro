@@ -16,12 +16,18 @@ use calderawp\calderaforms\pro\repository;
 class message extends repository {
 
 	/**
+	 * API client
+	 *
+	 * @since 0.0.1
+	 *
 	 * @var client
 	 */
 	protected $client;
 
 	/**
-	 * Properites of messages
+	 * Properties of messages
+	 *
+	 * @since 0.0.1
 	 *
 	 * @var array
 	 */
@@ -40,6 +46,8 @@ class message extends repository {
 	/**
 	 * Magic setter
 	 *
+	 * @since 0.0.1
+	 *
 	 * @param string $name Property name
 	 * @param mixed $value Value to set
 	 */
@@ -52,6 +60,8 @@ class message extends repository {
 
 	/**
 	 * Create on remote API
+	 *
+	 * @since 0.0.1
 	 *
 	 * @param bool $send Send message now or delay?
 	 * @param int $entry_id Local entry ID
@@ -102,6 +112,8 @@ class message extends repository {
 
 	/**
 	 * Can this key be set
+	 *
+	 * @since 0.0.1
 	 *
 	 * @param string $key Key to check
 	 *

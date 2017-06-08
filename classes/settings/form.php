@@ -16,7 +16,13 @@ use calderawp\calderaforms\pro\settings;
  */
 class form extends json_arrayable {
 
-
+	/**
+	 * Allowed properites of this repo
+	 *
+	 * @since 0.0.1
+	 *
+	 * @var array
+	 */
 	protected $properties = array(
 		'attach_pdf',
 		'pdf_link',
@@ -24,6 +30,13 @@ class form extends json_arrayable {
 		'pdf_layout',
 	);
 
+	/**
+	 * Values in the repo
+	 *
+	 * @since 0.0.1
+	 *
+	 * @var array
+	 */
 	protected $attributes = array();
 
 	/**
@@ -47,14 +60,15 @@ class form extends json_arrayable {
 	 *
 	 * @param string $form_id
 	 */
-	public function __construct(  $form_id )
-	{
+	public function __construct(  $form_id ){
 
 		$this->form_id = $form_id;
 	}
 
 	/**
 	 * Factory to create from saved settings in database
+	 *
+	 * @since 0.0.1
 	 *
 	 * @param $form_id
 	 *
@@ -170,10 +184,23 @@ class form extends json_arrayable {
 
 	}
 
+	/**
+	 * Check if this form should attach PDFs to emails
+	 *
+	 * @since 0.0.1
+	 *
+	 * @return bool
+	 */
 	public function should_attatch_pdf(){
 		return $this->get_attach_pdf();
 	}
-
+	/**
+	 * Check if this form should add PDF links after submissions
+	 *
+	 * @since 0.0.1
+	 *
+	 * @return bool
+	 */
 	public function should_add_pdf_link(){
 		return $this->get_property( 'pdf_link', 'bool' );
 	}
@@ -190,6 +217,9 @@ class form extends json_arrayable {
 	}
 
 	/**
+	 * Get PDF layout for form
+	 *
+	 * @since 0.0.1
 	 *
 	 * @return bool
 	 */
@@ -235,6 +265,10 @@ class form extends json_arrayable {
 	}
 
 	/**
+	 * Get property from the rep0
+	 *
+	 * @since 0.0.1
+	 *
 	 * @param $prop
 	 *
 	 * @return bool
@@ -255,6 +289,10 @@ class form extends json_arrayable {
 	}
 
 	/**
+	 * Set property in repo
+	 *
+	 * @since 0.0.1
+	 *
 	 * @param string $prop Property to set
 	 * @param mixed $value Value to set
 	 * @return bool|form
