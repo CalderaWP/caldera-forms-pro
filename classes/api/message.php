@@ -117,13 +117,22 @@ class message extends repository {
 		if(  ! $this->allowed_key( $type ) ){
 			return $this;
 		}
-		if( empty( $this->items[ $type ] ) ){
-			$this->items[ $type ] = [];
+
+		if( 'reply' == $type ){
+			$this->items[ $type ] = [
+				'email' => sanitize_email( $email ),
+				'name' => $name
+			];
+		}else{
+			if( empty( $this->items[ $type ] ) ){
+				$this->items[ $type ] = [];
+			}
+			$this->items[ $type ][] = [
+				'email' => sanitize_email( $email ),
+				'name' => $name
+			];
 		}
-		$this->items[ $type ][] = [
-			'email' => sanitize_email( $email ),
-			'name' => $name
-		];
+
 
 		return $this;
 	}

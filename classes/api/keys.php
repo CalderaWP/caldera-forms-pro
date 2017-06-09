@@ -54,8 +54,8 @@ class keys implements arrayable {
 	public function toArray(){
 		return array(
 			'token' => $this->get_token(),
-			'public' => $this->public,
-			'secret' => $this->secret,
+			'public' => $this->get_public(),
+			'secret' => $this->get_secret(),
 		);
 
 	}
@@ -89,7 +89,7 @@ class keys implements arrayable {
 	 * @return string
 	 */
 	public function get_token(){
-		return sha1( $this->public . $this->secret );
+		return sha1( $this->get_public() . $this->get_secret() );
 
 	}
 
@@ -101,7 +101,7 @@ class keys implements arrayable {
 	 * @return string
 	 */
 	public function get_public(){
-		return $this->public;
+		return apply_filters( 'caldera_forms_pro_get_public_key', $this->public );
 
 	}
 
@@ -128,6 +128,18 @@ class keys implements arrayable {
 	public function set_secret( $key ){
 		$this->secret = $key;
 		return $this;
+
+	}
+
+	/**
+	 * Get API secret key
+	 *
+	 * @since 0.2.0
+	 *
+	 * @return string
+	 */
+	public function get_secret(){
+		return apply_filters( 'caldera_forms_pro_get_secret_key', $this->public );
 
 	}
 
