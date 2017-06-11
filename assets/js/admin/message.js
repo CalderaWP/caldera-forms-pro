@@ -65,7 +65,6 @@ jQuery(function($) {
 			idAttr: function (formId) {
 				return 'cf-pro-choose-template-' + formId;
 			}
-
 		},
 		computed: {
 			selected(){
@@ -102,7 +101,6 @@ jQuery(function($) {
 				return this.form[this.setting];
 			}
 		}
-
 
 	});
 

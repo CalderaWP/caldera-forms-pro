@@ -139,7 +139,7 @@ class keys implements arrayable {
 	 * @return string
 	 */
 	public function get_secret(){
-		return apply_filters( 'caldera_forms_pro_get_secret_key', $this->public );
+		return apply_filters( 'caldera_forms_pro_get_secret_key', $this->secret );
 
 	}
 
