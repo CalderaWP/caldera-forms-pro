@@ -184,3 +184,29 @@ if( ! function_exists( 'caldera_forms_safe_explode' ) ){
 		return explode(',', $string );
 	}
 }
+
+/**
+ * Add updating via Github
+ *
+ * @since 0.2.0
+ */
+add_action( 'init', function(){
+	if ( is_admin() ) {
+		include_once  __DIR__ . '/updater.php';
+
+		$config = array(
+			'slug' => CF_PRO_BASENAME,
+			'proper_folder_name' => 'caldera-forms-pro', // this is the name of the folder your plugin lives in
+			'api_url' => 'https://api.github.com/repos/CalderaWP/caldera-forms-pro',
+			'raw_url' => 'https://raw.github.com/CalderaWP/caldera-forms-pro/master',
+			'github_url' => 'https://github.com/CalderaWP/caldera-forms-pro', // the GitHub url of your GitHub repo
+			'zip_url' => 'https://github.com/CalderaWP/caldera-forms-pro/archive/master.zip',
+			'sslverify' => true,
+			'requires' => '4.7',
+			'tested' => '4.8',
+			'readme' => 'README.md',
+		);
+		new WP_GitHub_Updater($config);
+	}
+});
+
