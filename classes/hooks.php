@@ -44,6 +44,11 @@ class hooks {
 	public function remove_hooks(){
 		remove_filter( 'caldera_forms_mailer', array( $this, 'mailer' ), 10 );
 		remove_action( 'caldera_forms_rest_api_pre_init', array( $this, 'init_api' ) );
+		remove_filter( 'caldera_forms_ajax_return', array( $this, 'add_pdf_link_ajax' ), 10 );
+		remove_filter( 'caldera_forms_render_notices', array( $this, 'add_pdf_link_not_ajax' ), 10);
+		remove_filter( 'caldera_forms_autoresponse_mail', array( $this, 'auto_responder' ), 99 );
+		remove_action( pdf::CRON_ACTION, array( $this, 'delete_file' ) );
+
 	}
 
 	/**
