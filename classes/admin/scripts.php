@@ -78,8 +78,8 @@ class scripts {
 	public function data(){
 		$data = array(
 			'strings' =>  [
-				'saved' => esc_html__( 'Settings Saved', 'caldera-forms' ),
-				'notSaved' => esc_html__( 'Settings could not be saved', 'caldera-forms' )
+				'saved' => esc_html__( 'Settings Saved', 'caldera-forms-pro' ),
+				'notSaved' => esc_html__( 'Settings could not be saved', 'caldera-forms-pro' )
 			],
 			'api' => array(
 				'cf' => array(

@@ -32,8 +32,8 @@ class menu {
 	public function display() {
 		add_submenu_page(
 			\Caldera_Forms::PLUGIN_SLUG,
-			__( 'Caldera Forms Pro', 'caldera-forms'),
-			'<span class="caldera-forms-menu-dashicon"><span class="dashicons dashicons-star-filled"></span>' .__( 'Caldera Forms Pro', 'caldera-forms') . '</span>',
+			__( 'Caldera Forms Pro', 'caldera-forms-pro'),
+			'<span class="caldera-forms-menu-dashicon"><span class="dashicons dashicons-star-filled"></span>' .__( 'Caldera Forms Pro', 'caldera-forms-pro') . '</span>',
 			'manage_options',
 			$this->slug,
 			[ $this, 'render' ]

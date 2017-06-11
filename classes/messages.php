@@ -83,7 +83,7 @@ class messages {
 			return message::from_array( $data );
 		}
 
-		throw New Exception( __( 'Could not store message', 'caldera-forms' ) );
+		throw New Exception( __( 'Could not store message', 'caldera-forms-pro' ) );
 
 	}
 
@@ -184,7 +184,7 @@ class messages {
 			return message::from_array( $results );
 		}
 
-		throw new Exception( __( 'Could not find message.', 'caldera-forms' ) );
+		throw new Exception( __( 'Could not find message.', 'caldera-forms-pro' ) );
 
 	}
 

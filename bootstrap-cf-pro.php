@@ -157,7 +157,7 @@ function caldera_forms_pro_link_html( $form, $link ){
 	 * @param string $message Link message
 	 * @param array $form Form config
 	 */
-	$message = apply_filters( 'caldera_forms_pro_link_message', __( 'Download Form Entry As PDF', 'caldera-forms', $form ), $form );
+	$message = apply_filters( 'caldera_forms_pro_link_message', __( 'Download Form Entry As PDF', 'caldera-forms-pro', $form ), $form );
 
 	/**
 	 * Filter the title attribute for the generate PDF link HTML
@@ -165,7 +165,7 @@ function caldera_forms_pro_link_html( $form, $link ){
 	 * @param string $title Title attribute.
 	 * @param array $form Form config
 	 */
-	$title = apply_filters( 'caldera_forms_pro_link_title',  __( 'Download Form Entry As PDF', 'caldera-forms' ), $form );
+	$title = apply_filters( 'caldera_forms_pro_link_title',  __( 'Download Form Entry As PDF', 'caldera-forms-pro' ), $form );
 
 	return sprintf( '<div class="%s"><a href="%s" title="%s" target="_blank">%s</a></div>',
 		esc_attr( $classes ),
