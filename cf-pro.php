@@ -1,7 +1,7 @@
 <?php
 /**
  Plugin Name: Caldera Forms Pro Client
-Version: 0.1.0
+Version: 0.2.0
  */
 if ( ! version_compare( PHP_VERSION, '5.4.0', '>=' ) ) {
 	add_action( 'admin_notices', 'caldera_forms_pro_version_fail_warning' );
@@ -18,7 +18,7 @@ if ( ! version_compare( PHP_VERSION, '5.4.0', '>=' ) ) {
 		/**
 		 * Caldera Forms Pro Client Version
 		 */
-		define( 'CF_PRO_VER', '0.1.0' );
+		define( 'CF_PRO_VER', '0.2.0' );
 
 		include_once  dirname( __FILE__ ) . '/bootstrap-cf-pro.php';
 	}

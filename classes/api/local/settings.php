@@ -3,6 +3,7 @@
 
 namespace calderawp\calderaforms\pro\api\local;
 use calderawp\calderaforms\pro\container;
+use calderawp\calderaforms\pro\settings\active;
 
 
 /**
@@ -49,6 +50,9 @@ class settings implements \Caldera_Forms_API_Route {
 					'plan' => array(
 						'type' => 'string',
 						'required' => false
+					),
+					'activate' => array(
+						'type' => 'boolean'
 					)
 				),
 				'permissions_callback' => array( $this, 'permissions' )
@@ -116,6 +120,14 @@ class settings implements \Caldera_Forms_API_Route {
 
 		if( true === $request[ 'enhancedDelivery' ]  ){
 			$settings->set_enhanced_delivery( 'true' );
+		}
+
+		if( true === $request[ 'activate' ] ){
+			active::change_status( true );
+		}
+
+		if( false === $request[ 'activate' ] ){
+			active::change_status( false );
 		}
 
 		$settings->save();

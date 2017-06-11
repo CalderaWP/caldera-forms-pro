@@ -1,15 +1,15 @@
 {
   "name": "cf-pro",
-  "version": "0.0.1",
-  "description": "Integrate Easy Digital Downloads with Caldera Forms",
+  "version": "0.2.0",
+  "description": "Caldera Forms Pro API Client",
   "repository": {
     "type": "git",
-    "url": "https://github.com/calderawp/cf-edd-pro"
+    "url": "https://github.com/calderawp/caldera-forms-pro"
   },
   "author": "CalderaWP",
   "license": "GPLv2+",
   "bugs": {
-    "url": "https://github.com/calderawp/cf-edd-pro/issues"
+    "url": "https://github.com/calderawp/caldera-forms-pro/issues"
   },
   "devDependencies": {
     "babel-preset-env": "^1.4.0",

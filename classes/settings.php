@@ -51,7 +51,6 @@ class settings  extends repository{
 	 */
 	protected $account_id;
 
-
 	/**
 	 * Create object from saved data
 	 *
@@ -309,6 +308,10 @@ class settings  extends repository{
 	public function save(){
 		foreach ( $this->forms() as $form ){
 			$form->save();
+		}
+
+		if( $this->get_api_keys()->get_public() && $this->get_api_keys()->get_secret() ){
+
 		}
 
 		$data = $this->toArray();

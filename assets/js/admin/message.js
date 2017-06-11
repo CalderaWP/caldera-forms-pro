@@ -150,12 +150,17 @@ jQuery(function($) {
 					generatePDFs: this.generatePDFs,
 					enhancedDelivery: this.enhancedDelivery,
 					accountId: this.accountId,
-					plan: this.plan
+					plan: this.plan,
 				}, true );
 
 			},
 			update( data, report ){
 				this.loading = true;
+				if( this.accountActive && this.apiConnected ){
+					data.activate = true;
+				}else{
+					data.activate = false;
+				}
 				$.ajax(localApiURL, {
 					method: 'POST',
 					data:data ,

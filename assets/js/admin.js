@@ -176,7 +176,6 @@ jQuery(function ($) {
 			idAttr: function idAttr(formId) {
 				return 'cf-pro-choose-template-' + formId;
 			}
-
 		},
 		computed: {
 			selected: function selected() {
@@ -265,6 +264,11 @@ jQuery(function ($) {
 				var _this = this;
 
 				this.loading = true;
+				if (this.accountActive && this.apiConnected) {
+					data.activate = true;
+				} else {
+					data.activate = false;
+				}
 				$.ajax(localApiURL, {
 					method: 'POST',
 					data: data,

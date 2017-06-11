@@ -5,6 +5,7 @@ namespace calderawp\calderaforms\pro;
 use calderawp\calderaforms\pro\api\client;
 use calderawp\calderaforms\pro\api\local\settings;
 use calderawp\calderaforms\pro\api\message;
+use calderawp\calderaforms\pro\settings\active;
 
 
 /**
@@ -18,19 +19,27 @@ class hooks {
 
 	/**
 	 * Add hooks needed for CF Pro
+	 *
+	 * @since 0.0.1
 	 */
 	public function add_hooks(){
-		add_filter( 'caldera_forms_mailer', array( $this, 'mailer' ), 99, 4 );
 		add_action( 'caldera_forms_rest_api_pre_init', array( $this, 'init_api' ) );
-		add_filter( 'caldera_forms_ajax_return', array( $this, 'add_pdf_link_ajax' ), 10, 2 );
-		add_filter( 'caldera_forms_render_notices', array( $this, 'add_pdf_link_not_ajax' ), 10, 2 );
-		add_filter( 'caldera_forms_autoresponse_mail', array( $this, 'auto_responder' ), 99, 4 );
+
+		if( active::get_status() ){
+			add_filter( 'caldera_forms_mailer', array( $this, 'mailer' ), 99, 4 );
+			add_filter( 'caldera_forms_ajax_return', array( $this, 'add_pdf_link_ajax' ), 10, 2 );
+			add_filter( 'caldera_forms_render_notices', array( $this, 'add_pdf_link_not_ajax' ), 10, 2 );
+			add_filter( 'caldera_forms_autoresponse_mail', array( $this, 'auto_responder' ), 99, 4 );
+		}
+
 		add_action( pdf::CRON_ACTION, array( $this, 'delete_file' ) );
 
 	}
 
 	/**
 	 * Remove hooks needed for CF Pro
+	 *
+	 * @since 0.0.1
 	 */
 	public function remove_hooks(){
 		remove_filter( 'caldera_forms_mailer', array( $this, 'mailer' ), 10 );
