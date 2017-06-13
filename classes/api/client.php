@@ -45,7 +45,12 @@ class client extends api {
 					$saved_message = container::get_instance()->get_messages_db()->create( $body[ 'id' ], $body[ 'hash' ], $entry_id, $type );
 					return $saved_message;
 				} catch ( Exception $e ) {
-					return new \WP_Error( $e->getCode(), $e->getMessage() );
+					return $e->log( [
+						'type' => $type,
+						'entry_id' => $entry_id,
+						'send' => $send,
+						'method' => __METHOD__
+					] )->to_wp_error();
 				}
 
 			}

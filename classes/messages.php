@@ -112,14 +112,17 @@ class messages {
 	 *
 	 * @param int $id Message ID from app
 	 *
-	 * @return message
+	 * @return message|\WP_Error
 	 */
 	public function get_by_remote_id( $id ){
 		try{
 			$message = $this->get_by( 'cfp_id', $id );
 			return $message;
 		}catch ( Exception $e ){
-
+			return $e->log( [
+				'id' => $id,
+				'method' => __METHOD__
+			] )->to_wp_error();
 		}
 	}
 
@@ -130,14 +133,17 @@ class messages {
 	 *
 	 * @param int $id Message ID in local db
 	 *
-	 * @return message
+	 * @return message|\WP_Error
 	 */
 	public function get_by_local_id( $id ){
 		try{
 			$message = $this->get_by( 'ID', $id );
 			return $message;
 		}catch ( Exception $e ){
-
+			return $e->log( [
+				'id' => $id,
+				'method' => __METHOD__
+			] )->to_wp_error();
 		}
 	}
 
@@ -149,14 +155,18 @@ class messages {
 	 * @param int $id
 	 * @param string $type Optional The message type. Default is 'main'
  	 *
-	 * @return message
+	 * @return message|\WP_Error
 	 */
 	public function get_by_entry_id( $id, $type = 'main' ){
 		try{
 			$message = $this->get_by( 'entry_id', $id, $type  );
 			return $message;
 		}catch ( Exception $e ){
-
+			return $e->log( [
+				'id' => $id,
+				'type' => $type,
+				'method' => __METHOD__
+			] )->to_wp_error();
 		}
 	}
 

@@ -171,7 +171,7 @@ class hooks {
 
 		$entry_id = $out[ 'data' ][ 'cf_id' ];
 		$message = container::get_instance()->get_messages_db()->get_by_entry_id( $entry_id );
-		if( $message ) {
+		if( $message && ! is_wp_error( $message ) ) {
 			$link = $message->get_pdf_link();
 			if( filter_var( $link, FILTER_VALIDATE_URL ) ) {
 				$out[ 'html' ] .= caldera_forms_pro_link_html( $form, $link );
@@ -201,7 +201,7 @@ class hooks {
 		}
 		$entry_id = absint( $_GET[ 'cf_id' ] );
 		$message = container::get_instance()->get_messages_db()->get_by_entry_id( $entry_id );
-		if( $message ){
+		if( $message && ! is_wp_error( $message ) ) {
 			$link = $message->get_pdf_link();
 			if( filter_var( $link, FILTER_VALIDATE_URL ) ){
 

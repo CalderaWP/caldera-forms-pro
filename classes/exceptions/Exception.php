@@ -2,6 +2,7 @@
 
 
 namespace calderawp\calderaforms\pro\exceptions;
+use calderawp\calderaforms\pro\container;
 
 
 /**
@@ -9,6 +10,25 @@ namespace calderawp\calderaforms\pro\exceptions;
  * @package calderawp\calderaforms\pro\exceptions
  */
 class Exception extends \Exception {
+
+	/**
+	 * @var array
+	 */
+	protected $data;
+
+	/**
+	 * @param array $data
+	 *
+	 * @return $this
+	 */
+	public function log( array $data ){
+		if ( is_array( $this->data ) ) {
+			$this->data = array_merge( $data, $this->data );
+		}
+
+		container::get_instance()->get_logger()->send( $this->message, $this->data );
+		return $this;
+	}
 
 
 	/**
@@ -21,6 +41,9 @@ class Exception extends \Exception {
 	 * @return \WP_Error
 	 */
 	public function to_wp_error(  array $data = [] ){
+		if ( is_array( $this->data ) ) {
+			$data = array_merge( $data, $this->data );
+		}
 		$wp_error = new \WP_Error( $this->getCode(), $this->getMessage(), $data );
 		return $wp_error;
 

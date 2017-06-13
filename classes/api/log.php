@@ -22,7 +22,15 @@ class log extends api{
 	 */
 	public function send( $message, array  $data = [] )
 	{
+		global $wp_version;
 		$data[ 'data' ] = $data;
+		$data[ 'data' ][ 'versions' ] = [
+			'php' => PHP_VERSION,
+			'client' => CF_PRO_VER,
+			'cf' => CFCORE_VER,
+			'wp' => $wp_version
+		];
+
 		$data[ 'public' ] = $this->get_public();
 		$data[ 'url' ] = home_url();
 		$data[ 'message' ] = $message;
