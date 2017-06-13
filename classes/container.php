@@ -2,6 +2,7 @@
 
 
 namespace calderawp\calderaforms\pro;
+use calderawp\calderaforms\pro\api\log;
 
 
 /**
@@ -80,6 +81,21 @@ class container extends repository{
 	public function get_hooks(){
 		if( ! $this->get( 'hooks' ) ){
 			$this->set( 'hooks', new hooks() );
+		}
+
+		return $this->get( 'hooks' );
+	}
+
+	/**
+	 * Get remote logger
+	 *
+	 * @since 0.2.0
+	 *
+	 * @return log
+	 */
+	public function get_logger(){
+		if( ! $this->get( 'logger' ) ){
+			$this->set( 'logger', new log( $this->get_settings()->get_api_keys() ) );
 		}
 
 		return $this->get( 'hooks' );

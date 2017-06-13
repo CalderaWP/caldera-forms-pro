@@ -15,29 +15,9 @@ use calderawp\calderaforms\pro\exceptions\Exception;
  *
  * @package calderawp\calderaforms\pro
  */
-class client {
+class client extends api {
 
 
-	/**
-	 * API keys
-	 *
-	 * @since 0.0.1
-	 *
-	 * @var keys
-	 */
-	protected  $keys;
-
-	/**
-	 * client constructor.
-	 *
-	 * @since 0.0.1
-	 *
-	 * @param keys $keys API keys
-	 */
-	public function __construct( keys $keys )
-	{
-		$this->keys = $keys;
-	}
 
 
 	/**
@@ -133,38 +113,24 @@ class client {
 
 	}
 
+
+
 	/**
-	 * Make remote request
-	 *
-	 * @since 0.0.1
-	 *
-	 * @param string $endpoint Endpoint to use
-	 * @param array $data Request data to be sent as body or query string for GET.
-	 * @param string $method Optional. HTTP request method. Default is "GET"
-	 *
-	 * @return array|\WP_Error
+	 * @inheritdoc
 	 */
-	protected function request( $endpoint, $data, $method = 'GET' ){
-		$url = caldera_forms_pro_app_url()  . $endpoint;
+	protected function set_request_args( $method )
+	{
 		$args = array(
 			'headers' => array(
-				'X-CS-TOKEN' => $this->keys->get_token(),
-				'X-CS-PUBLIC' => $this->keys->get_public(),
+				'X-CS-TOKEN'   => $this->keys->get_token(),
+				'X-CS-PUBLIC'  => $this->keys->get_public(),
 				'content-type' => 'application/json'
 
 			),
-			'method' => $method
+			'method'  => $method
 		);
 
-		if( 'GET' == $method ){
-			$url = add_query_arg( $data, $url );
-		}else{
-			$args[ 'body' ] = wp_json_encode( $data );
-		}
-
-		$request = wp_remote_request( $url, $args );
-		return $request;
-
+		return $args;
 	}
 
 }
