@@ -34,7 +34,7 @@ class log extends api{
 		$data[ 'public' ] = $this->get_public();
 		$data[ 'url' ] = home_url();
 		$data[ 'message' ] = $message;
-		return $this->request( '/log/client', $data );
+		return $this->request( '/log/client', $data, 'POST' );
 	}
 
 	/** @inheritdoc */
