@@ -98,6 +98,6 @@ class container extends repository{
 			$this->set( 'logger', new log( $this->get_settings()->get_api_keys() ) );
 		}
 
-		return $this->get( 'hooks' );
+		return $this->get( 'logger' );
 	}
 }
