@@ -20,8 +20,11 @@ class log extends api{
 	 *
 	 * @return array|\WP_Error
 	 */
-	public function send( $message, array  $data = [] )
-	{
+	public function send( $message,  $data = [] ){
+		if( ! is_array( $data ) ){
+			$data = [];
+		}
+
 		global $wp_version;
 		$data[ 'data' ] = $data;
 		$data[ 'data' ][ 'versions' ] = [
@@ -38,8 +41,7 @@ class log extends api{
 	}
 
 	/** @inheritdoc */
-	protected function set_request_args( $method )
-	{
+	protected function set_request_args( $method ){
 		$args = array(
 			'headers' => array(
 				'X-CS-PUBLIC'  => $this->get_public(),
@@ -59,8 +61,7 @@ class log extends api{
 	 *
 	 * @return int|string
 	 */
-	protected function get_public()
-	{
+	protected function get_public(){
 		$public = $this->keys->get_public();
 		if( ! empty( $public ) ){
 			return $public;
@@ -69,4 +70,5 @@ class log extends api{
 		return 0;
 
 	}
+
 }
