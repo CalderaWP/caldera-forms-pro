@@ -67,6 +67,9 @@ class send {
 			}
 		}
 
+		$message->entry_id = $entry_id;
+		$message->add_entry_data( $entry_id, \Caldera_Forms_Forms::get_form( $form_id ) );
+
 		$response = self::send_via_api( $message, $entry_id, $send );
 		return $response;
 

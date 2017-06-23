@@ -41,7 +41,9 @@ class message extends repository {
 		'cc',
 		'bcc',
 		'content',
-		'subject'
+		'subject',
+		'entry_data',
+		'entry_id'
 	];
 
 	/**
@@ -161,7 +163,31 @@ class message extends repository {
 			}
 		}
 
+
 		return $array;
+	}
+
+
+	/**
+	 * Add entry data in the correct forms
+	 *
+	 * @since 0.3.0
+	 *
+	 * @param int $entry_id ID of entry
+	 * @param array $form Form Config
+	 */
+	public function add_entry_data( $entry_id, $form ){
+		$e = new \Caldera_Forms_Entry( $form, $entry_id );
+		$data = $e->get_entry()->to_array( false );
+		$data[ 'fields' ] = [];
+
+		/** @var \Caldera_Forms_Entry_Field $field */
+		foreach ( $e->get_fields() as $field ){
+			$data[ 'fields' ][ $field->field_id ] = $field->to_array( false );
+		}
+
+		$this->items[ 'entry_data' ] = $data;
+
 	}
 
 }

@@ -134,7 +134,8 @@ class hooks {
 		$message->content = $mail[ 'message' ];
 		$message->pdf_layout = $form_settings->get_pdf_layout();
 		$message->layout = $form_settings->get_layout();
-
+		$message->add_entry_data( $entry_id, $form );
+		$message->entry_id = $entry_id;
 		$sent = send::send_via_api( $message, $entry_id, $send_remote, 'auto' );
 		if( is_object( $sent ) && ! is_wp_error( $sent ) ){
 			if( $send_local ){
