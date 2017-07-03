@@ -195,18 +195,36 @@ add_action( 'init', function(){
 		include_once  __DIR__ . '/updater.php';
 
 		$config = array(
-			'slug' => CF_PRO_BASENAME,
-			'proper_folder_name' => 'caldera-forms-pro', // this is the name of the folder your plugin lives in
-			'api_url' => 'https://api.github.com/repos/CalderaWP/caldera-forms-pro',
-			'raw_url' => 'https://raw.github.com/CalderaWP/caldera-forms-pro/master',
-			'github_url' => 'https://github.com/CalderaWP/caldera-forms-pro', // the GitHub url of your GitHub repo
-			'zip_url' => 'https://github.com/CalderaWP/caldera-forms-pro/archive/master.zip',
-			'sslverify' => true,
-			'requires' => '4.7',
-			'tested' => '4.8',
-			'readme' => 'README.md',
+			'slug'               => CF_PRO_BASENAME,
+			'proper_folder_name' => 'caldera-forms-pro',
+			// this is the name of the folder your plugin lives in
+			'api_url'            => 'https://api.github.com/repos/CalderaWP/caldera-forms-pro',
+			'raw_url'            => 'https://raw.github.com/CalderaWP/caldera-forms-pro/master',
+			'github_url'         => 'https://github.com/CalderaWP/caldera-forms-pro',
+			// the GitHub url of your GitHub repo
+			'zip_url'            => 'https://github.com/CalderaWP/caldera-forms-pro/archive/master.zip',
+			'sslverify'          => true,
+			'requires'           => '4.7',
+			'tested'             => '4.8',
+			'readme'             => 'README.md',
+			'version'            => '0.0.1'
 		);
 		new WP_GitHub_Updater($config);
 	}
 });
+
+
+/**
+ * Shim for boolval in PHP v5.5
+ *
+ * @since 0.3.1
+ */
+if ( ! function_exists( 'boolval' ) ) {
+	function boolval( $val ){
+		return (bool) $val;
+
+	}
+
+}
+
 
