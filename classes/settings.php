@@ -256,11 +256,7 @@ class settings  extends repository{
 	 * @return bool
 	 */
 	public function send_remote(){
-		if ( 'apex' === $this->get_plan() ) {
-			return $this->get_enhanced_delivery();
-		}
-
-		return false;
+		return $this->get_enhanced_delivery();
 
 	}
 

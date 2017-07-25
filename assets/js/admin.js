@@ -226,7 +226,7 @@ jQuery(function ($) {
 				apiSecret: CF_PRO_ADMIN.settings.apiKeys.secret,
 				apiConnected: false,
 				loaded: false,
-				enhancedDeliveryAllowed: false,
+				enhancedDeliveryAllowed: true,
 				forms: CF_PRO_ADMIN.settings.forms,
 				layouts: [],
 				generatePDFs: false,
@@ -355,11 +355,7 @@ jQuery(function ($) {
 					_this3.loaded = true;
 					_this3.loading = false;
 					_this3.plan = r.plan;
-					if ('apex' == _this3.plan) {
-						_this3.enhancedDeliveryAllowed = true;
-					} else {
-						_this3.enhancedDeliveryAllowed = false;
-					}
+
 					_this3.getLayouts();
 					return _this3.update({
 						apiKey: _this3.apiKey,
