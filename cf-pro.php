@@ -1,7 +1,12 @@
 <?php
 /**
- Plugin Name: Caldera Forms Pro Client
-Version: 0.4.0
+ * Plugin Name: Caldera Forms Pro Client
+ *
+ * Plugin URI: https://CalderaForms.com/pro
+ * Description: Client plugin for the Caldera Forms Pro app.
+ * Author: Caldera Labs
+ * Author URI: http://CalderaLabs.org
+ * Version: 0.4.0
  */
 
 
