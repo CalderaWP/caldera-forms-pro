@@ -191,6 +191,17 @@ if( ! function_exists( 'caldera_forms_safe_explode' ) ){
  * @since 0.2.0
  */
 add_action( 'init', function(){
+	/**
+	 * Disable updater
+	 *
+	 * @since 0.4.0
+	 *
+	 * @param bool $disable Use __return_true to disable updates via Github
+	 */
+	if( apply_filters( 'caldera_forms_pro_disable_updater', false ) ){
+		return;
+	}
+
 	if ( is_admin() ) {
 		include_once  __DIR__ . '/updater.php';
 
@@ -207,7 +218,7 @@ add_action( 'init', function(){
 			'requires'           => '4.7',
 			'tested'             => '4.8',
 			'readme'             => 'README.md',
-			'version'            => '0.0.1'
+			'version'            => '0.4.0'
 		);
 		new WP_GitHub_Updater($config);
 	}
