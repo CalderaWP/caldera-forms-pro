@@ -181,10 +181,14 @@ class message extends repository {
 		$data = $e->get_entry()->to_array( false );
 		$data[ 'fields' ] = [];
 
-		/** @var \Caldera_Forms_Entry_Field $field */
-		foreach ( $e->get_fields() as $field ){
-			$data[ 'fields' ][ $field->field_id ] = $field->to_array( false );
+		$fields = $e->get_fields();
+		if( ! empty( $fields ) ){
+			/** @var \Caldera_Forms_Entry_Field $field */
+			foreach ( $fields as $field ){
+				$data[ 'fields' ][ $field->field_id ] = $field->to_array( false );
+			}
 		}
+
 
 		$this->items[ 'entry_data' ] = $data;
 
