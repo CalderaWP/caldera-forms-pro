@@ -19,10 +19,42 @@ class handler extends  AbstractHandler {
 	 */
 	public function handle( array $record)
 	{
+		$prepared = $this->prepare( $record );
+		$message = $record[ 'message' ];
+		$this->log_to_cf_pro( $message, $prepared );
+		$this->log_to_paper_trail( $message, $prepared );
+
+	}
+
+	/**
+	 * Log to CF Pro
+	 *
+	 * @since 0.5.0
+	 *
+	 * @param string $message
+	 * @param array $prepared
+	 */
+	protected function log_to_cf_pro( $message, array  $prepared ){
+
 		container::get_instance()->get_logger()->send(
-			$record[ 'message' ],
-			$this->prepare( $record )
+			$message,
+			$prepared
 		);
+
+	}
+
+	/**
+	 * Send to Papertrail
+	 *
+	 * @since 0.5.0
+	 *
+	 * @param string $message
+	 * @param array $prepared
+	 */
+	protected function log_to_paper_trail( $message, array  $prepared ){
+		$prepared[ 'message' ] = $message;
+		$prepared[ 'account_id' ] = container::get_instance()->get_settings()->get_account_id();
+		papertrail::log( $prepared );
 	}
 
 	/**
