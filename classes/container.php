@@ -100,4 +100,26 @@ class container extends repository{
 
 		return $this->get( 'logger' );
 	}
+
+	/**
+	 * Set main instance of Caldera_Forms_DB_Tables class
+	 *
+	 * @since 0.5.0
+	 *
+	 * @param \Caldera_Forms_DB_Tables $DB_Tables
+	 */
+	public function set_tables( \Caldera_Forms_DB_Tables $DB_Tables ){
+		$this->set( 'tables' , $DB_Tables );
+	}
+
+	/**
+	 * Get main instance of Caldera_Forms_DB_Tables class
+	 *
+	 * @since 0.5.0
+	 *
+	 * @return \Caldera_Forms_DB_Tables
+	 */
+	public function get_tables(){
+		return $this->get( 'tables' );
+	}
 }

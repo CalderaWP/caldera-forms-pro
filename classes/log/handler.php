@@ -57,6 +57,10 @@ class handler extends  AbstractHandler {
 			$prepared = array_merge( $prepared, $record[ 'extra' ] );
 		}
 
+		if( method_exists( 'Caldera_Forms_DB_Tables', 'get_missing_tables' ) && is_object( container::get_instance()->get_tables() ) ){
+			$prepared[ 'missing_tables' ] = container::get_instance()->get_tables()->get_missing_tables();
+		}
+
 		return $prepared;
 
 

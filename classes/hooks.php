@@ -33,6 +33,7 @@ class hooks {
 			add_filter( 'caldera_forms_render_notices', array( $this, 'add_pdf_link_not_ajax' ), 10, 2 );
 			add_filter( 'caldera_forms_autoresponse_mail', array( $this, 'auto_responder' ), 99, 4 );
 			add_action( 'caldera_forms_pro_loaded', array( $this, 'init_logger' ) );
+			add_action( 'caldera_forms_checked_tables', array( $this, 'capture_tables_object' ) );
 
 		}
 
@@ -275,9 +276,26 @@ class hooks {
 	 * Initialize remove logger
 	 *
 	 * @since 0.5.0
+	 *
+	 * @uses "
 	 */
 	public function init_logger(){
+		if( ! is_object( container::get_instance()->get_tables() ) ){
+			\Caldera_Forms::check_tables();
+		}
 		\Inpsyde\Wonolog\bootstrap( new \calderawp\calderaforms\pro\log\handler() );
+	}
 
+	/**
+	 * Caputure Caldera_Forms_DB_Tables object for reuse later
+	 *
+	 * @since 0.5.0
+	 *
+	 * @uses "caldera_forms_checked_tables"
+	 *
+	 * @param  \Caldera_Forms_DB_Tables $tables
+	 */
+	public function capture_tables_object( $tables ){
+		container::get_instance()->set_tables( $tables );
 	}
 }

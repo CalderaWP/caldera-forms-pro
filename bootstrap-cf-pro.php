@@ -23,8 +23,7 @@ add_action( 'caldera_forms_includes_complete', function(){
 	/**
 	 * Runs after Caldera Forms Pro is loaded
 	 *
-	 *
-	 *
+	 * @since 0.5.0
 	 */
 	do_action( 'caldera_forms_pro_loaded' );
 
