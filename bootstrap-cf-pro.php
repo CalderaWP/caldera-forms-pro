@@ -17,22 +17,17 @@ add_action( 'caldera_forms_includes_complete', function(){
 
 	include_once __DIR__ .'/vendor/autoload.php';
 
-	//init logger
-	\Inpsyde\Wonolog\bootstrap( new \calderawp\calderaforms\pro\log\handler() );
-
 	//add hooks
 	container::get_instance()->get_hooks()->add_hooks();
 
-	//add menu page
-	if ( is_admin() ) {
-		$slug       = 'cf-pro';
-		$assets_url = plugin_dir_url( __FILE__  ) . 'assets/';
-		$assets_dir = dirname( __FILE__ )  . '/assets/';
-		$scripts = new scripts( $assets_url, $slug, CF_PRO_VER );
-		add_action( 'admin_enqueue_scripts', [ $scripts, 'register_assets' ] );
-		$menu = new menu( $assets_dir . 'templates', $slug, $scripts);
-		add_action( 'admin_menu', [ $menu, 'display' ] );
-	}
+	/**
+	 * Runs after Caldera Forms Pro is loaded
+	 *
+	 *
+	 *
+	 */
+	do_action( 'caldera_forms_pro_loaded' );
+
 });
 
 

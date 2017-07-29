@@ -27,6 +27,13 @@ class active {
 	 * @return bool
 	 */
 	public static function get_status(){
+		/**
+		 * Override active status
+		 *
+		 * @since 0.2.0
+		 *
+		 * @param bool $status
+		 */
 		return (bool) apply_filters( 'caldera_forms_pro_is_active', get_option( self::$setting, false ) );
 	}
 

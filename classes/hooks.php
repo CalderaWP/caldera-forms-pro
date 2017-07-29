@@ -2,6 +2,8 @@
 
 
 namespace calderawp\calderaforms\pro;
+use calderawp\calderaforms\pro\admin\menu;
+use calderawp\calderaforms\pro\admin\scripts;
 use calderawp\calderaforms\pro\api\client;
 use calderawp\calderaforms\pro\api\local\settings;
 use calderawp\calderaforms\pro\api\message;
@@ -30,7 +32,11 @@ class hooks {
 			add_filter( 'caldera_forms_ajax_return', array( $this, 'add_pdf_link_ajax' ), 10, 2 );
 			add_filter( 'caldera_forms_render_notices', array( $this, 'add_pdf_link_not_ajax' ), 10, 2 );
 			add_filter( 'caldera_forms_autoresponse_mail', array( $this, 'auto_responder' ), 99, 4 );
+			add_action( 'caldera_forms_pro_loaded', array( $this, 'init_logger' ) );
+
 		}
+
+		add_action( 'caldera_forms_pro_loaded', array( $this, 'load_admin' ) );
 
 		add_action( pdf::CRON_ACTION, array( $this, 'delete_file' ) );
 
@@ -245,5 +251,33 @@ class hooks {
 	 */
 	public function delete_file( $file ){
 		unlink( $file );
+	}
+
+	/**
+	 * Initialize admin menu
+	 *
+	 * @since 0.5.0
+	 */
+	public function load_admin(){
+		//add menu page
+		if ( is_admin() ) {
+			$slug       = 'cf-pro';
+			$assets_url = plugin_dir_url( __FILE__  ) . 'assets/';
+			$assets_dir = dirname( __FILE__ )  . '/assets/';
+			$scripts = new scripts( $assets_url, $slug, CF_PRO_VER );
+			add_action( 'admin_enqueue_scripts', [ $scripts, 'register_assets' ] );
+			$menu = new menu( $assets_dir . 'templates', $slug, $scripts);
+			add_action( 'admin_menu', [ $menu, 'display' ] );
+		}
+	}
+
+	/**
+	 * Initialize remove logger
+	 *
+	 * @since 0.5.0
+	 */
+	public function init_logger(){
+		\Inpsyde\Wonolog\bootstrap( new \calderawp\calderaforms\pro\log\handler() );
+
 	}
 }
