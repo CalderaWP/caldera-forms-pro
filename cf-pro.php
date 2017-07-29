@@ -11,11 +11,11 @@
 
 
 
-if ( ! version_compare( PHP_VERSION, '5.4.0', '>=' ) ) {
+if ( ! version_compare( PHP_VERSION, '5.6.0', '>=' ) ) {
 	add_action( 'admin_notices', 'caldera_forms_pro_version_fail_warning' );
 	function caldera_forms_pro_version_fail_warning(){
 		$class = 'notice notice-error';
-		$message = __( 'Caldera Forms Pro could not be loaded because your PHP is out of date.', 'cf-pro' );
+		$message = __( 'Caldera Forms Pro could not be loaded because your PHP is out of date. Caldera Forms Pro requires PHP 5.6 or later.', 'cf-pro' );
 
 		printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), esc_html( $message ) );
 	}

@@ -18,7 +18,7 @@ add_action( 'caldera_forms_includes_complete', function(){
 	include_once __DIR__ .'/vendor/autoload.php';
 
 	//init logger
-	calderawp\calderaforms\pro\log\init::bootstrap();
+	\Inpsyde\Wonolog\bootstrap( new \calderawp\calderaforms\pro\log\handler() );
 
 	//add hooks
 	container::get_instance()->get_hooks()->add_hooks();
