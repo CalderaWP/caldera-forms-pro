@@ -34,11 +34,11 @@ class handler extends  AbstractHandler {
 	 *
 	 * @return array
 	 */
-	protected function prepare( array $record){
+	protected function prepare( array $record ){
 		$prepared = [];
 		$prepared[ 'location' ] = [
-			'file' => isset( $record[ 'file' ] ) ? $record[ 'file' ] : '',
-			'line' => isset( $record[ 'line' ] ) ? $record[ 'line' ] : '',
+			'file' => isset( $record[ 'context' ][ 'file' ] ) ?  $record[ 'context' ][ 'file' ] : '',
+			'line' => isset( $record[ 'context' ][ 'line' ] ) ? $record[ 'context' ][ 'line' ] : '',
 
 		];
 
@@ -52,6 +52,9 @@ class handler extends  AbstractHandler {
 			}
 
 
+		}
+		if( isset( $record[ 'extra' ] ) ){
+			$prepared = array_merge( $prepared, $record[ 'extra' ] );
 		}
 
 		return $prepared;
