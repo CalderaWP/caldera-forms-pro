@@ -15,6 +15,11 @@ add_action( 'caldera_forms_includes_complete', function(){
 		update_option( 'cf_pro_db_v', 1 );
 	}
 
+	include_once __DIR__ .'/vendor/autoload.php';
+
+	//init logger
+	calderawp\calderaforms\pro\log\init::bootstrap();
+
 	//add hooks
 	container::get_instance()->get_hooks()->add_hooks();
 
@@ -30,37 +35,6 @@ add_action( 'caldera_forms_includes_complete', function(){
 	}
 });
 
-/**
- * PSR-4 Autoloader for Caldera Forms Pro
- */
-spl_autoload_register(function ($class) {
-
-	// project-specific namespace prefix
-	$prefix = 'calderawp\\calderaforms\\pro';
-
-	// base directory for the namespace prefix
-	$base_dir = __DIR__ . '/classes/';
-
-	// does the class use the namespace prefix?
-	$len = strlen($prefix);
-	if (strncmp($prefix, $class, $len) !== 0) {
-		// no, move to the next registered autoloader
-		return;
-	}
-
-	// get the relative class name
-	$relative_class = substr($class, $len);
-
-	// replace the namespace prefix with the base directory, replace namespace
-	// separators with directory separators in the relative class name, append
-	// with .php
-	$file = $base_dir . str_replace('\\', '/', $relative_class) . '.php';
-
-	// if the file exists, require it
-	if (file_exists($file)) {
-		require $file;
-	}
-});
 
 /**
  * Delete CF Pro DB Table
