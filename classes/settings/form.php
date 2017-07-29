@@ -54,6 +54,17 @@ class form extends json_arrayable {
 	protected $form_id;
 
 	/**
+	 * Form config
+	 *
+	 * Don't use directly, lazy-load with $this->get_form()
+	 *
+	 * @since 0.5.0
+	 *
+	 * @var array
+	 */
+	protected $form;
+
+	/**
 	 * form constructor.
 	 *
 	 * @since 0.0.1
@@ -134,7 +145,7 @@ class form extends json_arrayable {
 			}
 		}
 		$array[ 'form_id' ] = $this->form_id;
-		$array[ 'name' ] = \Caldera_Forms::get_form( $this->form_id )[ 'name' ];
+		$array[ 'name' ] = $this->get_name();
 		return $array;
 	}
 
@@ -261,7 +272,8 @@ class form extends json_arrayable {
 	 * @return string
 	 */
 	public function get_name(){
-		return \Caldera_Forms::get_form( $this->form_id )[ 'name' ];
+		$form = $this->get_form();
+		return isset( $form[ 'name' ] ) ? $form[ 'name' ] : $form[ 'ID'  ];
 	}
 
 	/**
@@ -325,4 +337,17 @@ class form extends json_arrayable {
 		return '_cf_pro_' . $this->form_id;
 	}
 
+	/**
+	 * Getter for from property, acts as lazy-loader
+	 *
+	 * @since 0.5.0
+	 *
+	 * @return array
+	 */
+	protected function get_form(){
+		if( empty( $this->form ) ){
+			$this->form = \Caldera_Forms_Forms::get_form( $this->form_id );
+		}
+		return $this->form;
+	}
 }
