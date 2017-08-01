@@ -37,7 +37,6 @@ class hooks {
 
 		}
 
-		add_action( 'caldera_forms_pro_loaded', array( $this, 'load_admin' ) );
 
 		add_action( pdf::CRON_ACTION, array( $this, 'delete_file' ) );
 
@@ -255,24 +254,6 @@ class hooks {
 	}
 
 	/**
-	 * Initialize admin menu
-	 *
-	 * @since 0.5.0
-	 */
-	public function load_admin(){
-		//add menu page
-		if ( is_admin() ) {
-			$slug       = 'cf-pro';
-			$assets_url = plugin_dir_url( __FILE__  ) . 'assets/';
-			$assets_dir = dirname( __FILE__ )  . '/assets/';
-			$scripts = new scripts( $assets_url, $slug, CF_PRO_VER );
-			add_action( 'admin_enqueue_scripts', [ $scripts, 'register_assets' ] );
-			$menu = new menu( $assets_dir . 'templates', $slug, $scripts);
-			add_action( 'admin_menu', [ $menu, 'display' ] );
-		}
-	}
-
-	/**
 	 * Initialize remove logger
 	 *
 	 * @since 0.5.0
@@ -280,6 +261,17 @@ class hooks {
 	 * @uses "
 	 */
 	public function init_logger(){
+		/**
+		 * Filter to disable Caldera Forms Pro log mode
+		 *
+		 * @since 0.6.0
+		 *
+		 * @param bool $param $use
+		 */
+		$use = apply_filters( 'caldera_forms_pro_log_mode', false );
+		if( ! $use ){
+			return;
+		}
 		if( ! is_object( container::get_instance()->get_tables() ) ){
 			\Caldera_Forms::check_tables();
 		}
