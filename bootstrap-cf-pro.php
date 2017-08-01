@@ -197,7 +197,7 @@ add_action( 'init', function(){
 			'requires'           => '4.7',
 			'tested'             => '4.8',
 			'readme'             => 'README.md',
-			'version'            => '0.4.0'
+			'version'            => '0.5.0'
 		);
 		new WP_GitHub_Updater($config);
 	}
