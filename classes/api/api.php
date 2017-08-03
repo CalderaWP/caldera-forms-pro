@@ -50,7 +50,6 @@ abstract class api {
 		}else{
 			$args[ 'body' ] = wp_json_encode( $data );
 		}
-var_dump( $url );
 		$request = wp_remote_request( $url, $args );
 		return $request;
 
