@@ -56,7 +56,7 @@ class log extends api{
 	protected function set_request_args( $method )
 	{
 		$args              = parent::set_request_args( $method );
-		$args[ 'timeout' ] = 1;
+		$args[ 'blocking' ] = false;
 		return $args;
 	}
 
