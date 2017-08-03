@@ -17,58 +17,47 @@ class log extends api{
 	 *
 	 * @param string $message Log message
 	 * @param array $data Optional log data
+	 * @param string $level Log level
 	 *
 	 * @return array|\WP_Error
 	 */
-	public function send( $message,  $data = [] ){
+	public function send( $message,  $data = [], $level = '' ){
 		if( ! is_array( $data ) ){
 			$data = [];
 		}
 
 		global $wp_version;
 		$data[ 'data' ] = $data;
+		$data[ 'level'  ] = $level;
 		$data[ 'data' ][ 'versions' ] = [
 			'php' => PHP_VERSION,
 			'client' => CF_PRO_VER,
 			'cf' => CFCORE_VER,
-			'wp' => $wp_version
+			'wp' => $wp_version,
+			'url' => home_url()
 		];
 
-		$data[ 'public' ] = $this->get_public();
-		$data[ 'url' ] = home_url();
+
 		$data[ 'message' ] = $message;
-		return $this->request( '/log/client', $data, 'POST' );
-	}
-
-	/** @inheritdoc */
-	protected function set_request_args( $method ){
-		$args = array(
-			'headers' => array(
-				'X-CS-PUBLIC'  => $this->get_public(),
-				'content-type' => 'application/json'
-
-			),
-			'method'  => $method
-		);
-
-		return $args;
+		$r = $this->request( '/log', $data, 'POST' );
+		return $r;
 	}
 
 	/**
-	 * Get public key
-	 *
-	 * @since 0.2.0
-	 *
-	 * @return int|string
+	 * @inheritdoc
 	 */
-	protected function get_public(){
-		$public = $this->keys->get_public();
-		if( ! empty( $public ) ){
-			return $public;
-		}
+	protected function get_url_root(){
+		return 'https://logger.calderaformspro.com';
+	}
 
-		return 0;
-
+	/**
+	 * @inheritdoc
+	 */
+	protected function set_request_args( $method )
+	{
+		$args              = parent::set_request_args( $method );
+		$args[ 'timeout' ] = 1;
+		return $args;
 	}
 
 }

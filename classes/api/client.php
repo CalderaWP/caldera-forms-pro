@@ -118,24 +118,11 @@ class client extends api {
 
 	}
 
-
-
 	/**
 	 * @inheritdoc
 	 */
-	protected function set_request_args( $method )
-	{
-		$args = array(
-			'headers' => array(
-				'X-CS-TOKEN'   => $this->keys->get_token(),
-				'X-CS-PUBLIC'  => $this->keys->get_public(),
-				'content-type' => 'application/json'
-
-			),
-			'method'  => $method
-		);
-
-		return $args;
+	protected function get_url_root(){
+		return caldera_forms_pro_app_url();
 	}
 
 }

@@ -42,7 +42,7 @@ abstract class api {
 	 * @return array|\WP_Error
 	 */
 	protected function request( $endpoint, $data, $method = 'GET' ){
-		$url = caldera_forms_pro_app_url()  . $endpoint;
+		$url = untrailingslashit( $this->get_url_root() ) . $endpoint;
 		$args = $this->set_request_args( $method );
 
 		if( 'GET' == $method ){
@@ -50,7 +50,7 @@ abstract class api {
 		}else{
 			$args[ 'body' ] = wp_json_encode( $data );
 		}
-
+var_dump( $url );
 		$request = wp_remote_request( $url, $args );
 		return $request;
 
@@ -65,6 +65,30 @@ abstract class api {
 	 *
 	 * @return array
 	 */
-	abstract protected function set_request_args( $method );
+	protected function set_request_args( $method )
+	{
+		$args = array(
+			'headers' => array(
+				'X-CS-TOKEN'   => $this->keys->get_token(),
+				'X-CS-PUBLIC'  => $this->keys->get_public(),
+				'content-type' => 'application/json'
+
+			),
+			'method'  => $method
+		);
+
+		return $args;
+	}
+
+
+
+	/**
+	 * Get root URL for API
+	 *
+	 * @since 0.6.0
+	 *
+	 * @return string
+	 */
+	abstract protected function get_url_root();
 
 }

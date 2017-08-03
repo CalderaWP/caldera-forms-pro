@@ -268,7 +268,7 @@ class hooks {
 		 *
 		 * @param bool $param $use
 		 */
-		$use = apply_filters( 'caldera_forms_pro_log_mode', false );
+		$use = apply_filters( 'caldera_forms_pro_log_mode', true );
 		if( ! $use ){
 			return;
 		}
@@ -276,6 +276,7 @@ class hooks {
 			\Caldera_Forms::check_tables();
 		}
 		\Inpsyde\Wonolog\bootstrap( new \calderawp\calderaforms\pro\log\handler() );
+
 	}
 
 	/**
