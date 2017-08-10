@@ -86,6 +86,8 @@ function caldera_forms_pro_db_delta_1(){
 /**
  * Get the URL for the Caldera Forms Pro App
  *
+ * @since 0.0.1
+ *
  * @return string
  */
 function caldera_forms_pro_app_url(){
@@ -109,6 +111,30 @@ function caldera_forms_pro_app_url(){
 	 */
 	return untrailingslashit( apply_filters( 'caldera_forms_pro_app_url', CF_PRO_APP_URL ) );
 }
+
+
+/**
+ * Get the URL for the Caldera Forms Pro log app
+ *
+ * @since 0.7.0
+ *
+ * @return string
+ */
+function caldera_forms_pro_log_url(){
+
+	/**
+	 * Filter URL for Caldera Forms Pro log app
+	 *
+	 * Useful for local dev or running your own instance of app
+	 *
+	 * @since 0.7.0
+	 *
+	 * @param string $url The root URL for app
+	 */
+	return untrailingslashit( apply_filters( 'caldera_forms_pro_log_url', 'https://logger.calderaformspro.com' ) );
+
+}
+
 
 
 /**
@@ -197,7 +223,7 @@ add_action( 'init', function(){
 			'requires'           => '4.7',
 			'tested'             => '4.8',
 			'readme'             => 'README.md',
-			'version'            => '0.6.1'
+			'version'            => '0.7.0'
 		);
 		new WP_GitHub_Updater($config);
 	}

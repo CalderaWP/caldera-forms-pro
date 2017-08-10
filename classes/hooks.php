@@ -276,7 +276,9 @@ class hooks {
 			\Caldera_Forms::check_tables();
 		}
 		\Inpsyde\Wonolog\bootstrap( new \calderawp\calderaforms\pro\log\handler() );
-
+		add_action( 'wp_footer', [ $this, 'log_js' ] );
+		add_action( 'caldera_forms_edit_end', [ $this, 'log_js' ] );
+		add_action( 'caldera_forms_admin_footer', [ $this, 'log_js' ] );
 	}
 
 	/**
@@ -290,5 +292,43 @@ class hooks {
 	 */
 	public function capture_tables_object( $tables ){
 		container::get_instance()->set_tables( $tables );
+	}
+
+	public function log_js(){
+		$keys = container::get_instance()->get_settings()->get_api_keys();
+
+		$public = $keys->get_public();
+		if( empty( $public ) ){
+			return;
+		}
+		$token = $keys->get_token();
+		$url = caldera_forms_pro_log_url();
+		if( ! is_ssl() ){
+			$url = str_replace( 'https', 'http', $url );
+		}
+		$url .= '/log';
+
+		?>
+		<script>
+			window.onerror = function(message, url, lineNumber) {
+				jQuery.post({
+					crossOrigin: true,
+					url: "<?php echo ( $url ); ?>",
+					data: {
+						message: message,
+						data: {
+							line: lineNumber,
+							url: url
+						}
+					},
+					beforeSend: function (xhr) {
+						xhr.setRequestHeader( 'X-CS-PUBLIC', '<?php echo $public; ?>' );
+						xhr.setRequestHeader( 'X-CS-TOKEN', '<?php echo $token; ?>' );
+					}
+				} );
+				return true;
+			};
+		</script>
+		<?php
 	}
 }

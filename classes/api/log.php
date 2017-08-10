@@ -47,7 +47,7 @@ class log extends api{
 	 * @inheritdoc
 	 */
 	protected function get_url_root(){
-		return 'https://logger.calderaformspro.com';
+		return caldera_forms_pro_log_url();
 	}
 
 	/**
