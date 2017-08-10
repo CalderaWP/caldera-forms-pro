@@ -196,7 +196,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 										:label="'<?php esc_attr_e( 'Attach PDF ', 'caldera-forms-pro' ); ?>'"
 									></checkbox-setting>
 								</td>
-								<td>
+								
 								<td>
 									<checkbox-setting
 										:form="form" :setting="'pdf_link'"
