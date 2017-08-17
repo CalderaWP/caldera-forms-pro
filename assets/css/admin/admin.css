@@ -221,3 +221,8 @@ table  tbody{
 #cf-pro-message-top-right .inside .cf-alert {
     display: inherit;
 }
+
+.caldera-config-field select, #cf-pro-message-form .table input[type=checkbox] { 
+    display: flex;
+    margin: 0 auto;
+}

@@ -19,3 +19,4 @@
 #cf-pro-message-top-left,#cf-pro-message-top-right{width:50%;display:inline;float:left}
 #cf-pro-message-top-right .postbox h2{padding:8px 12px;margin:0;line-height:1.4;border-bottom:1px solid #f1f1f1}
 #cf-pro-message-top-right .postbox p{margin-left:8px}#cf-pro-message-top-right .inside .cf-alert{display:inherit}
+.caldera-config-field select,#cf-pro-message-form .table input[type=checkbox]{display:flex;margin:0 auto}
