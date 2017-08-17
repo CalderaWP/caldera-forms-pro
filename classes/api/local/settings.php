@@ -114,8 +114,8 @@ class settings implements \Caldera_Forms_API_Route {
 			$settings->set_plan( $request[ 'plan' ] );
 		}
 
-		if( false === $request[ 'enhancedDelivery' ]  ){
-			$settings->set_enhanced_delivery( 'false' );
+		if( false === $request[ 'enhancedDelivery' ] || 'false' === $request[ 'enhancedDelivery' ]  ){
+			$settings->set_enhanced_delivery( false );
 		}
 
 		if( true === $request[ 'enhancedDelivery' ]  ){
