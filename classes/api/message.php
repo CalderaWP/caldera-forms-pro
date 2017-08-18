@@ -97,6 +97,7 @@ class message extends repository {
 				throw new Exception( 'Must use add_recpient for to/reply/cc/bcc');
 
  			}
+
 			$this->items[ $key ] = $value;
 		}
 

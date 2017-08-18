@@ -81,7 +81,7 @@ class hooks {
 		$send_remote = ! $send_local;
 		$message = send::main_mailer( $mail, $entry_id, $form [ 'ID' ], $send_remote );
 		if ( is_object( $message ) && ! is_wp_error( $message ) ) {
-			if (  $form_settings->should_attatch_pdf() ) {
+			if ( $send_local &&  $form_settings->should_attatch_pdf() ) {
 				$mail = send::attatch_pdf( $message, $mail );
 			}
 		}else{

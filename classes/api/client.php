@@ -49,7 +49,8 @@ class client extends api {
 						'type' => $type,
 						'entry_id' => $entry_id,
 						'send' => $send,
-						'method' => __METHOD__
+						'method' => __METHOD__,
+						'pdf' => $message->pdf
 					] )->to_wp_error();
 				}
 

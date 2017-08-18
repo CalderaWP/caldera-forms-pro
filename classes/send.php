@@ -67,6 +67,10 @@ class send {
 			}
 		}
 
+		if( $form_settings->should_attatch_pdf() ){
+			$message->pdf = true;
+		}
+
 		$message->entry_id = $entry_id;
 		$message->add_entry_data( $entry_id, \Caldera_Forms_Forms::get_form( $form_id ) );
 
