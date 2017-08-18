@@ -116,7 +116,7 @@ function caldera_forms_pro_app_url(){
 /**
  * Get the URL for the Caldera Forms Pro log app
  *
- * @since 0.7.0
+ * @since 0.8.0
  *
  * @return string
  */
@@ -127,7 +127,7 @@ function caldera_forms_pro_log_url(){
 	 *
 	 * Useful for local dev or running your own instance of app
 	 *
-	 * @since 0.7.0
+	 * @since 0.8.0
 	 *
 	 * @param string $url The root URL for app
 	 */
@@ -223,7 +223,7 @@ add_action( 'init', function(){
 			'requires'           => '4.7',
 			'tested'             => '4.8',
 			'readme'             => 'README.md',
-			'version'            => '0.7.0'
+			'version'            => '0.8.0'
 		);
 		new WP_GitHub_Updater($config);
 	}
