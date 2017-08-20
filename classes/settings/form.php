@@ -126,7 +126,7 @@ class form extends json_arrayable {
 	 * @since 0.0.1
 	 */
 	public function save(){
-		update_option( $this->option_key(), $this->toArray() );
+		update_option( $this->option_key(), $this->toArray(), 'no' );
 
 	}
 
