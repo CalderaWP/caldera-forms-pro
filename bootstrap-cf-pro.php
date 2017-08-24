@@ -8,11 +8,18 @@ use \calderawp\calderaforms\pro\admin\menu;
  * @since 0.0.1
  */
 add_action( 'caldera_forms_includes_complete', function(){
+	$db_ver_option = 'cf_pro_db_v';
 	//add database table if needed
-	if( 1 > get_option( 'cf_pro_db_v', 0 ) ){
+	if( 1 > get_option( $db_ver_option, 0 ) ){
 		caldera_forms_pro_drop_tables();
 		caldera_forms_pro_db_delta_1();
-		update_option( 'cf_pro_db_v', 1 );
+		//set to 2 to skip autload disable on new installs
+		update_option( $db_ver_option, 2 );
+	}
+
+	if( 2 > get_option( $db_ver_option, 0 ) ){
+		caldera_forms_pro_db_delta_2();
+		update_option( $db_ver_option, 2 );
 	}
 
 	include_once __DIR__ .'/vendor/autoload.php';
@@ -80,6 +87,30 @@ function caldera_forms_pro_db_delta_1(){
 
 	dbDelta( $table );
 
+
+}
+
+
+/**
+ * Rewrite the options to not autoload
+ *
+ * @since 0.8.1
+ */
+function caldera_forms_pro_db_delta_2(){
+
+	$forms = Caldera_Forms_Forms::get_forms(false);
+	if( ! empty( $forms ) ){
+		array_walk( $forms, function( $id ){
+			return '_cf_pro_' . caldera_forms_very_safe_string( $id );
+		});
+		//set options storage to be not autoloaded
+		$where = '`option_name` = "' . implode( '" OR `option_name` = "', array_keys( $forms ) ) . '"';
+
+		global $wpdb;
+		$sql = sprintf( "UPDATE `%s` SET `autoload`='no' WHERE %s", $wpdb->options, $where );
+		$wpdb->get_results( $sql  );
+
+	}
 
 }
 
