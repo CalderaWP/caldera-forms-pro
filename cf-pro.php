@@ -6,7 +6,7 @@
  * Description: Client plugin for the Caldera Forms Pro app.
  * Author: Caldera Labs
  * Author URI: http://CalderaLabs.org
- * Version: 0.8.0
+ * Version: 0.9.0
  */
 
 
@@ -34,7 +34,7 @@ if ( ! version_compare( PHP_VERSION, '5.6.0', '>=' ) ) {
 		/**
 		 * Caldera Forms Pro Client Version
 		 */
-		define( 'CF_PRO_VER', '0.8.0' );
+		define( 'CF_PRO_VER', '0.9.0' );
 
 		include_once  dirname( __FILE__ ) . '/bootstrap-cf-pro.php';
 	}
