@@ -71,6 +71,11 @@ class send {
 			$message->pdf = true;
 		}
 
+		if( isset( $mail[ 'attachments' ] ) && ! empty( $mail[ 'attachments'])){
+			foreach ( $mail[ 'attachments'] as $attachment ) {
+				$message = $message->add_attachment( $attachment );
+			}
+		}
 		$message->entry_id = $entry_id;
 		$message->add_entry_data( $entry_id, \Caldera_Forms_Forms::get_form( $form_id ) );
 

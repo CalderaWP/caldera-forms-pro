@@ -5,6 +5,7 @@ namespace calderawp\calderaforms\pro;
 use calderawp\calderaforms\pro\admin\menu;
 use calderawp\calderaforms\pro\admin\scripts;
 use calderawp\calderaforms\pro\api\client;
+use calderawp\calderaforms\pro\api\local\files;
 use calderawp\calderaforms\pro\api\local\settings;
 use calderawp\calderaforms\pro\api\message;
 use calderawp\calderaforms\pro\settings\active;
@@ -34,6 +35,8 @@ class hooks {
 			add_filter( 'caldera_forms_autoresponse_mail', array( $this, 'auto_responder' ), 99, 4 );
 			add_action( 'caldera_forms_pro_loaded', array( $this, 'init_logger' ) );
 			add_action( 'caldera_forms_checked_tables', array( $this, 'capture_tables_object' ) );
+			add_action( 'caldera_forms_rest_api_pre_init', array( $this, 'init_file_api' ) );
+
 
 		}
 
@@ -238,6 +241,19 @@ class hooks {
 	 */
 	public function init_api( $api ){
 		$api->add_route( new settings() );
+	}
+
+	/**
+	 * Sets up CF REST API endpoint for files
+	 *
+	 * @since 0.9.0
+	 *
+	 * @uses "caldera_forms_rest_api_pre_init" action
+	 *
+	 * @param \Caldera_Forms_API_Load api
+	 */
+	public function init_file_api( $api ){
+		$api->add_route( new files() );
 	}
 
 	/**

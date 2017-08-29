@@ -260,6 +260,33 @@ add_action( 'init', function(){
 	}
 });
 
+/**
+ * Compare public key and token to saved keys
+ *
+ * @since 0.9.0
+ *
+ * @param string $public Public key to check
+ * @param string $token Token to check
+ *
+ * @return bool
+ */
+function caldera_forms_pro_compare_to_saved_keys( $public, $token ){
+	$settings = container::get_instance()->get_settings();
+	return hash_equals( $public, $settings->get_api_keys()->get_public() ) && hash_equals( $settings->get_api_keys()->get_token(), $token );
+}
+
+/**
+ * Create the URL for file request endpoints
+ *
+ * @since 0.9.0
+ *
+ * @param string $path File path
+ *
+ * @return string
+ */
+function caldera_forms_pro_file_request_url( $path ){
+	return add_query_arg( 'file', urlencode( $path ), Caldera_Forms_API_Util::url( 'pro/file' ) );
+}
 
 /**
  * Shim for boolval in PHP v5.5
@@ -273,5 +300,6 @@ if ( ! function_exists( 'boolval' ) ) {
 	}
 
 }
+
 
 
