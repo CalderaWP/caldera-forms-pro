@@ -187,8 +187,7 @@ class client extends api {
 	 *
 	 * @return bool
 	 */
-	protected function _delete_message(  $cfp_id )
-	{
+	protected function _delete_message(  $cfp_id ){
 		$response = $this->request( sprintf( '/message/%d', $cfp_id ), [ ], 'DELETE' );
 		if ( ! is_wp_error( $response ) && 201 == wp_remote_retrieve_response_code( $response ) ) {
 			return true;
