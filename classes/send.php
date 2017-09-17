@@ -121,7 +121,7 @@ class send {
 	 * @return message|null|\WP_Error
 	 */
 	public static function send_via_api( \calderawp\calderaforms\pro\api\message $message, $entry_id, $send,  $type = 'main' ){
-		$client   = new client( container::get_instance()->get_settings()->get_api_keys() );
+		$client   = container::get_instance()->get_api_client();
 		$response = $client->create_message( $message, $send, $entry_id, $type );
 
 		return $response;
