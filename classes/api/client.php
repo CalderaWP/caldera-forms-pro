@@ -4,7 +4,6 @@
 namespace calderawp\calderaforms\pro\api;
 use calderawp\calderaforms\pro\container;
 use calderawp\calderaforms\pro\exceptions\Exception;
-use calderawp\calderaforms\pro\message;
 
 
 /**
@@ -32,7 +31,7 @@ class client extends api {
 	 * @param string $type Optional. The message type. Default is "main" Options: main|auto
 	 * @return \calderawp\calderaforms\pro\message|\WP_Error|null
 	 */
-	public function create_message( $message, $send, $entry_id, $type = 'main'  ){
+	public function create_message( \calderawp\calderaforms\pro\api\message $message, $send, $entry_id, $type = 'main'  ){
 		$data = $message->to_array();
 		if( $send ){
 			$data[ 'send' ] = true;
@@ -68,11 +67,11 @@ class client extends api {
 	/**
 	 * Delete a message
 	 *
-	 * @param message $message Message db objecte
+	 * @param \calderawp\calderaforms\pro\api\message $message Message db object
 	 *
 	 * @return bool
 	 */
-	public function delete_message( message $message ){
+	public function delete_message( \calderawp\calderaforms\pro\api\message $message ){
 		return $this->_delete_message( $message->get_cfp_id() );
 	}
 
