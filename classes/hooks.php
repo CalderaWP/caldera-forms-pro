@@ -294,11 +294,14 @@ class hooks {
 		\Inpsyde\Wonolog\bootstrap( new \calderawp\calderaforms\pro\log\handler() );
 		add_action( 'wp_footer', [ $this, 'log_js' ] );
 		add_action( 'caldera_forms_edit_end', [ $this, 'log_js' ] );
-		add_action( 'caldera_forms_admin_footer', [ $this, 'log_js' ] );
+		if (  ! is_ssl() ) {
+			add_action( 'caldera_forms_admin_footer', [ $this, 'log_js' ] );
+		}
+
 	}
 
 	/**
-	 * Caputure Caldera_Forms_DB_Tables object for reuse later
+	 * Capture Caldera_Forms_DB_Tables object for reuse later
 	 *
 	 * @since 0.5.0
 	 *
@@ -310,6 +313,11 @@ class hooks {
 		container::get_instance()->set_tables( $tables );
 	}
 
+	/**
+	 * Print the script to send console log errors to logger
+	 *
+	 * @since 0.5.0
+	 */
 	public function log_js(){
 		$keys = container::get_instance()->get_settings()->get_api_keys();
 
@@ -326,7 +334,8 @@ class hooks {
 
 		?>
 		<script>
-			window.onerror = function(message, url, lineNumber) {
+			window.onerror = function( message, url, lineNumber) {
+				console.log( message );
 				jQuery.post({
 					crossOrigin: true,
 					url: "<?php echo ( $url ); ?>",
@@ -344,6 +353,8 @@ class hooks {
 				} );
 				return true;
 			};
+
+
 		</script>
 		<?php
 	}
