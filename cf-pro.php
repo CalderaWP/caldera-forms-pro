@@ -6,7 +6,7 @@
  * Description: Client plugin for the Caldera Forms Pro app.
  * Author: Caldera Labs
  * Author URI: http://CalderaLabs.org
- * Version: 0.10.1
+ * Version: 0.11.0
  */
 
 
