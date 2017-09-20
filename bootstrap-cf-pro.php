@@ -13,7 +13,7 @@ add_action( 'caldera_forms_includes_complete', function(){
 	if( 1 > get_option( $db_ver_option, 0 ) ){
 		caldera_forms_pro_drop_tables();
 		caldera_forms_pro_db_delta_1();
-		//set to 2 to skip autload disable on new installs
+		//set to 2 to skip autoload disable on new installs
 		update_option( $db_ver_option, 2 );
 	}
 
@@ -301,5 +301,40 @@ if ( ! function_exists( 'boolval' ) ) {
 
 }
 
+/**
+ * Activation hook callback
+ *
+ * @since 0.11.0
+ */
+function caldera_forms_pro_activation_hook_callback(){
+	//make sure we have autoloader
+	include_once __DIR__ .'/vendor/autoload.php';
 
+	//delete old message tracking transient keys -- should only be one
+	$past_versions = get_option(  'cf_pro_past_versions', [] );
+	if( ! empty( $past_versions ) ){
+		foreach ( $past_versions as $i => $version ){
+			Caldera_Forms_Transient::delete_transient( caldera_forms_pro_log_tracker_key( $version ) );
+			unset( $past_versions[$i] );
+		}
+
+	}
+	$past_versions[] = CF_PRO_VER;
+
+	update_option( 'cf_pro_past_versions', $past_versions, 'no'  );
+
+}
+
+/**
+ * Get the name of the CF transient (not actual transient) used to track repeat log messages
+ *
+ * @since 0.11.0
+ *
+ * @param string $version Version number
+ *
+ * @return string
+ */
+function caldera_forms_pro_log_tracker_key( $version ){
+	return md5( __FUNCTION__ . $version );
+}
 
