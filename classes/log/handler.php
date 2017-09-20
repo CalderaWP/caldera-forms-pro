@@ -4,6 +4,7 @@
 namespace calderawp\calderaforms\pro\log;
 use calderawp\calderaforms\pro\container;
 use Monolog\Handler\AbstractHandler;
+use Monolog\Logger as Monolog;
 
 
 /**
@@ -36,14 +37,22 @@ class handler extends  AbstractHandler {
 	 */
 	public function handle( array $record )
 	{
+		$level = isset( $record[ 'level_name' ] ) ? $record[ 'level_name' ] : Monolog::NOTICE;
 
-		$prepared = $this->prepare( $record );
-		$level = isset( $record[ 'level_name' ] ) ? $record[ 'level_name' ] : 'NOTICE' ;
+		if( ! $this->high_enough_level( $level ) ){
+			return;
+		}
+
 		$message = isset( $record[ 'message' ] ) ? $record[ 'message' ] : '' ;
 
 		if( empty( $message ) || $this->is_recent_repeat( $message ) ){
 			return;
 		}
+
+
+
+		$prepared = $this->prepare( $record );
+
 
 		container::get_instance()->get_logger()->send(
 			$message,
@@ -53,6 +62,32 @@ class handler extends  AbstractHandler {
 
 	}
 
+	protected function high_enough_level( $level ){
+		$levels = Monolog::getLevels();
+		if (  array_key_exists( $level, $levels )  ) {
+			$level = array_search( $level, array_flip( $levels ) );
+
+		}else{
+			return true;
+		}
+
+		/**
+		 * Change the minimum level for a message to be logged at
+		 *
+		 * @since 0.11.0
+		 *
+		 */
+		$highest = apply_filters( 'caldera_forms_pro_minimum_level', Monolog::NOTICE );
+		if( ! is_numeric( $highest ) && array_key_exists( $highest, $levels ) ){
+			$highest = array_search( $highest, array_flip( $levels ) );
+
+		}
+		if( $highest > $level ){
+			return false;
+		}
+
+		return true;
+	}
 
 	/**
 	 * Prepare data to be sent to remote API
