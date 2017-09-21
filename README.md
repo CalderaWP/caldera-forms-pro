@@ -5,8 +5,8 @@ This is the plugin needed to conenct your WordPress site to [Caldera Forms Pro](
 Please note, this plugin requires:
 * Caldera Forms 1.5.1 or later
 * WordPress 4.7 or later
-* PHP 5.4 or later
+* PHP 5.6 or later
 
 **[Read the getting started guide](https://calderaforms.com/doc/caldera-forms-pro-getting-started?utm_source=github&utm_medium=caldera-forms-pro&utm_term=readme)**
 
-~Current Version:0.9.0~
+~Current Version:0.10.1~
