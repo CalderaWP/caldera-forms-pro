@@ -175,7 +175,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 										:layouts="layouts"
 										:form="form"
 										:setting="'layout'"
-										:disabled="'basic' == plan"
 									>
 									</layout-chooser>
 								</td>
@@ -186,7 +185,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 										:layouts="layouts"
 										:form="form"
 										:setting="'pdf_layout'"
-									    :disabled="'basic' == plan"
 									>
 									</layout-chooser>
 								</td>
