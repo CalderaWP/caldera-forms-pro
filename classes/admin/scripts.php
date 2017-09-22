@@ -44,15 +44,13 @@ class scripts {
 	public function register_assets(){
 		$vue_slug = \Caldera_Forms_Render_Assets::make_slug( 'vue' );
 		if(  \Caldera_Forms_Render_Assets::should_minify() ){
-			$js_url = $this->assets_url . 'js/main.min.js';
 			$css_url = $this->assets_url . 'css/admin.css';
 		}else {
-			$js_url  = $this->assets_url . 'js/main.js';
 			$css_url = $this->assets_url . 'css/admin/admin.css';
 		}
 		wp_register_style( $this->slug, $css_url, [ 'caldera-forms-admin-styles' ], $this->version );
-		wp_register_script( $this->slug . '-vendor', $this->assets_url , '/js/vendor.js', [], $this->version );
-		wp_register_script( $this->slug, $js_url, [
+		wp_register_script( $this->slug . '-vendor', $this->assets_url . '/vendor.js', [], $this->version );
+		wp_register_script( $this->slug, $this->assets_url . 'main.js', [
 			$vue_slug,
 			$this->slug . '-vendor',
 		], $this->version  );

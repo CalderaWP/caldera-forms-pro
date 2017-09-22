@@ -18,7 +18,7 @@
   "watch": {
     "build": {
       "patterns": [
-        "src",
+        "./assets/src",
         "test"
       ],
       "extensions": "js,jsx,scss,vue"
