@@ -5,7 +5,6 @@
 		</label>
 		<select
 				v-bind:id="idAttr(form.form_id)"
-				v-on:change="layoutChanged"
 				v-model="selected"
 				v-bind:disabled="disabled"
 		>
@@ -24,23 +23,28 @@
 			'disabled'
 		],
 		methods: {
-			layoutChanged: function(e) {
-				let selected = jQuery( e.target ).val();
-				this.$parent.$emit( 'layoutChosen', {
-					form: this.form.form_id,
-					selected: selected,
-					setting: this.setting
-				});
-
-			},
 			idAttr: function (formId) {
 				return 'cf-pro-choose-template-' + formId;
+			},
+			changed(v){
+				this.$parent.$emit( 'layoutChosen', {
+					form: this.form.form_id,
+					selected: v,
+					setting: this.setting
+				});
 			}
 		},
-		computed: {
-			selected(){
-				return this.form[this.setting];
+		data() {
+			return{
+				selected: this.form[this.setting]
+			}
+		},
+		watch: {
+			selected(v){
+				this.changed(v);
+				return v;
 			}
 		}
+
 	}
 </script>

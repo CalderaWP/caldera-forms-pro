@@ -6,4 +6,3 @@ new Vue({
   render: h => h(Settings)
 });
 
-console.log(CF_PRO_ADMIN);

@@ -8,12 +8,6 @@
 					Caldera Forms Pro: Message Settings
 				</span>
 					</li>
-					<li>
-						<button class="caldera-header-save-button button button-primary button-large"
-								id="cf-pro-save-header" v-on:click.prevent="save()">
-							Save
-						</button>
-					</li>
 					<li class="cf-pro-notice-wrap">
 						<status-indicator
 								:success="alert.success"

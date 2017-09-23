@@ -23,22 +23,25 @@
 			idAttr: function (formId) {
 				return 'cf-pro-' + this.setting + '-' + formId;
 			},
-			changed: function (e) {
-				let selected = $( e.target ).prop( 'checked' );
-				this.selected = selected;
+			changed: function (v) {
 				this.$parent.$emit( 'checkboxChanged', {
 					form: this.form.form_id,
 					setting: this.setting,
-					value: selected
+					value: v
 				});
 			}
 		},
-		computed: {
-			selected(){
-				let selected = this.form[this.setting];
-				return this.form[this.setting];
+		watch: {
+			selected(v){
+				this.changed(v);
+				return v;
 			}
-		}
+		},
+		data() {
+			return{
+				selected: this.form[this.setting]
+			}
+		},
 
 	}
 </script>
