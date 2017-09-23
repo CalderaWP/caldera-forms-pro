@@ -1,8 +1,11 @@
 <template>
 	<div class="caldera-config-field">
-		<label v-bind:for="idAttr(form.form_id)" class="screen-reader-text">
-			Choose Layout For {{setting}}
-		</label>
+		<cf-label
+				:idBase="form.form_id"
+				:setting="setting"
+				:label="label"
+		>
+		</cf-label>
 		<select
 				v-bind:id="idAttr(form.form_id)"
 				v-model="selected"
@@ -13,18 +16,33 @@
 			</option>
 		</select>
 	</div>
+
 </template>
 <script>
+	import Label from './Label.vue';
+	import  ucwords from 'locutus/php/strings/ucwords';
+	import  element from './element';
 	export default{
-		props: [
-			'form',
-			'layouts',
-			'setting',
-			'disabled'
-		],
+		props: element.generateProps(
+				[
+					'form',
+					'layouts',
+					'setting',
+				],
+				{
+
+					disabled: {
+						required: false,
+						default:false
+					}
+				}
+		),
+		components: {
+			'cf-label': Label
+		},
 		methods: {
-			idAttr: function (formId) {
-				return 'cf-pro-choose-template-' + formId;
+			idAttr: function (something) {
+				return something;
 			},
 			changed(v){
 				this.$parent.$emit( 'layoutChosen', {
@@ -36,7 +54,10 @@
 		},
 		data() {
 			return{
-				selected: this.form[this.setting]
+			//	settingUC: ucwords(setting),
+				selected: this.form[this.setting],
+				//@TODO Translations.
+				label: `Choose Layout For ${this.setting}`
 			}
 		},
 		watch: {

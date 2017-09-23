@@ -1,8 +1,12 @@
 <template>
 	<span>
-		<label v-bind:for="idAttr(form.form_id)" class="screen-reader-text">
-			{{label}}
-		</label>
+		<cf-label
+				:idBase="form.form_id"
+				:setting="setting"
+				:label="label"
+				:screenReader="true"
+		>
+		</cf-label>
 		<input
 				type="checkbox"
 				v-bind:id="idAttr(form.form_id)"
@@ -13,15 +17,23 @@
 	</span>
 </template>
 <script>
+	import Label from './Label.vue';
+	import element from './element';
 	export default {
-		props: [
-			'form',
-			'setting',
-			'label'
-		],
+		props : element.generateProps( [
+				'forms',
+				'setting',
+				'label'
+		]),
+		render: function (h) {
+			return createElement('h1', this.blogTitle)
+		},
+		components: {
+			'cf-label': Label
+		},
 		methods: {
-			idAttr: function (formId) {
-				return 'cf-pro-' + this.setting + '-' + formId;
+			idAttr: function (something) {
+				return something;
 			},
 			changed: function (v) {
 				this.$parent.$emit( 'checkboxChanged', {
