@@ -46,10 +46,23 @@ class menu {
 	 * @since 0.1.0
 	 */
 	public function render() {
-		$this->scripts->enqueue_assets();
+		$inline = \Caldera_Forms_Render_Util::create_cdata('var CF_PRO_ADMIN= ' . wp_json_encode( $this->scripts->data() ) . ';' );
+
 		ob_start();
-		include  $this->view_dir . '/message.php';
-		echo ob_get_clean();
+		include $this->view_dir . '/index.html';
+		$str = ob_get_clean();
+		foreach ( [
+			'styles',
+			'manifest',
+			'vendor',
+			'client'
+		] as $thing ){
+			$str = str_replace( '/' . $thing, $this->scripts->get_assets_url() . $thing, $str );
+		}
+		echo $inline .str_replace([
+			'<head>',
+			'</head>'
+		], '', $str );
 
 	}
 

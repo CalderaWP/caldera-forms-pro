@@ -27,11 +27,10 @@ add_action( 'caldera_forms_includes_complete', function(){
 	//add menu page
 	if ( is_admin() ) {
 		$slug       = 'cf-pro';
-		$assets_url = plugin_dir_url( __FILE__  ) . 'assets/';
-		$assets_dir = dirname( __FILE__ )  . '/assets/';
+		$assets_url = plugin_dir_url( __FILE__  ) . 'dist/';
 		$scripts = new scripts( $assets_url, $slug, CF_PRO_VER );
 		add_action( 'admin_enqueue_scripts', [ $scripts, 'register_assets' ] );
-		$menu = new menu( $assets_dir . 'templates', $slug, $scripts);
+		$menu = new menu( __DIR__ . '/dist', $slug, $scripts);
 		add_action( 'admin_menu', [ $menu, 'display' ] );
 	}
 

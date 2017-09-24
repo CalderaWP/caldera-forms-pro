@@ -1,13 +1,13 @@
 <template>
 	<div class="caldera-config-field">
 		<cf-label
-				:idBase="form.form_id"
+				:idBase="formId"
 				:setting="setting"
 				:label="label"
 		>
 		</cf-label>
 		<select
-				v-bind:id="idAttr(form.form_id)"
+				v-bind:id="idAttr(formId)"
 				v-model="selected"
 				v-bind:disabled="disabled"
 		>
@@ -25,12 +25,10 @@
 	export default{
 		props: element.generateProps(
 				[
-					'form',
-					'layouts',
+					'formId',
 					'setting',
 				],
 				{
-
 					disabled: {
 						required: false,
 						default:false
@@ -53,9 +51,16 @@
 			}
 		},
 		data() {
+			const form = this.state.getters.getFormById( this.formId );
+			if( ! this.formId ){
+				throw form;
+			}
+
 			return{
 			//	settingUC: ucwords(setting),
-				selected: this.form[this.setting],
+				selected(){
+					return this.$state.state.getters.getSetting( this.formId, this.setting )
+				},
 				//@TODO Translations.
 				label: `Choose Layout For ${this.setting}`
 			}

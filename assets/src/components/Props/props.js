@@ -4,6 +4,10 @@ const nonReqObj = {
 };
 
 module.exports =  {
+	formId: {
+		type: String,
+		required: true,
+	},
 	label : {
 		type: String,
 		required: true
@@ -20,6 +24,11 @@ module.exports =  {
 		type: Boolean,
 		default: false
 	},
-	form : nonReqObj,
+	form : {
+		type: Object,
+		default: {
+			form_id: 'pants'
+		}
+	},
 	layouts: nonReqObj
 };

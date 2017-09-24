@@ -34,6 +34,10 @@ class scripts {
 
 	}
 
+	public function get_assets_url(){
+		return $this->assets_url;
+	}
+
 	/**
 	 * Register assets
 	 *

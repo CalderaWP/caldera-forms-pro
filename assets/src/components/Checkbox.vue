@@ -1,7 +1,7 @@
 <template>
-	<span>
+	<div class="caldera-config-field">
 		<cf-label
-				:idBase="form.form_id"
+				:idBase="idBase"
 				:setting="setting"
 				:label="label"
 				:screenReader="true"
@@ -9,25 +9,23 @@
 		</cf-label>
 		<input
 				type="checkbox"
-				v-bind:id="idAttr(form.form_id)"
+				v-bind:id="idAttr()"
 				v-model="selected"
 				v-on:change="changed"
 				value="1"
 		/>
-	</span>
+	</div>
 </template>
 <script>
 	import Label from './Label.vue';
 	import element from './element';
 	export default {
 		props : element.generateProps( [
-				'forms',
+				'form',
 				'setting',
-				'label'
+				'label',
+
 		]),
-		render: function (h) {
-			return createElement('h1', this.blogTitle)
-		},
 		components: {
 			'cf-label': Label
 		},
@@ -51,7 +49,8 @@
 		},
 		data() {
 			return{
-				selected: this.form[this.setting]
+				//selected: this.$store.state.getSetting( this.form.form_id ),
+				idBase: this.form.form_id
 			}
 		},
 

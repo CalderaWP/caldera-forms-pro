@@ -39,6 +39,7 @@ if ( ! version_compare( PHP_VERSION, '5.6.0', '>=' ) ) {
 		include_once  dirname( __FILE__ ) . '/bootstrap-cf-pro.php';
 
 
+
 		register_activation_hook( __FILE__, 'caldera_forms_pro_activation_hook_callback' );
 
 	}
