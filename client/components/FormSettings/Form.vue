@@ -8,6 +8,7 @@
 				<select
 					v-bind:id="layoutIdAttr"
 					v-model="form.layout"
+					@change="changeLayout"
 				>
 					<option></option>
 					<option v-for="option in layouts" v-bind:value="option.id">
@@ -24,6 +25,7 @@
 					<select
 							v-bind:id="pdfLayoutIdAttr"
 							v-model="form.pdf_layout"
+							@change="changePDFLayout"
 					>
 						<option></option>
 						<option v-for="option in layouts" v-bind:value="option.id">
@@ -38,9 +40,10 @@
 			</label>
 			<div class="caldera-config-field">
 				<input
-						type="checkbox"
-						v-model="form.attach_pdf"
-						v-bind:id="attachPDFIdAttr"
+					type="checkbox"
+					v-model="form.attach_pdf"
+					v-bind:id="attachPDFIdAttr"
+					@change="changeAttachPDF"
 				/>
 			</div>
 		</div>
@@ -48,11 +51,12 @@
 			<label v-bind:for="attachPDFIdAttr">
 				Add PDF Link
 			</label>
-			<div class="caldera-config-group">
+			<div class="caldera-config-field">
 				<input
 					type="checkbox"
 					v-model="form.pdf_link"
 					v-bind:id="attachPDFIdAttr"
+					@change="changeLinkPDF"
 				/>
 			</div>
 		</div>
@@ -80,6 +84,24 @@
 			},
 			linkPDFIdAttr(){
 				return 'cf-pro-layout-' + this.form.form_id;
+			}
+		},
+		methods:{
+			commitChange(what,value){
+				this.form[what] = value;
+				this.$store.commit( 'form', this.form );
+			},
+			changeLayout(ev){
+				this.commitChange(ev.target.value,'layout');
+			},
+			changePDFLayout(ev){
+				this.commitChange(ev.target.value,'pdf_layout');
+			},
+			changeAttachPDF(ev){
+				this.commitChange(ev.target.value,'attach_pdf');
+			},
+			changeLinkPDF(ev){
+				this.commitChange(ev.target.value,'pdf_link');
 			}
 		}
 

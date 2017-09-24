@@ -12,7 +12,6 @@
 				:label="'Secret Key'"
 				:idAttr="'cf-pro-api-secret'"
 		/>
-		<button @click="save">Save</button>
 	</div>
 </template>
 <script>
@@ -27,11 +26,18 @@
 			publicKey: state => state.account.apiKeys.public,
 			secretKey: state => state.account.apiKeys.secret,
 		}),
+		watch: {
+			publicKey(){
+				this.save();
+			},
+			secretKey(){
+				this.save();
+			}
+		},
 		methods:{
 			save(){
 				this.$store.dispatch( 'saveAccount' );
 			}
 		}
-
 	}
 </script>

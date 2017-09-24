@@ -1,3 +1,4 @@
+
 export const MUTATIONS = {
 	publicKey (state,value) {
 		state.account.apiKeys.public = value;
@@ -27,6 +28,15 @@ export const MUTATIONS = {
 	},
 	layouts(state,value){
 		state.layouts = value;
+	},
+	form(state,value){
+		let index = state.forms.findIndex(form => form.form_id === value.form_id);
+		if( -1 < index ){
+			state.forms[index] = value;
+		}
+	},
+	enhancedDelivery(state,value){
+		state.settings.enhancedDelivery = value;
 	}
 };
 

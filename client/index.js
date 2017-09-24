@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import store from './store'
 import SettingsView from './views/Settings.vue';
+import {Tabs, Tab} from 'vue-tabs-component';
 
-import JSXAdaptor from 'vue-jsx-adaptor'
-
+Vue.component('tabs', Tabs);
+Vue.component('tab', Tab);
 
 const app = new Vue({
 	el: '#app',

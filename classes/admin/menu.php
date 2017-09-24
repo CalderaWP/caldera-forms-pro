@@ -47,7 +47,7 @@ class menu {
 	 */
 	public function render() {
 		$inline = \Caldera_Forms_Render_Util::create_cdata('var CF_PRO_ADMIN= ' . wp_json_encode( $this->scripts->data() ) . ';' );
-
+		wp_enqueue_style( \Caldera_Forms_Admin_Assets::slug( 'admin', false ), \Caldera_Forms_Render_Assets::make_url( 'admin', false ) );
 		ob_start();
 		include $this->view_dir . '/index.html';
 		$str = ob_get_clean();

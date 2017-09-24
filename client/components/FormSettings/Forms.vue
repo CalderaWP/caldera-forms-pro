@@ -1,24 +1,23 @@
 <template>
 	<div>
-		<div>
-			<div class="caldera-config-group">
-				<label v-bind:for="cf-pro-form-setting-chooser">
-					Choose Form
-				</label>
-				<div class="caldera-config-group">
-					<select
-						v-bind:id="cf-pro-form-setting-chooser"
-						v-model="editForm"
-					>
-						<option></option>
-						<option v-for="form in forms" v-bind:value="form.form_id">
-							{{ form.name }}
-						</option>
-					</select>
-				</div>
+		<div class="caldera-config-group">
+			<label v-bind:for="cf-pro-form-setting-chooser">
+				Choose Form
+			</label>
+			<div class="caldera-config-field">
+				<select
+					v-bind:id="cf-pro-form-setting-chooser"
+					v-model="editForm"
+				>
+					<option></option>
+					<option v-for="form in forms" v-bind:value="form.form_id">
+						{{ form.name }}
+					</option>
+				</select>
 			</div>
-
 		</div>
+
+
 		<div v-if="editForm">
 			<form-setting
 				:form="form"
