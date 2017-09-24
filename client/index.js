@@ -3,6 +3,7 @@ import store from './store'
 import SettingsView from './views/Settings.vue';
 import {Tabs, Tab} from 'vue-tabs-component';
 
+
 Vue.component('tabs', Tabs);
 Vue.component('tab', Tab);
 

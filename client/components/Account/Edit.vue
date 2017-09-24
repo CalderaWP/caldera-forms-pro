@@ -1,42 +1,61 @@
 <template>
 	<div id="cf-pro-account-edit">
-		<text-input
-				:value="publicKey"
-				:setting="'publicKey'"
-				:label="'Public Key'"
-				:idAttr="'cf-pro-api-public'"
-		/>
-		<text-input
-				:value="secretKey"
-				:setting="'secretKey'"
-				:label="'Secret Key'"
-				:idAttr="'cf-pro-api-secret'"
-		/>
+		<div class="caldera-config-group">
+			<label for="cf-pro-api-public">
+				Public Key
+			</label>
+			<div class="caldera-config-field">
+				<input
+						type="text"
+						v-model="publicKey"
+						id="cf-pro-api-public"
+						@change="publicKeyChange"
+				/>
+			</div>
+		</div>
+
+		<div class="caldera-config-group">
+			<label for="cf-pro-api-secret">
+				Secret Key
+			</label>
+			<div class="caldera-config-field">
+				<input
+					type="text"
+					v-model="secretKey"
+					id="cf-pro-api-secret"
+					@change="secretKeyChange"
+				/>
+			</div>
+		</div>
+
+		<p v-if="! connected">
+			You can find your API keys in your <a href="https://app.calderaformspro.com/app#/account" target="_blank">
+			Caldera Forms Pro Account
+		</a>
+		</p>
 	</div>
 </template>
 <script>
-	import { mapState, mapGetters, mapActions, mapMutations } from 'vuex'
-	import  TextInput from '../Elements/Field/Text.vue';
+	import { mapGetters,mapMutations } from 'vuex'
 	export default{
-		components: {
-			'text-input': TextInput
+
+		computed: {
+			...mapGetters([
+				'publicKey',
+				'secretKey',
+				'connected'
+			])
 		},
-		computed: mapState({
-			account: state => state.account,
-			publicKey: state => state.account.apiKeys.public,
-			secretKey: state => state.account.apiKeys.secret,
-		}),
-		watch: {
-			publicKey(){
-				this.save();
+		methods: {
+			...mapMutations([
+				'publicKey',
+				'secretKey',
+			]),
+			publicKeyChange(ev){
+				this.$store.commit('publicKey',ev.target.value);
 			},
-			secretKey(){
-				this.save();
-			}
-		},
-		methods:{
-			save(){
-				this.$store.dispatch( 'saveAccount' );
+			secretKeyChange(ev){
+				this.$store.commit('secretKey',ev.target.value);
 			}
 		}
 	}

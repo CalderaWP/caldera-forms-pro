@@ -1,6 +1,6 @@
 <template>
 	<div class="caldera-config-group">
-		<label v-bind:for="cf-pro-enhanced-delivery">
+		<label for="cf-pro-enhanced-delivery">
 			Enable Enhanced Delivery
 		</label>
 		<div class="caldera-config-field">
@@ -22,14 +22,16 @@
 	</div>
 </template>
 <script>
-	import { mapGetters } from 'vuex';
+	import { mapGetters, mapMutations } from 'vuex';
 	export default{
-		computed: mapGetters({
-			enhancedDelivery: state => state.settings.enhancedDelivery
-		}),
+		computed: {
+			...mapGetters([
+				'enhancedDelivery'
+			])
+		},
 		methods: {
-			changed(v){
-				this.$store.commit( 'enhancedDelivery', v );
+			changed(ev){
+				this.$store.commit( 'enhancedDelivery', event.target.value );
 			}
 		}
 

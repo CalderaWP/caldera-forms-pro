@@ -1,4 +1,4 @@
-import { localAPI, appAPI } from './util/API';
+import { localAPI, appAPI, appToken } from './util/API';
 import { urlString } from './util/urlString';
 
 export const ACTIONS = {
@@ -20,6 +20,7 @@ export const ACTIONS = {
 				context.commit('apiKeys', r.apiKeys);
 				context.commit('accountId', r.account_id);
 				context.commit('plan', r.plan);
+				context.commit('enhancedDelivery', r.enhancedDelivery);
 				resolve(response);
 			}, error => {
 				reject(error);
@@ -32,7 +33,8 @@ export const ACTIONS = {
 			apiKey: state.account.apiKeys.public,
 			apiSecret: state.account.apiKeys.secret,
 			enhancedDelivery: state.settings.enhancedDelivery,
-			plan: state.account.plan
+			plan: state.account.plan,
+			forms: state.forms
 		}).then(r => {
 			console.log(r);
 		});
@@ -44,7 +46,7 @@ export const ACTIONS = {
 					urlString(
 						{
 							public: state.account.apiKeys.public,
-							token: state.account.apiKeys.token,
+							token: appToken( state.account.apiKeys ),
 						},
 						'/account/verify'
 					)

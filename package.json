@@ -10,7 +10,8 @@
   "scripts": {
     "test": "",
     "build": "webpack --config build/webpack.prod.js",
-    "dev": "node build/server.js",
+    "dev": "webpack --config build/webpack.dev.js",
+    "_dev": "node build/server.js",
     "lint": "xo **/client/**/*.{vue,js} !node_modules/**"
   },
   "author": "Josh Pollock <Josh@CalderaWP.com>",
@@ -43,15 +44,17 @@
     "ie > 8"
   ],
   "dependencies": {
+    "lodash.isboolean": "^3.0.3"
+  },
+  "devDependencies": {
     "babel-runtime": "^6.18.0",
+    "graceful-fs": "^4.1.11",
     "promise-polyfill": "^6.0.2",
     "vue": "^2.2.0",
     "vue-router": "^2.0.0",
     "vue-tabs-component": "^1.2.0",
     "vuex": "^2.0.0",
-    "vuex-router-sync": "^4.0.0"
-  },
-  "devDependencies": {
+    "vuex-router-sync": "^4.0.0",
     "autoprefixer": "^6.4.0",
     "axios": "^0.16.2",
     "babel-core": "^6.16.0",
@@ -69,6 +72,7 @@
     "file-loader": "^0.9.0",
     "friendly-errors-webpack-plugin": "^1.1.2",
     "html-webpack-plugin": "^2.22.0",
+    "locutus": "^2.0.9",
     "offline-plugin": "^4.5.3",
     "postcss-loader": "^0.9.1",
     "postcss-nested": "^1.0.0",

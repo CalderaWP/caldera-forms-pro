@@ -1,12 +1,12 @@
 <template>
 	<div>
 		<div class="caldera-config-group">
-			<label v-bind:for="cf-pro-form-setting-chooser">
+			<label for="cf-pro-form-setting-chooser">
 				Choose Form
 			</label>
 			<div class="caldera-config-field">
 				<select
-					v-bind:id="cf-pro-form-setting-chooser"
+					id="cf-pro-form-setting-chooser"
 					v-model="editForm"
 				>
 					<option></option>

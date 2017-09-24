@@ -96,11 +96,11 @@ class settings implements \Caldera_Forms_API_Route {
 			$settings->set_account_id(  $request[ 'accountId' ] );
 		}
 
-		if( ! empty( $request[ 'apiKey' ] ) ){
+		if( isset( $request[ 'apiKey' ] ) ){
 			$settings->set_api_public( $request[ 'apiKey' ] );
 		}
 
-		if( ! empty( $request[ 'apiSecret' ] ) ){
+		if( isset( $request[ 'apiSecret' ] ) ){
 			$settings->set_api_secret( $request[ 'apiSecret' ] );
 		}
 

@@ -1,4 +1,4 @@
-
+import isBoolean from 'lodash.isboolean';
 export const MUTATIONS = {
 	publicKey (state,value) {
 		state.account.apiKeys.public = value;
@@ -36,6 +36,9 @@ export const MUTATIONS = {
 		}
 	},
 	enhancedDelivery(state,value){
+		if(  'on' == value ){
+			value = true;
+		}
 		state.settings.enhancedDelivery = value;
 	}
 };

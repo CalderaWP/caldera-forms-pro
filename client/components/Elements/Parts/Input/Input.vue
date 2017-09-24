@@ -2,10 +2,10 @@
 	<input
 			v-bind:type="type"
 			v-bind:id="idAttr"
-			v-model="value"
 			@keyup="handle()"
 			@change="handle()"
 	/>
+	<!--			v-model="value"-->
 </template>
 <script>
 	export default{
@@ -29,9 +29,11 @@
 		},
 		methods: {
 			handle(){
+				console.log(this.value);
 				this.$store.commit(this.setting,this.value);
 			}
 		},
+
 
 	}
 </script>

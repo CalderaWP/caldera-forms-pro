@@ -14,12 +14,12 @@
 					<li class="status bad" v-if="!connected">
 						Not Connected
 					</li>
-
-
+					<li class="cf-pro-save">
+						<input type="submit" class="button button-primary" value="Save" @click="save"/>
+					</li>
 				</ul>
 			</div>
-
-			<div class="cf-pro-settings">
+			<div class="cf-pro-settings" v-cloak>
 				<div>
 					<tabs :options="{ useUrlFragment: false }">
 						<tab name="Account">
@@ -58,6 +58,8 @@
 		computed: mapState({
 			loading: state => state.loading,
 			connected: state => state.connected,
+			publicKey: state => state.account.apiKeys.public,
+			enhancedDelivery: state => state.settings.enhancedDelivery
 		}),
 		beforeMount(){
 			[].forEach.call(document.querySelectorAll('.update-nag'),function(e){
@@ -74,9 +76,33 @@
 	}
 </script>
 <style>
+	[v-cloak] {
+		display: none;
+		visibility: hidden;
+	}
+
 	.cf-pro-settings {
 		margin-top: 50px;
 	}
+
+	.cf-pro-save input.button {
+		margin: 10px;
+	}
+
+	li.status {
+		padding: 14px !important;
+		color: white;
+	}
+
+	li.status.good {
+		background-color: #0b7a6f;
+	}
+
+	li.status.bad {
+		background-color: red;
+	}
+
+
 	.tabs-component-panels,ul.tabs-component-tabs {
 		float: left;
 		display:inline-block
@@ -101,17 +127,6 @@
 		background-color: #ff7e30;
 	}
 
-	li.status {
-		padding: 14px !important;
-		color: white;
-	}
 
-	li.status.good {
-		background-color: #0b7a6f;
-	}
-
-	li.status.bad {
-		background-color: red;
-	}
 
 </style>
