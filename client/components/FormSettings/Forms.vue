@@ -41,7 +41,6 @@
 		computed: mapState({
 			forms: state => state.forms,
 			layouts: state => state.layouts,
-
 		}),
 		methods: {
 			...mapActions([

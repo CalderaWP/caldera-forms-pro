@@ -27,7 +27,7 @@
 						</tab>
 						<tab name="Form Settings">
 							<div v-if="connected">
-								<form-settings></form-settings>
+								<forms-settings></forms-settings>
 							</div>
 							<div v-else>
 								You must connected to Caldera Forms Pro First
@@ -46,20 +46,21 @@
 	import { mapState, mapGetters, mapActions, mapMutations } from 'vuex';
 	import AccountDisplay from '../components/Account/display';
 	import AccountEdit from '../components/Account/Edit';
-	import FormSettings from '../components/FormSettings/Forms';
+	import FormsSettings from '../components/FormSettings/Forms';
 	import enhancedDelivery from '../components/GeneralSettings/enhancedDelivery'
 	export default{
 		components :{
 			'account-display': AccountDisplay,
 			'account-edit' : AccountEdit,
-			'form-settings' : FormSettings,
+			'forms-settings' : FormsSettings,
 			'delivery' : enhancedDelivery
 		},
 		computed: mapState({
 			loading: state => state.loading,
 			connected: state => state.connected,
 			publicKey: state => state.account.apiKeys.public,
-			enhancedDelivery: state => state.settings.enhancedDelivery
+			enhancedDelivery: state => state.settings.enhancedDelivery,
+
 		}),
 		beforeMount(){
 			[].forEach.call(document.querySelectorAll('.update-nag'),function(e){

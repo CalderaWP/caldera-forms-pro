@@ -1,5 +1,6 @@
 import { localAPI, appAPI, appToken } from './util/API';
 import { urlString } from './util/urlString';
+import CFProConfig from  './util/wpConfig';
 
 export const ACTIONS = {
 	getAccount(context){
@@ -21,6 +22,7 @@ export const ACTIONS = {
 				context.commit('accountId', r.account_id);
 				context.commit('plan', r.plan);
 				context.commit('enhancedDelivery', r.enhancedDelivery);
+				context.commit('formScreen', r.hasOwnProperty( 'formScreen' ) ? r.formScreen : CFProConfig.formScreen );
 				resolve(response);
 			}, error => {
 				reject(error);
@@ -36,7 +38,7 @@ export const ACTIONS = {
 			plan: state.account.plan,
 			forms: state.forms
 		}).then(r => {
-			console.log(r);
+
 		});
 	},
 	testConnection({commit, state}) {

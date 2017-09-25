@@ -88,6 +88,9 @@ class scripts {
 			),
 			'settings' => container::get_instance()->get_settings()->toArray()
 		);
+
+		$data[ 'formScreen' ] = \Caldera_Forms_Admin::is_edit() ? esc_attr( $_GET[ \Caldera_Forms_Admin::EDIT_KEY ] ) : false;
+
 		return $data;
 	}
 }

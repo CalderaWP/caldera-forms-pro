@@ -31,12 +31,14 @@ if( document.getElementById( 'cf-pro-app' ) ){
 	});
 }
 
+import  FormTab from './views/Tab.vue';
+
 if( document.getElementById( 'cf-pro-app-tab'  ) ){
 	const tabApp = new Vue({
 		el: '#cf-pro-app-tab',
 		store,
 		components: {
-			'settings': SettingsView
+			'settings': FormTab
 		},
 		render(h) {
 			return h(
@@ -47,7 +49,7 @@ if( document.getElementById( 'cf-pro-app-tab'  ) ){
 					}
 				},
 				[
-					h( 'p', 'tsdfklj;sddfs')
+					h( 'settings')
 				]
 			)
 		}

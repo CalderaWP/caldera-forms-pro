@@ -24,5 +24,14 @@ export default {
 	 *
 	 * @type {string}
 	 */
-	appURL: CF_PRO_ADMIN.api.cfPro.url
+	appURL: CF_PRO_ADMIN.api.cfPro.url,
+
+	/**
+	 * The ID of the form whose edit screen we are on
+	 *
+	 * @since 1.0.0
+	 *
+	 * @type {string}
+	 */
+	formScreen: CF_PRO_ADMIN.formScreen
 };

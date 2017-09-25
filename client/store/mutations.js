@@ -40,6 +40,9 @@ export const MUTATIONS = {
 			value = true;
 		}
 		state.settings.enhancedDelivery = value;
+	},
+	formScreen(state,value){
+		state.formScreen = value;
 	}
 };
 

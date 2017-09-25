@@ -10,8 +10,8 @@ export const GETTERS = {
 	apiKeys: state => {
 		return state.account.apiKeys;
 	},
-	nom: state => {
-		return 'nom'
+	hi: state => {
+		return 'Roy'
 	},
 	getSetting: state => (setting,_default) => {
 		if( objHasProp(state.settings, setting )){
@@ -27,6 +27,8 @@ export const GETTERS = {
 	},
 	connected: state => {
 		return state.connected;
+	},
+	formScreen: state => {
+		return state.formScreen;
 	}
-
 };
