@@ -38,42 +38,31 @@ class scripts {
 		return $this->assets_url;
 	}
 
-	/**
-	 * Register assets
-	 *
-	 * @uses "admin_enqueue_scripts"
-	 *
-	 * @since 0.0.1
-	 */
-	public function register_assets(){
-		$vue_slug = \Caldera_Forms_Render_Assets::make_slug( 'vue' );
-		if(  \Caldera_Forms_Render_Assets::should_minify() ){
-			$css_url = $this->assets_url . 'css/admin.css';
-		}else {
-			$css_url = $this->assets_url . 'css/admin/admin.css';
+	public function webpack( $view_dir, $context = null, $enqueue_admin = true ){
+		$inline = \Caldera_Forms_Render_Util::create_cdata('var CF_PRO_ADMIN= ' . wp_json_encode( $this->data() ) . ';' );
+		if ( $enqueue_admin ) {
+			wp_enqueue_style( \Caldera_Forms_Admin_Assets::slug( 'admin', false ), \Caldera_Forms_Render_Assets::make_url( 'admin', false ) );
 		}
-		wp_register_style( $this->slug, $css_url, [ 'caldera-forms-admin-styles' ], $this->version );
-		wp_register_script( $this->slug . '-vendor', $this->assets_url . '/vendor.js', [], $this->version );
-		wp_register_script( $this->slug, $this->assets_url . 'main.js', [
-			$vue_slug,
-			$this->slug . '-vendor',
-		], $this->version  );
-		wp_localize_script( $this->slug, 'CF_PRO_ADMIN', $this->data() );
-
-	}
-
-	/**
-	 * Enqueue assets
-	 *
-	 * Note: is not hooked.
-	 */
-	public function enqueue_assets(){
-		if( ! wp_script_is( $this->slug, 'registered' ) ){
-			$this->register_assets();
+		ob_start();
+		include $view_dir . '/index.html';
+		$str = ob_get_clean();
+		foreach ( [
+			'styles',
+			'manifest',
+			'vendor',
+			'client'
+		] as $thing ){
+			$str = str_replace( '/' . $thing, $this->get_assets_url() . $thing, $str );
 		}
-		wp_enqueue_script( $this->slug );
-		wp_enqueue_style( $this->slug );
 
+		if ( $context ) {
+			$str = str_replace( 'cf-pro-app', 'cf-pro-app-' . $context, $str );
+		}
+
+		return $inline .str_replace([
+				'<head>',
+				'</head>'
+			], '', $str );
 	}
 
 	/**

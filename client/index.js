@@ -7,26 +7,52 @@ import {Tabs, Tab} from 'vue-tabs-component';
 Vue.component('tabs', Tabs);
 Vue.component('tab', Tab);
 
-const app = new Vue({
-	el: '#app',
-	store,
-	components: {
-		'settings': SettingsView
-	},
-	render(h) {
-		return h(
-			'div',
-			{
-				attrs: {
-					id: 'cf-pro-settings'
-				}
-			},
-			[
-				h( 'settings')
-			]
-		)
-	}
+if( document.getElementById( 'cf-pro-app' ) ){
+	const mainSettingsApp = new Vue({
+		el: '#cf-pro-app',
+		store,
+		components: {
+			'settings': SettingsView
+		},
+		render(h) {
+			return h(
+				'div',
+				{
+					attrs: {
+						id: 'cf-pro-settings'
+					}
+				},
+				[
+					h( 'settings')
+				]
+			)
+		}
 
-});
+	});
+}
 
-export { app, store }
+if( document.getElementById( 'cf-pro-app-tab'  ) ){
+	const tabApp = new Vue({
+		el: '#cf-pro-app-tab',
+		store,
+		components: {
+			'settings': SettingsView
+		},
+		render(h) {
+			return h(
+				'div',
+				{
+					attrs: {
+						id: 'cf-pro-settings-tab'
+					}
+				},
+				[
+					h( 'p', 'tsdfklj;sddfs')
+				]
+			)
+		}
+	});
+}
+
+
+export { store }

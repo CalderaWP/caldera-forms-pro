@@ -28,9 +28,19 @@ add_action( 'caldera_forms_includes_complete', function(){
 	if ( is_admin() ) {
 		$slug       = 'cf-pro';
 		$assets_url = plugin_dir_url( __FILE__  ) . 'dist/';
+		$view_dir =  __DIR__ . '/dist';
 		$scripts = new scripts( $assets_url, $slug, CF_PRO_VER );
-		add_action( 'admin_enqueue_scripts', [ $scripts, 'register_assets' ] );
-		$menu = new menu( __DIR__ . '/dist', $slug, $scripts);
+		if( Caldera_Forms_Admin::is_edit() ){
+			add_action( 'admin_init', function() use ( $scripts, $view_dir ){
+				$tab = new \calderawp\calderaforms\pro\admin\tab( __DIR__ . '/build/tab.php' );
+				add_action( 'caldera_forms_get_panel_extensions', [ $tab, 'add_tab' ] );
+				container::get_instance()->set_tab_html( $scripts->webpack( $view_dir, 'tab', false ) );
+
+			} );
+
+		}
+
+		$menu = new menu( $view_dir, $slug, $scripts);
 		add_action( 'admin_menu', [ $menu, 'display' ] );
 	}
 
