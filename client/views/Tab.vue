@@ -6,6 +6,14 @@
 		<div v-if="!connected">
 			Not Connected
 		</div>
+		<div id="cf-pro-alert-wrap">
+			<status
+					:message="mainAlert.message"
+					:success="mainAlert.success"
+					:show="mainAlert.show"
+			>
+			</status>
+		</div>
 	</div>
 </template>
 <script>
@@ -13,6 +21,7 @@
 	import { mapActions } from 'vuex'
 
 	import debounce from 'lodash.debounce';
+	import Status from '../components/Elements/Status/Status';
 
 	import  formSetting from '../components/FormSettings/Form.vue';
 	export default{
@@ -37,7 +46,8 @@
 		computed: mapState({
 			layouts: state => state.layouts,
 			connected: state => state.connected,
-			formScreen: state => state.formScreen
+			formScreen: state => state.formScreen,
+			mainAlert: state => state.mainAlert
 		}),
 		data(){
 			return{

@@ -25,16 +25,43 @@ export const accountSaver = store => {
 	})
 };
 
-export const formSaver = store => {
-	store.subscribe((mutation, state) => {
-		if( 'form' === mutation.type ){
-			debounce(
-				() => {
-					store.dispatch('saveAccount')
-				}, 350
-			);
-		}
+/**
+ * A debounced versiion og
+ * @type {Function}
+ */
+const debounedFormMutation = debounce(
+	function(store){
+		store.dispatch( 'saveAccount ');
+		console.log(1);
+	}, 100
+);
 
+/**
+ * Plugin to save account when form settings are changed
+ *
+ * @since 1.0.0
+ *
+ * @param store
+ */
+export const formSaver = store => {
+	/**
+	 * Debounced version of saveAccount() mutation
+	 * @since 1.0.0
+	 *
+	 * @type {Function}
+	 */
+	this.debounedFormMutation = debounce(
+		function(){
+			store.dispatch( 'saveAccount' );
+		}, 100
+	);
+
+	store.subscribe((mutation, state) => {
+		console.log(mutation);
+
+		if( 'form' === mutation.type ){
+			this.debounedFormMutation();
+		}
 
 	})
 };

@@ -70,8 +70,11 @@ Basic concepts:
     * A view should have minimal logic
     * Components should be view-agnostic. Always assume component will be reused later, in a different view.
 * Components should be grouped by use.
-    * For example, account edit and account display account components are stroed in /client/components/Account
-    * Elements component group is a work in progress (don't use yet) set of form elements -- inputs, labels, etc -- to compose components out of.
+    * For example, account edit and account display account components are stored in /client/components/Account
+    * Elements component group is a work in progress (don't use yet, except Status) set of form elements -- inputs, labels, etc -- to compose components out of.
+* Both views use Status component to display a "main alert". You can reuse inside of components.
+    * Documentation for updating main alert is in that component's readme.
+    * Documentation for component inside of another component is in that component's readme.
 * Router isn't used, yet.
 
     

@@ -126,7 +126,7 @@ export const ACTIONS = {
 	 * @param context
 	 */
 	closeMainAlert(context){
-		context.dispatch( updateMainAlert, {
+		context.dispatch( 'updateMainAlert', {
 			show:false,
 		} );
 	}
