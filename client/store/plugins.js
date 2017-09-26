@@ -26,22 +26,11 @@ export const accountSaver = store => {
 };
 
 /**
- * A debounced versiion og
- * @type {Function}
- */
-const debounedFormMutation = debounce(
-	function(store){
-		store.dispatch( 'saveAccount ');
-		console.log(1);
-	}, 100
-);
-
-/**
  * Plugin to save account when form settings are changed
  *
  * @since 1.0.0
  *
- * @param store
+ * @param {Object} store
  */
 export const formSaver = store => {
 	/**
