@@ -17,6 +17,14 @@
 					<li class="cf-pro-save">
 						<input type="submit" class="button button-primary" value="Save" @click="save"/>
 					</li>
+					<li id="cf-pro-alert-wrap">
+						<status
+							:message="mainAlert.message"
+							:success="mainAlert.success"
+							:show="mainAlert.show"
+							>
+						</status>
+					</li>
 				</ul>
 			</div>
 			<div class="cf-pro-settings" v-cloak>
@@ -47,20 +55,22 @@
 	import AccountDisplay from '../components/Account/display';
 	import AccountEdit from '../components/Account/Edit';
 	import FormsSettings from '../components/FormSettings/Forms';
-	import enhancedDelivery from '../components/GeneralSettings/enhancedDelivery'
+	import enhancedDelivery from '../components/GeneralSettings/enhancedDelivery';
+	import Status from '../components/Elements/Status/Status.vue'
 	export default{
 		components :{
 			'account-display': AccountDisplay,
 			'account-edit' : AccountEdit,
 			'forms-settings' : FormsSettings,
-			'delivery' : enhancedDelivery
+			'delivery' : enhancedDelivery,
+			'status' : Status
 		},
 		computed: mapState({
 			loading: state => state.loading,
 			connected: state => state.connected,
 			publicKey: state => state.account.apiKeys.public,
 			enhancedDelivery: state => state.settings.enhancedDelivery,
-
+			mainAlert: state => state.mainAlert
 		}),
 		beforeMount(){
 			[].forEach.call(document.querySelectorAll('.update-nag'),function(e){

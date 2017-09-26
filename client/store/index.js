@@ -26,7 +26,12 @@ const STATE = {
 			token: String
 		}
 	},
-	strings: CFProConfig.strings
+	strings: CFProConfig.strings,
+	mainAlert : {
+		success: false,
+		message : '',
+		show: false
+	}
 };
 
 

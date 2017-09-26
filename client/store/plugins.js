@@ -26,7 +26,6 @@ export const accountSaver = store => {
 };
 
 export const formSaver = store => {
-	// called when the store is initialized
 	store.subscribe((mutation, state) => {
 		if( 'form' === mutation.type ){
 			debounce(
@@ -35,6 +34,7 @@ export const formSaver = store => {
 				}, 350
 			);
 		}
+
 
 	})
 };

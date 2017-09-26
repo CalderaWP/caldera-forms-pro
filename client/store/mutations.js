@@ -43,6 +43,23 @@ export const MUTATIONS = {
 	},
 	formScreen(state,value){
 		state.formScreen = value;
+	},
+	/**
+	 * Change the main alert
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param {Object} state
+	 * @param {Object} value Value to set. success - boolean. show -- boolean. message -- string
+	 */
+	mainAlert(state,value){
+		state.mainAlert = {
+			success: value.hasOwnProperty( 'success' ) ? value.success : false,
+			message: value.hasOwnProperty( 'message' ) ? value.message : '',
+			show: value.hasOwnProperty( 'show' ) ? value.show : false,
+		};
+		//Notice, this doesn't except fade, fade isn't tracked. You want to set a fade time? Use updateMainAlert action!
+
 	}
 };
 

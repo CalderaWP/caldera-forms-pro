@@ -29,16 +29,25 @@ export const ACTIONS = {
 			});
 		})
 	},
-	saveAccount({commit, state}) {
+	saveAccount(context) {
 		return localAPI.post('', {
-			accountId: state.account.id,
-			apiKey: state.account.apiKeys.public,
-			apiSecret: state.account.apiKeys.secret,
-			enhancedDelivery: state.settings.enhancedDelivery,
-			plan: state.account.plan,
-			forms: state.forms
+			accountId: context.state.account.id,
+			apiKey: context.state.account.apiKeys.public,
+			apiSecret: context.state.account.apiKeys.secret,
+			enhancedDelivery: context.state.settings.enhancedDelivery,
+			plan: context.state.account.plan,
+			forms: context.state.forms
 		}).then(r => {
-
+			if( r.data.hasOwnProperty( '_cfAlertMessage' ) ){
+				context.dispatch( 'updateMainAlert', _cfAlertMessage );
+			}else{
+				context.dispatch( 'updateMainAlert', {
+					message: context.state.strings.saved,
+					show: true,
+					success: true,
+					fade: 1500
+				});
+			}
 		});
 	},
 	testConnection({commit, state}) {
@@ -88,5 +97,37 @@ export const ACTIONS = {
 				}
 			);
 		}
+	},
+	/**
+	 * Set the main alert -- status.
+	 *
+	 * Using this over mutation mainAlert, which this uses, is you can send a number of milliseconds in alert.fade and it will removed in that number of milliseconds
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param {*} context
+	 * @param {Object} alert Commit payload
+	 */
+	updateMainAlert(context, alert){
+		const fade = ( alert.hasOwnProperty( 'fade' ) && ! isNaN( alert.fade ) ) ? alert.fade : 0;
+		if( fade ){
+			//OMG(s) window scope.
+			window.setTimeout( () =>{
+				context.dispatch( 'closeMainAlert' );
+			}, fade );
+		}
+		context.commit('mainAlert',alert)
+	},
+	/**
+	 * Make mainAlert clode
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param context
+	 */
+	closeMainAlert(context){
+		context.dispatch( updateMainAlert, {
+			show:false,
+		} );
 	}
 };

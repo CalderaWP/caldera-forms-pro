@@ -33,5 +33,8 @@ export const GETTERS = {
 	},
 	strings: state => {
 		return state.strings;
+	},
+	mainAlert: state => {
+		return state.mainAlert;
 	}
 };
