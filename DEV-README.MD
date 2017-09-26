@@ -28,6 +28,10 @@ Always use the function `caldera_forms_pro_app_url()` to get app URL. This will 
 
 ### WebPack
 Boilerplate is egosist/vuepack
+
+READ These docs for more information on boilerplate - https://github.com/egoist/vuepack/tree/master/docs
+
+
 * Install`npm install` then install `npm run dev` to build for development. 
 * In development, use `npm run dev`. There is no watch, yet.
 * Before committing, run `npm run build` to build assets for production.
