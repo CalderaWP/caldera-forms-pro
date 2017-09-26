@@ -30,5 +30,8 @@ export const GETTERS = {
 	},
 	formScreen: state => {
 		return state.formScreen;
+	},
+	strings: state => {
+		return state.strings;
 	}
 };

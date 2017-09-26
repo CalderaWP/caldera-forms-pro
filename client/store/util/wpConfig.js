@@ -33,5 +33,16 @@ export default {
 	 *
 	 * @type {string}
 	 */
-	formScreen: CF_PRO_ADMIN.formScreen
+	formScreen: CF_PRO_ADMIN.formScreen,
+
+	/**
+	 * Translation and other strings.
+	 *
+	 * Created by "strings" index of generated in calderawp\calderaforms\pro\admin\scripts::data()
+	 *
+	 * @since 1.0.0
+	 *
+	 * @type {Object}
+	 */
+	strings: CF_PRO_ADMIN.strings
 };

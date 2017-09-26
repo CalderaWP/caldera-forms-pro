@@ -3,6 +3,8 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex);
 
+import CFProConfig from './util/wpConfig'
+
 const STATE = {
 	loading: false,
 	connected: false,
@@ -23,8 +25,8 @@ const STATE = {
 			secret: String,
 			token: String
 		}
-	}
-
+	},
+	strings: CFProConfig.strings
 };
 
 
