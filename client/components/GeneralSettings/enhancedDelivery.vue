@@ -30,10 +30,9 @@
 			])
 		},
 		methods: {
-			changed(ev){
-				this.$store.commit( 'enhancedDelivery', event.target.value );
-			}
+			...mapMutations([
+				'enhancedDelivery'
+			]),
 		}
-
 	}
 </script>
