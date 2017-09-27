@@ -252,9 +252,9 @@ add_action( 'init', function(){
 			'zip_url'            => 'https://github.com/CalderaWP/caldera-forms-pro/archive/master.zip',
 			'sslverify'          => true,
 			'requires'           => '4.7',
-			'tested'             => '4.8',
+			'tested'             => '4.9.1',
 			'readme'             => 'README.md',
-			'version'            => '0.11.1'
+			'version'            => CF_PRO_VER
 		);
 		new WP_GitHub_Updater($config);
 	}
