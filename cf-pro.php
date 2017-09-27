@@ -10,7 +10,7 @@
  */
 
 
-add_action( 'plugins_loaded', 'caldera_forms_pro_init', 5 );
+add_action( 'caldera_forms_includes_complete', 'caldera_forms_pro_init', 2 );
 function caldera_forms_pro_init(){
 	if ( ! version_compare( PHP_VERSION, '5.6.0', '>=' ) ) {
 		add_action( 'admin_notices', 'caldera_forms_pro_version_fail_warning' );
