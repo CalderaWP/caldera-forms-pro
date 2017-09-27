@@ -120,24 +120,41 @@
 	}
 
 	.tabs-component-panels{
-		padding:16px;
+		padding: 1rem;
+		font-size: 1rem;
 	}
 	ul.tabs-component-tabs{
 		background: #0b7a6f;
 
 	}
 	li.tabs-component-tab {
-		padding:8px 4px;
-		text-align:center;
-
+		margin-bottom: 0;
+		border-bottom: thin solid white;
+		padding: 0;
 	}
+	li.tabs-component-tab:last-child() {
+		border-bottom: none;
+	 }
 	li.tabs-component-tab a{
+		display: block;
+		width: 69%;
+		height: 100%;
 		color: white;
+		font-size: 1rem;
+		padding: 1rem 1.4rem;
+		text-decoration: none;
+		text-align: center;
 	}
 	li.tabs-component-tab.is-active{
 		background-color: #ff7e30;
 	}
 
-
+	.tabs-component-panels section:nth-child(3) .caldera-config-group {
+		margin: 0 1rem 0;
+	}
+	.tabs-component-panels section:nth-child(3) label {
+		display: inline;
+		margin: 0;
+	}
 
 </style>

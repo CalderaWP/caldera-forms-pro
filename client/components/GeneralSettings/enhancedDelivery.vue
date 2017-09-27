@@ -1,8 +1,5 @@
 <template>
 	<div class="caldera-config-group">
-		<label for="cf-pro-enhanced-delivery">
-			Enable Enhanced Delivery
-		</label>
 		<div class="caldera-config-field">
 			<input
 					type="checkbox"
@@ -11,6 +8,9 @@
 					@change="changed"
 					aria-describedby="cf-pro-enhanced-delivery-desc"
 			/>
+			<label for="cf-pro-enhanced-delivery">
+				Enable Enhanced Delivery
+			</label>
 			<div class="description" id="cf-pro-enhanced-delivery-desc">
 				<p>If enabled, messages are sent via Caldera Forms Pro Servers</p>
 				<ul v-if="enhancedDelivery">
