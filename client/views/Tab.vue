@@ -4,7 +4,7 @@
 			<form-setting :form="form" :layouts="layouts"></form-setting>
 		</div>
 		<div v-if="!connected">
-			Not Connected
+			<link-keys></link-keys>
 		</div>
 		<div id="cf-pro-alert-wrap">
 			<status
@@ -17,23 +17,24 @@
 	</div>
 </template>
 <script>
+
 	import { mapState } from 'vuex'
 	import { mapActions } from 'vuex'
-
 	import debounce from 'lodash.debounce';
 	import Status from '../components/Elements/Status/Status';
-
 	import  formSetting from '../components/FormSettings/Form.vue';
+    import  linkKeys from '../components/Link/linkKeys.vue';
+
 	export default{
 		components: {
-			'form-setting' : formSetting
+			'form-setting' : formSetting,
+            'link-keys' : linkKeys
 		},
 		methods: {
 			...mapActions([
 				'getLayouts',
 				'getAccount',
 				'saveAccount'
-
 			]),
 		},
 		beforeMount(){
@@ -51,7 +52,7 @@
 		}),
 		data(){
 			return{
-				form: {}
+				form: {},
 			}
 		}
 
