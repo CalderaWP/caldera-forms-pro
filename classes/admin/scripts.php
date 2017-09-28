@@ -79,7 +79,7 @@ class scripts {
 				'saved' => esc_html__( 'Settings Saved', 'caldera-forms-pro' ),
 				'notSaved' => esc_html__( 'Settings could not be saved', 'caldera-forms-pro' ),
                 'apiKeysViewText' => esc_html__( 'You must add your API keys to use Caldera Forms Pro', 'caldera-forms-pro' ),
-                'apiKeysViewLink' => esc_html__( $pro_url, 'caldera-forms-pro' )
+                'apiKeysViewLink' => esc_url( $pro_url )
 			],
 			'api' => array(
 				'cf' => array(
