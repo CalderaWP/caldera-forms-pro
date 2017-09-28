@@ -30,9 +30,12 @@
 			])
 		},
 		methods: {
-			...mapMutations([
-				'enhancedDelivery'
-			]),
+			...mapMutations({
+                mutateEnhancedDelivery: 'enhancedDelivery'
+            }),
+            changed(){
+                this.mutateEnhancedDelivery();
+            }
 		}
 	}
 </script>
