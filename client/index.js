@@ -7,6 +7,8 @@ import {Tabs, Tab} from 'vue-tabs-component';
 Vue.component('tabs', Tabs);
 Vue.component('tab', Tab);
 
+//@TODO Remove this hack-ass way of selecting which app to run
+
 if( document.getElementById( 'cf-pro-app' ) ){
 	const mainSettingsApp = new Vue({
 		el: '#cf-pro-app',
@@ -31,6 +33,7 @@ if( document.getElementById( 'cf-pro-app' ) ){
 	});
 }
 
+//@TODO and this.
 import  FormTab from './views/Tab.vue';
 
 if( document.getElementById( 'cf-pro-app-tab'  ) ){
@@ -55,6 +58,7 @@ if( document.getElementById( 'cf-pro-app-tab'  ) ){
 		}
 	});
 }
+
 
 
 export { store }

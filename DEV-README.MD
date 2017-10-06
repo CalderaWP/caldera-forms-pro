@@ -33,7 +33,7 @@ READ These docs for more information on boilerplate - https://github.com/egoist/
 
 
 * Install`npm install` then install `npm run dev` to build for development. 
-* In development, use `npm run dev`. There is no watch, yet.
+* In development, use `npm run dev` for a one time build or `npm run watch` to use a watch -- live refresh is wonky, but script rebuild works.
 * Before committing, run `npm run build` to build assets for production.
 
 ### Structure
