@@ -138,7 +138,6 @@
 	li.tabs-component-tab a{
 		display: block;
 		width: 69%;
-		height: 100%;
 		color: white;
 		font-size: 1rem;
 		padding: 1rem 1.4rem;

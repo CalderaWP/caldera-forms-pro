@@ -3,9 +3,8 @@
 		<div class="caldera-config-field">
 			<input
 					type="checkbox"
-					v-model="enhancedDelivery"
+					v-model='deliveryValue'
 					id="cf-pro-enhanced-delivery"
-					@change="changed"
 					aria-describedby="cf-pro-enhanced-delivery-desc"
 			/>
 			<label for="cf-pro-enhanced-delivery">
@@ -22,20 +21,21 @@
 	</div>
 </template>
 <script>
-	import { mapGetters, mapMutations } from 'vuex';
-	export default{
-		computed: {
-			...mapGetters([
-				'enhancedDelivery'
-			])
-		},
-		methods: {
-			...mapMutations({
-                mutateEnhancedDelivery: 'enhancedDelivery'
-            }),
-            changed(){
-                this.mutateEnhancedDelivery();
+	import { mapGetters } from 'vuex';
+
+	export default {
+        computed: {
+            ...mapGetters([
+                'enhancedDelivery'
+            ]),
+            deliveryValue: {
+                get() {
+                    return this.enhancedDelivery;
+                },
+                set(value) {
+                    this.$store.commit('enhancedDelivery', value);
+                }
             }
-		}
-	}
+        },
+    }
 </script>
