@@ -1,6 +1,6 @@
-<head><link href="/styles.3ae67bcd.css" rel="stylesheet"></head><?php
+<?php
 if( ! defined( 'ABSPATH' ) ){
 	exit;
 }
 ?>
-<!---cf-pro-app--><div id="cf-pro-app"></div><script type="text/javascript" src="/manifest.04df06e8.js"></script><script type="text/javascript" src="/vendor.69f5b286.js"></script><script type="text/javascript" src="/client.0c95ef35.js"></script>
+<!---cf-pro-app--><div id="cf-pro-app"></div><script type="text/javascript" src="/client.js"></script>
