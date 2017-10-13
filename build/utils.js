@@ -26,8 +26,8 @@ _.outputPath = config.electron ?
   path.join(__dirname, '../dist')
 
 _.outputIndexPath = config.electron ?
-  path.join(__dirname, '../app/dist/index.html') :
-  path.join(__dirname, '../dist/index.html')
+  path.join(__dirname, '../app/dist/index.php') :
+  path.join(__dirname, '../dist/index.php')
 
 _.target = config.electron ?
   'electron-renderer' :

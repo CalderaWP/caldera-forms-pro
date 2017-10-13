@@ -44,7 +44,7 @@ class scripts {
 			wp_enqueue_style( \Caldera_Forms_Admin_Assets::slug( 'admin', false ), \Caldera_Forms_Render_Assets::make_url( 'admin', false ) );
 		}
 		ob_start();
-		include $view_dir . '/index.html';
+		include $view_dir . '/index.php';
 		$str = ob_get_clean();
 		foreach ( [
 			'styles',

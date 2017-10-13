@@ -67,7 +67,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       title: config.title,
-      template: path.resolve(__dirname, 'index.html'),
+      template: path.resolve(__dirname, 'index.php'),
       filename: _.outputIndexPath
     }),
     new webpack.LoaderOptionsPlugin(_.loadersOptions()),
