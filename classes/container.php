@@ -137,6 +137,31 @@ class container extends repository{
 	}
 
 	/**
+	 * Get the HTML to be used in Caldera Forms Pro tab
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string
+	 */
+	public function get_tab_html(){
+		if( ! $this->has( 'tab_html' ) ){
+			return '';
+		}
+		return $this->get( 'tab_html' );
+	}
+
+	/**
+	 * Set the HTML to be used in Caldera Forms Pro tab
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param $html
+	 */
+	public function set_tab_html($html){
+		$this->set( 'tab_html', $html );
+	}
+
+	/**
 	 * Set main instance of Caldera_Forms_DB_Tables class
 	 *
 	 * @since 0.5.0

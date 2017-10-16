@@ -34,40 +34,35 @@ class scripts {
 
 	}
 
-	/**
-	 * Register assets
-	 *
-	 * @uses "admin_enqueue_scripts"
-	 *
-	 * @since 0.0.1
-	 */
-	public function register_assets(){
-		$vue_slug = \Caldera_Forms_Render_Assets::make_slug( 'vue' );
-		if(  \Caldera_Forms_Render_Assets::should_minify() ){
-			$js_url = $this->assets_url . 'js/admin.min.js';
-			$css_url = $this->assets_url . 'css/admin.css';
-		}else {
-			$js_url  = $this->assets_url . 'js/admin.js';
-			$css_url = $this->assets_url . 'css/admin/admin.css';
-		}
-		wp_register_style( $this->slug, $css_url, [ 'caldera-forms-admin-styles' ], $this->version );
-		wp_register_script( $this->slug, $js_url, array( $vue_slug ), $this->version  );
-		wp_localize_script( $this->slug, 'CF_PRO_ADMIN', $this->data() );
-
+	public function get_assets_url(){
+		return $this->assets_url;
 	}
 
-	/**
-	 * Enqueue assets
-	 *
-	 * Note: is not hooked.
-	 */
-	public function enqueue_assets(){
-		if( ! wp_script_is( $this->slug, 'registered' ) ){
-			$this->register_assets();
+	public function webpack( $view_dir, $context = null, $enqueue_admin = true ){
+		$inline = \Caldera_Forms_Render_Util::create_cdata('var CF_PRO_ADMIN= ' . wp_json_encode( $this->data() ) . ';' );
+		if ( $enqueue_admin ) {
+			wp_enqueue_style( \Caldera_Forms_Admin_Assets::slug( 'admin', false ), \Caldera_Forms_Render_Assets::make_url( 'admin', false ) );
 		}
-		wp_enqueue_script( $this->slug );
-		wp_enqueue_style( $this->slug );
+		ob_start();
+		include $view_dir . '/index.php';
+		$str = ob_get_clean();
+		foreach ( [
+			'styles',
+			'manifest',
+			'vendor',
+			'client'
+		] as $thing ){
+			$str = str_replace( '/' . $thing, $this->get_assets_url() . $thing, $str );
+		}
 
+		if ( $context ) {
+			$str = str_replace( 'cf-pro-app', 'cf-pro-app-' . $context, $str );
+		}
+
+		return $inline .str_replace([
+				'<head>',
+				'</head>'
+			], '', $str );
 	}
 
 	/**
@@ -76,10 +71,15 @@ class scripts {
 	 * @return array
 	 */
 	public function data(){
+
+	    $pro_url = admin_url('admin.php?page=cf-pro');
+
 		$data = array(
 			'strings' =>  [
 				'saved' => esc_html__( 'Settings Saved', 'caldera-forms-pro' ),
-				'notSaved' => esc_html__( 'Settings could not be saved', 'caldera-forms-pro' )
+				'notSaved' => esc_html__( 'Settings could not be saved', 'caldera-forms-pro' ),
+                'apiKeysViewText' => esc_html__( 'You must add your API keys to use Caldera Forms Pro', 'caldera-forms-pro' ),
+                'apiKeysViewLink' => esc_url( $pro_url )
 			],
 			'api' => array(
 				'cf' => array(
@@ -93,6 +93,9 @@ class scripts {
 			),
 			'settings' => container::get_instance()->get_settings()->toArray()
 		);
+
+		$data[ 'formScreen' ] = \Caldera_Forms_Admin::is_edit() ? esc_attr( $_GET[ \Caldera_Forms_Admin::EDIT_KEY ] ) : false;
+
 		return $data;
 	}
 }

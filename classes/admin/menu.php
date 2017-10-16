@@ -46,10 +46,7 @@ class menu {
 	 * @since 0.1.0
 	 */
 	public function render() {
-		$this->scripts->enqueue_assets();
-		ob_start();
-		include  $this->view_dir . '/message.php';
-		echo ob_get_clean();
+		echo $this->scripts->webpack( $this->view_dir );
 
 	}
 

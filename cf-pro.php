@@ -49,8 +49,7 @@ function caldera_forms_pro_init(){
 
 			include_once dirname( __FILE__ ) . '/bootstrap-cf-pro.php';
 
-
-			register_activation_hook( __FILE__, 'caldera_forms_pro_activation_hook_callback' );
+		  register_activation_hook( __FILE__, 'caldera_forms_pro_activation_hook_callback' );
 
 		}
 
