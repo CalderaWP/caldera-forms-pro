@@ -45,9 +45,12 @@ export const formSaver = store => {
 		}, 100
 	);
 
+	/**
+	 * When form setting is mutated trigger update
+	 *
+	 * @since 1.0.0
+	 */
 	store.subscribe((mutation, state) => {
-		console.log(mutation);
-
 		if( 'form' === mutation.type ){
 			this.debounedFormMutation();
 		}

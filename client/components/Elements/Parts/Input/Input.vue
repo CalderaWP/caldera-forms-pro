@@ -29,7 +29,6 @@
 		},
 		methods: {
 			handle(){
-				console.log(this.value);
 				this.$store.commit(this.setting,this.value);
 			}
 		},

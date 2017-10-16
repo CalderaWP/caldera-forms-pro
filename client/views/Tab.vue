@@ -28,7 +28,8 @@
 	export default{
 		components: {
 			'form-setting' : formSetting,
-            'link-keys' : linkKeys
+            'link-keys' : linkKeys,
+			'status' : Status
 		},
 		methods: {
 			...mapActions([

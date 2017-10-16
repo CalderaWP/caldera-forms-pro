@@ -292,10 +292,9 @@ class hooks {
 			\Caldera_Forms::check_tables();
 		}
 		\Inpsyde\Wonolog\bootstrap( new \calderawp\calderaforms\pro\log\handler() );
-		add_action( 'wp_footer', [ $this, 'log_js' ] );
-		add_action( 'caldera_forms_edit_end', [ $this, 'log_js' ] );
-		if (  ! is_ssl() ) {
-			add_action( 'caldera_forms_admin_footer', [ $this, 'log_js' ] );
+		if (  is_ssl() ) {
+			//add_action( 'caldera_forms_admin_footer', [ $this, 'log_js' ] );
+			//add_action( 'wp_footer', [ $this, 'log_js' ] );
 		}
 
 	}
@@ -319,6 +318,7 @@ class hooks {
 	 * @since 0.5.0
 	 */
 	public function log_js(){
+
 		$keys = container::get_instance()->get_settings()->get_api_keys();
 
 		$public = $keys->get_public();
