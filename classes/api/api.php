@@ -73,7 +73,8 @@ abstract class api {
 				'content-type' => 'application/json'
 
 			),
-			'method'  => $method
+			'method'  => $method,
+			'timeout' => 30
 		);
 
 		return $args;
