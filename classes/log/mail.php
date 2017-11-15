@@ -14,7 +14,6 @@ use Monolog\Logger;
  */
 class mail{
 
-
 	/**
 	 * Handles logging after the message (should) be sent
 	 *
