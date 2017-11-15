@@ -125,14 +125,6 @@ class settings implements \Caldera_Forms_API_Route {
 			$settings->set_enhanced_delivery( 'true' );
 		}
 
-		if( true === $request[ 'activate' ] ){
-			active::change_status( true );
-		}
-
-		if( false === $request[ 'activate' ] ){
-			active::change_status( false );
-		}
-
 		$settings->save();
 
 		return rest_ensure_response( container::get_instance()->get_settings()->toArray() );

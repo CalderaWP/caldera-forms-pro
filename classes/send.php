@@ -28,6 +28,8 @@ class send {
 	 * @return \calderawp\calderaforms\pro\message|array
 	 */
 	public static function main_mailer( $mail, $entry_id, $form_id, $send = true ){
+
+
 		$form_settings = container::get_instance()->get_settings()->get_form( $form_id );
 		if ( ! $form_settings ) {
 			return $mail;
@@ -80,6 +82,7 @@ class send {
 		$message->add_entry_data( $entry_id, \Caldera_Forms_Forms::get_form( $form_id ) );
 
 		$response = self::send_via_api( $message, $entry_id, $send );
+
 		return $response;
 
 	}

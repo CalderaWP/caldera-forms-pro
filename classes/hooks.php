@@ -8,6 +8,7 @@ use calderawp\calderaforms\pro\api\client;
 use calderawp\calderaforms\pro\api\local\files;
 use calderawp\calderaforms\pro\api\local\settings;
 use calderawp\calderaforms\pro\api\message;
+use calderawp\calderaforms\pro\log\mail;
 use calderawp\calderaforms\pro\settings\active;
 
 
@@ -76,16 +77,41 @@ class hooks {
 	 */
 	public function mailer( $mail, $data, $form, $entry_id ){
 		$form_settings = container::get_instance()->get_settings()->get_form( $form[ 'ID' ] );
+
+		/**
+		 * Runs before main mailer is handled by CF Pro
+		 *
+		 * @since  1.1.0
+		 *
+		 * @param array $mail the array provided on "caldera_forms_mailer" filter
+		 * @param int $entry_id The entry ID
+		 * @param string $form_id The form ID
+         * @param \calderawp\calderaforms\pro\settings\form $form_settings Form settings
+		 */
+		do_action( 'caldera_forms_pro_before_main_mailer', $mail, $entry_id, $form[ 'ID' ], $form_settings );
+
 		if ( ! $form_settings ) {
 			return $mail;
 		}
 
 		$send_local = $form_settings->should_send_local();
 		$send_remote = ! $send_local;
-		$message = send::main_mailer( $mail, $entry_id, $form [ 'ID' ], $send_remote );
-		if ( is_object( $message ) && ! is_wp_error( $message ) ) {
+		$sent_message = send::main_mailer( $mail, $entry_id, $form [ 'ID' ], $send_remote );
+
+		/**
+		 * Runs after main mailer is handled by CF Pro
+		 *
+		 * @since  1.1.0
+		 *
+		 * @param  \calderawp\calderaforms\pro\message|\WP_Error $sent_message Message Object or error
+		 * @param int $entry_id The entry ID
+		 * @param string $form_id The form ID
+		 */
+		do_action( 'caldera_forms_pro_after_main_mailer', $sent_message, $entry_id, $form [ 'ID' ]  );
+
+		if ( is_object( $sent_message ) && ! is_wp_error( $sent_message ) ) {
 			if ( $send_local &&  $form_settings->should_attatch_pdf() ) {
-				$mail = send::attatch_pdf( $message, $mail );
+				$mail = send::attatch_pdf( $sent_message, $mail );
 			}
 		}else{
 			return $mail;
@@ -94,7 +120,7 @@ class hooks {
 
 		if ( $send_local ) {
 			if (  $form_settings->use_html_layout() ) {
-				$mail[ 'message' ] = $message->get_html();
+				$mail[ 'message' ] = $sent_message->get_html();
 			}
 
 			return $mail;
@@ -120,7 +146,22 @@ class hooks {
 	 */
 	public function auto_responder( $mail, $config, $form, $entry_id ){
 
+
 		$form_settings = container::get_instance()->get_settings()->get_form( $form[ 'ID' ] );
+
+		/**
+		 * Runs before autoresponder is handled by CF Pro
+		 *
+		 * @since  1.1.0
+		 *
+		 * @param array $mail the array provided on "caldera_forms_mailer" filter
+		 * @param int $entry_id The entry ID
+		 * @param string $form_id The form ID
+		 * @param \calderawp\calderaforms\pro\settings\form $form_settings Form settings
+		 */
+		do_action( 'caldera_forms_pro_before_auto_responder', $mail, $entry_id, $form[ 'ID' ], $form_settings );
+
+
 		if ( ! $form_settings ) {
 			return $mail;
 		}
@@ -145,8 +186,20 @@ class hooks {
 		$message->layout = $form_settings->get_layout();
 		$message->add_entry_data( $entry_id, $form );
 		$message->entry_id = $entry_id;
-		$sent = send::send_via_api( $message, $entry_id, $send_remote, 'auto' );
-		if( is_object( $sent ) && ! is_wp_error( $sent ) ){
+		$sent_message = send::send_via_api( $message, $entry_id, $send_remote, 'auto' );
+		/**
+		 * Runs after autoresponder is handled by CF Pro
+		 *
+		 * @since  1.1.0
+		 *
+		 * @param  \calderawp\calderaforms\pro\message|\WP_Error $sent_message Messsage Object or error
+		 * @param int $entry_id The entry ID
+		 * @param string $form_id The form ID
+		 */
+		do_action( 'caldera_forms_pro_after_auto_responder', $sent_message, $entry_id, $form [ 'ID' ]  );
+
+
+		if( is_object( $sent_message ) && ! is_wp_error( $sent_message ) ){
 			if( $send_local ){
 				return $mail;
 			}else{
@@ -278,6 +331,15 @@ class hooks {
 	 */
 	public function init_logger(){
 		/**
+		 * Enables mail debug log mode
+         *
+         * @since 1.1.0
+		 */
+	    if( apply_filters( 'caldera_forms_pro_mail_debug', false ) ){
+	        $this->init_mail_log();
+        }
+
+		/**
 		 * Filter to disable Caldera Forms Pro log mode
 		 *
 		 * @since 0.6.0
@@ -298,6 +360,17 @@ class hooks {
 		}
 
 	}
+
+	public function init_mail_log(){
+	   $mail_logger = new mail();
+	   add_action( 'caldera_forms_pro_before_auto_responder', [ $mail_logger, 'before' ], 10, 4 );
+	   add_action( 'caldera_forms_pro_before_main_mailer', [ $mail_logger, 'before' ], 10, 4 );
+
+		add_action( 'caldera_forms_pro_after_auto_responder', [ $mail_logger, 'after' ], 10, 3 );
+		add_action( 'caldera_forms_pro_after_main_mailer', [ $mail_logger, 'after' ], 10, 3 );
+
+
+    }
 
 	/**
 	 * Capture Caldera_Forms_DB_Tables object for reuse later
