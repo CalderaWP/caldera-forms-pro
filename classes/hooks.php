@@ -372,7 +372,7 @@ class hooks {
 	   add_action( 'caldera_forms_pro_before_main_mailer', [ $mail_logger, 'before' ], 10, 4 );
 
 	   add_action( 'caldera_forms_pro_after_auto_responder', [ $mail_logger, 'after' ], 10, 3 );
-	   add_action( 'caldera_forms_pro_after_main_mailer', [ $mail_logger, 'after' ], 10, 3 )
+	   add_action( 'caldera_forms_pro_after_main_mailer', [ $mail_logger, 'after' ], 10, 3 );
 
     }
 
