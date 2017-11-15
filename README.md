@@ -9,4 +9,4 @@ Please note, this plugin requires:
 
 **[Read the getting started guide](https://calderaforms.com/doc/caldera-forms-pro-getting-started?utm_source=github&utm_medium=caldera-forms-pro&utm_term=readme)**
 
-~Current Version:0.10.1~
+~Current Version:1.1.0~
