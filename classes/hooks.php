@@ -96,14 +96,18 @@ class hooks {
 
 		$send_local = $form_settings->should_send_local();
 		$send_remote = ! $send_local;
-		$sent_message = send::main_mailer( $mail, $entry_id, $form [ 'ID' ], $send_remote );
+        if ( $send_remote ) {
+            $sent_message = send::main_mailer($mail, $entry_id, $form ['ID'], $send_remote);
+        } else {
+            $sent_message = null;
+        }
 
 		/**
 		 * Runs after main mailer is handled by CF Pro
 		 *
 		 * @since  1.1.0
 		 *
-		 * @param  \calderawp\calderaforms\pro\message|\WP_Error $sent_message Message Object or error
+		 * @param  \calderawp\calderaforms\pro\message|\WP_Error|null $sent_message Message Object or error or null if not sending via CF Pro.
 		 * @param int $entry_id The entry ID
 		 * @param string $form_id The form ID
 		 */
@@ -168,31 +172,35 @@ class hooks {
 		$send_local = $form_settings->should_send_local();
 		$send_remote = ! $send_local;
 
+        if ( $send_remote ) {
+            $message = new \calderawp\calderaforms\pro\api\message();
+            $message->add_recipient('reply',
+                \Caldera_Forms::do_magic_tags($config['sender_email']),
+                \Caldera_Forms::do_magic_tags($config['sender_name'])
+            );
 
-		$message = new \calderawp\calderaforms\pro\api\message();
-		$message->add_recipient( 'reply',
-			\Caldera_Forms::do_magic_tags( $config[ 'sender_email' ] ),
-			\Caldera_Forms::do_magic_tags($config[ 'sender_name' ] )
-		);
+            $message->add_recipient('to',
+                \Caldera_Forms::do_magic_tags($config['recipient_email']),
+                \Caldera_Forms::do_magic_tags($config['recipient_name'])
+            );
 
-		$message->add_recipient( 'to',
-			\Caldera_Forms::do_magic_tags( $config[ 'recipient_email' ] ),
-			\Caldera_Forms::do_magic_tags( $config[ 'recipient_name'] )
-		);
+            $message->subject = $mail ['subject'];
+            $message->content = $mail['message'];
+            $message->pdf_layout = $form_settings->get_pdf_layout();
+            $message->layout = $form_settings->get_layout();
+            $message->add_entry_data($entry_id, $form);
+            $message->entry_id = $entry_id;
+            $sent_message = send::send_via_api($message, $entry_id, $send_remote, 'auto');
+        } else {
+            $sent_message = null;
+        }
 
-		$message->subject = $mail ['subject' ];
-		$message->content = $mail[ 'message' ];
-		$message->pdf_layout = $form_settings->get_pdf_layout();
-		$message->layout = $form_settings->get_layout();
-		$message->add_entry_data( $entry_id, $form );
-		$message->entry_id = $entry_id;
-		$sent_message = send::send_via_api( $message, $entry_id, $send_remote, 'auto' );
 		/**
 		 * Runs after autoresponder is handled by CF Pro
 		 *
 		 * @since  1.1.0
 		 *
-		 * @param  \calderawp\calderaforms\pro\message|\WP_Error $sent_message Messsage Object or error
+		 * @param  \calderawp\calderaforms\pro\message|\WP_Error|null $sent_message Messsage Object or error or null if not sending via CF Pro.
 		 * @param int $entry_id The entry ID
 		 * @param string $form_id The form ID
 		 */

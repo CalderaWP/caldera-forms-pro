@@ -118,7 +118,7 @@ class send {
 	 *
 	 * @param api\message $message Message object
 	 * @param int $entry_id Entry ID for message
-	 * @param bool $send If ture app will store and send. If false, only store.
+	 * @param bool $send If true app will store and send. If false, only store.
 	 * @param string $type Optional. The message type. Default is "main" Options: main|auto
 	 *
 	 * @return message|null|\WP_Error
