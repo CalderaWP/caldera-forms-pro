@@ -3,10 +3,10 @@
  * Plugin Name: Caldera Forms Pro Client
  *
  * Plugin URI: https://CalderaForms.com/pro
- * Description: Client plugin for the Caldera Forms Pro app.
+ * Description: PLEASE UNISTALL THIS PLUGIN. It is not required for Caldera Forms Pro.
  * Author: Caldera Labs
  * Author URI: http://CalderaLabs.org
- * Version: 1.1.1
+ * Version: 1.1.2
  */
 
 
