@@ -2,6 +2,8 @@
 
 __[No Longer Needs In Caldera Forms 1.5.8 or Later](https://calderaforms.com/updates/caldera-forms-1-5-8/)__
 
+<blink>You should not install this plugin</blink>
+
 This is the plugin is required to connect your WordPress site to [Caldera Forms Pro](https://calderaformspro.com/?utm_source=github&utm_medium=caldera-forms-pro&utm_term=readme) if you have Caldera Forms 1.5.1 - 1.5.7.1
 
 Please note, this plugin requires:
